@@ -20,6 +20,7 @@ from apscheduler.triggers.cron import CronTrigger
 import time
 from bs4 import BeautifulSoup
 import re
+from pykrx import stock as pykrx_stock
 
 # 로깅 설정
 logging.basicConfig(
@@ -71,50 +72,38 @@ class StockDataFetcher:
     
     def get_kospi_kosdaq_list(self) -> List[Dict]:
         """
-        KOSPI, KOSDAQ 종목 리스트 수집
+        KOSPI, KOSDAQ 종목 리스트 수집 (pykrx 사용)
         """
         try:
             logger.info("종목 리스트 수집 시작...")
             
-            stocks = set()  # 중복 방지
+            stocks = []
             
-            # 방법 1: 네이버 금융 메인 페이지에서 종목 추출
+            # pykrx를 사용해 상장 종목 조회
             try:
-                url = "https://finance.naver.com/sise/"
-                response = self.session.get(url, headers=self.headers, timeout=self.timeout)
-                response.encoding = 'utf-8'
+                # 현재 상장된 모든 종목 조회
+                ticker_list = pykrx_stock.get_market_ticker_list()
                 
-                if response.status_code == 200:
-                    soup = BeautifulSoup(response.text, 'html.parser')
+                for ticker in ticker_list:
+                    # 종목명 조회
+                    name = pykrx_stock.get_market_ticker_name(ticker)
                     
-                    # 정규식으로 종목 코드 추출
-                    pattern = r'/item/main\.naver\?code=(\d+)'
-                    matches = re.finditer(pattern, response.text)
+                    if name:
+                        stocks.append({
+                            'code': ticker,
+                            'name': name
+                        })
+                
+                if stocks:
+                    logger.info(f"pykrx에서 {len(stocks)}개 종목 수집 완료")
+                    return stocks
                     
-                    for match in matches:
-                        code = match.group(1)
-                        
-                        # 해당 종목 링크 찾기 - 이름 추출
-                        link = soup.find('a', href=f'/item/main.naver?code={code}')
-                        if link:
-                            name = link.text.strip()
-                            if name:
-                                stocks.add((code, name))
-                    
-                    if stocks:
-                        logger.info(f"메인 페이지에서 {len(stocks)}개 종목 수집 완료")
-                        
             except Exception as e:
-                logger.debug(f"메인 페이지 수집 오류: {e}")
+                logger.error(f"pykrx 종목 수집 실패: {e}")
             
             # 수집 실패 시 기본 리스트 사용
-            if not stocks:
-                logger.warning("시장 데이터 수집 실패, 기본 리스트로 대체")
-                return self._get_default_stocks()
-            
-            result = [{'code': code, 'name': name} for code, name in stocks]
-            logger.info(f"총 {len(result)}개 종목 수집 완료")
-            return result
+            logger.warning("종목 수집 실패, 기본 리스트로 대체")
+            return self._get_default_stocks()
             
         except Exception as e:
             logger.error(f"종목 리스트 수집 실패: {e}")
@@ -122,159 +111,54 @@ class StockDataFetcher:
     
     def get_stock_data(self, ticker: str) -> Optional[Dict]:
         """
-        개별 종목 데이터 수집
+        개별 종목 데이터 수집 (pykrx 사용)
         - 현재가, 전일 종가, 거래량
         """
         try:
-            url = f"https://finance.naver.com/item/main.naver?code={ticker}"
-            
-            response = self.session.get(url, headers=self.headers, timeout=self.timeout)
-            response.encoding = 'utf-8'
-            
-            if response.status_code != 200:
-                return None
-            
-            soup = BeautifulSoup(response.text, 'html.parser')
-            
-            data = {
-                'ticker': ticker,
-                'current_price': 0,
-                'prev_close': 0,
-                'volume': 0,
-                'prev_volume': 0,
-                'foreign_cumulative': 0
-            }
-            
-            # ========== 1. 현재가 추출 ==========
-            try:
-                # 방법 1: span.blind 클래스
-                price_elem = soup.find('span', {'class': 'blind'})
-                if price_elem:
-                    price_text = price_elem.text.strip()
-                    match = re.search(r'([\d,]+)', price_text)
-                    if match:
-                        data['current_price'] = int(match.group(1).replace(',', ''))
+            # 최근 5일 내 거래일 찾기 (주말/공휴일 대비)
+            for days_ago in range(5):
+                target_date = (datetime.now() - timedelta(days=days_ago)).strftime('%Y%m%d')
                 
-                # 방법 2: em id="_nowVal" 또는 span id="_price"
-                if data['current_price'] == 0:
-                    price_em = soup.find('em', {'id': '_nowVal'})
-                    if price_em:
-                        match = re.search(r'([\d,]+)', price_em.text)
-                        if match:
-                            data['current_price'] = int(match.group(1).replace(',', ''))
-                
-                # 방법 3: 큰 숫자값 직접 찾기 - 가장 먼저 나오는 큰 숫자
-                if data['current_price'] == 0:
-                    all_nums = re.findall(r'([\d,]+)', soup.get_text())
-                    for num_str in all_nums:
-                        num = int(num_str.replace(',', ''))
-                        if num > 1000:  # 최소 1000 이상
-                            data['current_price'] = num
-                            break
-                            
-            except Exception as e:
-                logger.debug(f"현재가 추출 오류: {e}")
-            
-            # ========== 2. 시세 정보 테이블 추출 ==========
-            try:
-                # "현재가" 다음에 있는 테이블들 찾기
-                # 보통 <table> 내 <tr>들이 있음
-                tables = soup.find_all('table')
-                
-                for table in tables:
-                    tds = table.find_all('td')
-                    tr_texts = [tr.get_text() for tr in table.find_all('tr')]
-                    full_text = ' '.join(tr_texts)
+                try:
+                    # pykrx: 특정 날짜의 단일 종목 데이터 조회
+                    # get_market_ohlcv(fromdate, todate, ticker)
+                    ohlcv_data = pykrx_stock.get_market_ohlcv(target_date, target_date, ticker)
                     
-                    # 전일종가 찾기
-                    if '전일종가' in full_text and data['prev_close'] == 0:
-                        for tr in table.find_all('tr'):
-                            if '전일종가' in tr.get_text():
-                                # 이 행의 마지막 td에서 숫자 추출
-                                tds_in_row = tr.find_all('td')
-                                if tds_in_row:
-                                    # 뒤에서부터 숫자 찾기
-                                    for td in reversed(tds_in_row):
-                                        text = td.get_text().strip()
-                                        if text and re.search(r'\d', text):
-                                            match = re.search(r'([\d,]+)', text)
-                                            if match:
-                                                try:
-                                                    val = int(match.group(1).replace(',', ''))
-                                                    if val > 100:  # 최소값
-                                                        data['prev_close'] = val
-                                                        break
-                                                except:
-                                                    pass
-                                break
-                    
-                    # 거래량 찾기
-                    if '거래량' in full_text and '거래량증감' not in full_text and data['volume'] == 0:
-                        for tr in table.find_all('tr'):
-                            tr_text = tr.get_text()
-                            if '거래량' in tr_text and '거래량증감' not in tr_text:
-                                # 이 행의 숫자 찾기
-                                tds_in_row = tr.find_all('td')
-                                if tds_in_row:
-                                    for td in reversed(tds_in_row):
-                                        text = td.get_text().strip()
-                                        if text and text[0].isdigit():
-                                            match = re.search(r'([\d,]+)', text)
-                                            if match:
-                                                try:
-                                                    val = int(match.group(1).replace(',', ''))
-                                                    if val > 0:
-                                                        data['volume'] = val
-                                                        break
-                                                except:
-                                                    pass
-                                break
+                    if ohlcv_data is not None and not ohlcv_data.empty:
+                        latest = ohlcv_data.iloc[-1]
+                        
+                        data = {
+                            'ticker': ticker,
+                            'current_price': int(latest['종가']),
+                            'prev_close': int(latest['시가']),  # 임시 (실제 전일 종가는 별도 조회)
+                            'volume': int(latest['거래량']),
+                            'prev_volume': int(latest['거래량']) // 2,
+                            'foreign_cumulative': 0
+                        }
+                        
+                        # 전일 종가 조회
+                        try:
+                            for prev_days in range(days_ago + 1, days_ago + 10):
+                                yesterday_date = (datetime.now() - timedelta(days=prev_days)).strftime('%Y%m%d')
+                                yesterday_data = pykrx_stock.get_market_ohlcv(
+                                    yesterday_date, yesterday_date, ticker
+                                )
                                 
-            except Exception as e:
-                logger.debug(f"테이블 파싱 오류: {e}")
+                                if yesterday_data is not None and not yesterday_data.empty:
+                                    data['prev_close'] = int(yesterday_data.iloc[-1]['종가'])
+                                    data['prev_volume'] = int(yesterday_data.iloc[-1]['거래량'])
+                                    break
+                        except:
+                            pass
+                        
+                        logger.debug(f"수집 완료 {ticker}: 현가={data['current_price']}, 전일={data['prev_close']}, 거래량={data['volume']}")
+                        return data
+                        
+                except:
+                    continue
             
-            # ========== 3. 어쩔 수 없는 경우 메인 데이터 포인트 찾기 ==========
-            try:
-                if data['prev_close'] == 0 or data['volume'] == 0:
-                    all_text = soup.get_text()
-                    
-                    # "전일종가" 근처 숫자
-                    if data['prev_close'] == 0 and '전일종가' in all_text:
-                        idx = all_text.find('전일종가')
-                        snippet = all_text[idx:idx+100]
-                        matches = re.findall(r'([\d,]+)', snippet)
-                        if len(matches) >= 2:
-                            try:
-                                data['prev_close'] = int(matches[1].replace(',', ''))
-                            except:
-                                pass
-                    
-                    # "거래량" 근처 숫자
-                    if data['volume'] == 0 and '거래량' in all_text:
-                        idx = all_text.find('거래량')
-                        snippet = all_text[idx:idx+100]
-                        matches = re.findall(r'([\d,]+)', snippet)
-                        if len(matches) >= 1:
-                            try:
-                                val = int(matches[0].replace(',', ''))
-                                if val > 0:
-                                    data['volume'] = val
-                            except:
-                                pass
-                                
-            except Exception as e:
-                logger.debug(f"메인 데이터 포인트 추출 오류: {e}")
-            
-            # ========== 4. 전날 거래량 추정 ==========
-            if data['volume'] > 0:
-                # 실제 전날 거래량을 못 찾으면, 현재 거래량의 60-80% 추정
-                data['prev_volume'] = max(int(data['volume'] * 0.7), 1000000)
-            else:
-                data['prev_volume'] = 5000000  # 기본값
-            
-            logger.debug(f"수집 완료 {ticker}: 현가={data['current_price']}, 전일={data['prev_close']}, 거래량={data['volume']}")
-            
-            return data
+            logger.debug(f"ticker {ticker}에 대한 데이터 없음")
+            return None
             
         except Exception as e:
             logger.debug(f"종목 {ticker} 데이터 수집 실패: {e}")
@@ -338,72 +222,36 @@ class StockDataFetcher:
     
     def get_foreign_buy_data(self, ticker: str) -> Tuple[float, float]:
         """
-        외국인 매매 데이터 수집
-        (당일 매매, 누적순매수)
+        외국인 매매 데이터 수집 (pykrx 사용)
+        (10일 누적 순매수)
         """
         try:
-            url = f"https://finance.naver.com/item/frgn.naver?code={ticker}"
-            
-            response = self.session.get(url, headers=self.headers, timeout=self.timeout)
-            response.encoding = 'utf-8'
-            
-            if response.status_code != 200:
-                return 0, 0
-            
-            soup = BeautifulSoup(response.text, 'html.parser')
-            
-            today_buy = 0
-            cumulative = 0
+            # 최근 10일 누적 순매수 조회
+            end_date = datetime.now().strftime('%Y%m%d')
+            start_date = (datetime.now() - timedelta(days=15)).strftime('%Y%m%d')  # 주말/공휴일 고려
             
             try:
-                # 모든 테이블 찾기
-                tables = soup.find_all('table')
-                full_text = soup.get_text()
+                # pykrx: 투자자별 거래량 조회 (기간 합계)
+                investor_data = pykrx_stock.get_market_trading_volume_by_investor(
+                    start_date, end_date, ticker
+                )
                 
-                for table in tables:
-                    rows = table.find_all('tr')
+                if investor_data is None or investor_data.empty:
+                    logger.debug(f"[{ticker}] 외국인 데이터 없음")
+                    return 0, 0
+                
+                # 외국인 10일 누적 순매수 추출
+                if '외국인' in investor_data.index:
+                    foreign_net_buy = int(investor_data.loc['외국인', '순매수'])
                     
-                    for row in rows:
-                        row_text = row.get_text()
-                        cols = row.find_all('td')
-                        
-                        # "누적순매수" 행 찾기
-                        if '누적순매수' in row_text:
-                            if cols:
-                                # 마지막 컬럼부터 역순으로 숫자 찾기
-                                for col in reversed(cols):
-                                    col_text = col.text.strip()
-                                    if col_text and (col_text[0].isdigit() or col_text[0] == '-'):
-                                        match = re.search(r'([-]?\d+(?:,\d+)*)', col_text)
-                                        if match:
-                                            try:
-                                                cumulative = int(match.group().replace(',', ''))
-                                                logger.debug(f"[{ticker}] 누적순매수: {cumulative}")
-                                                return today_buy, cumulative
-                                            except:
-                                                pass
-                
-                # 대체 방법: "누적순매수" 근처의 숫자 찾기
-                if cumulative == 0 and '누적순매수' in full_text:
-                    idx = full_text.find('누적순매수')
-                    snippet = full_text[idx:idx+150]
-                    matches = re.findall(r'([-]?\d+(?:,\d+)*)', snippet)
-                    if matches:
-                        try:
-                            # 가장 가능성 높은 숫자(큰 숫자) 선택
-                            for match_str in matches:
-                                val = int(match_str.replace(',', ''))
-                                if abs(val) > 100:
-                                    cumulative = val
-                                    logger.debug(f"[{ticker}] 누적순매수 (대체): {cumulative}")
-                                    return today_buy, cumulative
-                        except:
-                            pass
-                
+                    logger.debug(f"[{ticker}] 외국인 10일 누적 순매수: {foreign_net_buy}")
+                    
+                    return foreign_net_buy, foreign_net_buy
+                    
             except Exception as e:
-                logger.debug(f"누적순매수 추출 중 오류: {e}")
+                logger.debug(f"외국인 데이터 추출 오류: {e}")
             
-            return today_buy, cumulative
+            return 0, 0
             
         except Exception as e:
             logger.debug(f"외국인 데이터 수집 실패 {ticker}: {e}")
@@ -500,23 +348,11 @@ class StockAnalyzer:
             return "❓ 불명"
     
     @staticmethod
-    def format_stock_message(ticker: str, stock_data: Dict, 
-                            filter_result: Dict, signal: str) -> str:
+    def format_stock_message(ticker: str, stock_data: Dict, name: str) -> str:
         """종목 메시지 포맷팅"""
         try:
-            message = f"""
-━━━━━━━━━━━━━━━━━━━━━━━━━━
-📌 종목코드: {ticker}
-현재가: {stock_data.get('current_price', 'N/A')}원
-변화율: {((stock_data.get('current_price', 0) - stock_data.get('prev_close', 0)) / stock_data.get('prev_close', 1) * 100):.2f}%
-
-📊 신호: {signal}
-스코어: {filter_result.get('total_score', 0)}/100
-
-거래량: {filter_result['conditions'].get('volume', False)}
-주가하락: {filter_result['conditions'].get('price_drop', False)}
-외국인순매수: {filter_result['conditions'].get('foreign_buy', False)}
-━━━━━━━━━━━━━━━━━━━━━━━━━━"""
+            change_pct = ((stock_data.get('current_price', 0) - stock_data.get('prev_close', 0)) / stock_data.get('prev_close', 1) * 100)
+            message = f"✅ {name} ({ticker})\n현재가: {stock_data.get('current_price', 'N/A')}원 | 변화율: {change_pct:.2f}%"
             
             return message
             
@@ -641,10 +477,9 @@ class StockScanner:
                 conditions_met, filter_result = self.filter.check_conditions(stock_data)
                 
                 if conditions_met:
-                    # 신호 강도 분류
-                    signal = self.analyzer.classify_signal_strength(filter_result)
+                    # 메시지 생성
                     message = self.analyzer.format_stock_message(
-                        ticker, stock_data, filter_result, signal
+                        ticker, stock_data, name
                     )
                     
                     self.results.append({
@@ -654,7 +489,7 @@ class StockScanner:
                         'score': filter_result.get('total_score', 0)
                     })
                     
-                    logger.info(f"✓ [{idx+1}/{len(stocks)}] {name} ({ticker}) - {signal}")
+                    logger.info(f"✓ [{idx+1}/{len(stocks)}] {name} ({ticker})")
                 
                 # 진행률 표시
                 if (idx + 1) % 500 == 0:
