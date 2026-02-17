@@ -71,99 +71,50 @@ class StockDataFetcher:
     
     def get_kospi_kosdaq_list(self) -> List[Dict]:
         """
-        KOSPI, KOSDAQ 전종목 리스트 수집 (네이버 API 직접 호출)
+        KOSPI, KOSDAQ 종목 리스트 수집
         """
         try:
             logger.info("종목 리스트 수집 시작...")
             
-            stocks = []
+            stocks = set()  # 중복 방지
             
-            # 네이버 금융 마켓 페이지에서 동적으로 로드되는 데이터 API
-            # KOSPI (sosok=0) + KOSDAQ (sosok=1)
-            for market_type, market_name in [(0, 'KOSPI'), (1, 'KOSDAQ')]:
-                page = 1
-                while page <= 100:  # 최대 100페이지
-                    try:
-                        # 네이버 금융의 AJAX API endpoint
-                        url = f"https://finance.naver.com/sise/sise_market.naver?sosok={market_type}&page={page}"
+            # 방법 1: 네이버 금융 메인 페이지에서 종목 추출
+            try:
+                url = "https://finance.naver.com/sise/"
+                response = self.session.get(url, headers=self.headers, timeout=self.timeout)
+                response.encoding = 'utf-8'
+                
+                if response.status_code == 200:
+                    soup = BeautifulSoup(response.text, 'html.parser')
+                    
+                    # 정규식으로 종목 코드 추출
+                    pattern = r'/item/main\.naver\?code=(\d+)'
+                    matches = re.finditer(pattern, response.text)
+                    
+                    for match in matches:
+                        code = match.group(1)
                         
-                        response = self.session.get(url, headers=self.headers, timeout=self.timeout)
-                        response.encoding = 'utf-8'
+                        # 해당 종목 링크 찾기 - 이름 추출
+                        link = soup.find('a', href=f'/item/main.naver?code={code}')
+                        if link:
+                            name = link.text.strip()
+                            if name:
+                                stocks.add((code, name))
+                    
+                    if stocks:
+                        logger.info(f"메인 페이지에서 {len(stocks)}개 종목 수집 완료")
                         
-                        # 페이지가 없으면 종료
-                        if response.status_code != 200:
-                            break
-                        
-                        soup = BeautifulSoup(response.text, 'html.parser')
-                        
-                        # 모든 테이블 찾기
-                        tables = soup.find_all('table')
-                        if not tables:
-                            break
-                        
-                        # 주식 데이터 테이블 찾기
-                        found_stocks = False
-                        for table in tables:
-                            tbody = table.find('tbody')
-                            if not tbody:
-                                continue
-                            
-                            rows = tbody.find_all('tr')
-                            if not rows:
-                                continue
-                            
-                            page_stocks = 0
-                            for row in rows:
-                                try:
-                                    # td 태그들 찾기
-                                    cols = row.find_all('td')
-                                    if len(cols) < 2:
-                                        continue
-                                    
-                                    # 첫 번째 컬럼에서 링크 찾기
-                                    link = cols[0].find('a')
-                                    if not link:
-                                        continue
-                                    
-                                    # 종목명과 코드 추출
-                                    name = link.text.strip()
-                                    href = link.get('href', '')
-                                    
-                                    # href에서 코드 추출: code=XXXXX
-                                    code_match = re.search(r'code=(\d+)', href)
-                                    if not code_match:
-                                        continue
-                                    
-                                    code = code_match.group(1)
-                                    
-                                    stocks.append({
-                                        'code': code,
-                                        'name': name,
-                                        'market': market_name
-                                    })
-                                    
-                                    page_stocks += 1
-                                    found_stocks = True
-                                    
-                                except Exception as e:
-                                    continue
-                            
-                            if page_stocks > 0:
-                                logger.info(f"  {market_name} - {page} 페이지: {page_stocks}개 수집 (총 {len(stocks)}개)")
-                                break
-                        
-                        if not found_stocks:
-                            break
-                        
-                        page += 1
-                        time.sleep(0.2)  # 과부하 방지
-                        
-                    except Exception as e:
-                        logger.warning(f"{market_name} 페이지 {page} 수집 실패: {str(e)[:50]}")
-                        break
+            except Exception as e:
+                logger.debug(f"메인 페이지 수집 오류: {e}")
             
-            logger.info(f"총 {len(stocks)}개 종목 수집 완료")
-            return stocks
+            # 수집 실패 시 기본 리스트 사용
+            if not stocks:
+                logger.warning("시장 데이터 수집 실패, 기본 리스트로 대체")
+                return self._get_default_stocks()
+            
+            result = [{'code': code, 'name': name} for code, name in stocks]
+            logger.info(f"총 {len(result)}개 종목 수집 완료")
+            return result
             
         except Exception as e:
             logger.error(f"종목 리스트 수집 실패: {e}")
