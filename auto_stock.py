@@ -114,48 +114,51 @@ class StockDataFetcher:
         개별 종목 데이터 수집 (pykrx 사용)
         - 현재가, 전일 종가, 거래량
         """
+        today_date = datetime.now().strftime('%Y%m%d')
+        return self.get_stock_data_by_date(ticker, today_date)
+    
+    def get_stock_data_by_date(self, ticker: str, target_date: str) -> Optional[Dict]:
+        """
+        특정 날짜 종목 데이터 수집 (pykrx 사용)
+        - 현재가, 전일 종가, 거래량
+        """
         try:
-            # 최근 5일 내 거래일 찾기 (주말/공휴일 대비)
-            for days_ago in range(5):
-                target_date = (datetime.now() - timedelta(days=days_ago)).strftime('%Y%m%d')
+            # 해당 날짜 데이터 조회
+            try:
+                ohlcv_data = pykrx_stock.get_market_ohlcv(target_date, target_date, ticker)
                 
-                try:
-                    # pykrx: 특정 날짜의 단일 종목 데이터 조회
-                    # get_market_ohlcv(fromdate, todate, ticker)
-                    ohlcv_data = pykrx_stock.get_market_ohlcv(target_date, target_date, ticker)
+                if ohlcv_data is not None and not ohlcv_data.empty:
+                    latest = ohlcv_data.iloc[-1]
                     
-                    if ohlcv_data is not None and not ohlcv_data.empty:
-                        latest = ohlcv_data.iloc[-1]
-                        
-                        data = {
-                            'ticker': ticker,
-                            'current_price': int(latest['종가']),
-                            'prev_close': int(latest['시가']),  # 임시 (실제 전일 종가는 별도 조회)
-                            'volume': int(latest['거래량']),
-                            'prev_volume': int(latest['거래량']) // 2,
-                            'foreign_cumulative': 0
-                        }
-                        
-                        # 전일 종가 조회
-                        try:
-                            for prev_days in range(days_ago + 1, days_ago + 10):
-                                yesterday_date = (datetime.now() - timedelta(days=prev_days)).strftime('%Y%m%d')
-                                yesterday_data = pykrx_stock.get_market_ohlcv(
-                                    yesterday_date, yesterday_date, ticker
-                                )
-                                
-                                if yesterday_data is not None and not yesterday_data.empty:
-                                    data['prev_close'] = int(yesterday_data.iloc[-1]['종가'])
-                                    data['prev_volume'] = int(yesterday_data.iloc[-1]['거래량'])
-                                    break
-                        except:
-                            pass
-                        
-                        logger.debug(f"수집 완료 {ticker}: 현가={data['current_price']}, 전일={data['prev_close']}, 거래량={data['volume']}")
-                        return data
-                        
-                except:
-                    continue
+                    data = {
+                        'ticker': ticker,
+                        'current_price': int(latest['종가']),
+                        'prev_close': int(latest['시가']),
+                        'volume': int(latest['거래량']),
+                        'prev_volume': int(latest['거래량']) // 2,
+                        'foreign_cumulative': 0
+                    }
+                    
+                    # 전일 종가 조회
+                    try:
+                        for prev_days in range(1, 20):
+                            yesterday_date = (datetime.strptime(target_date, '%Y%m%d') - timedelta(days=prev_days)).strftime('%Y%m%d')
+                            yesterday_data = pykrx_stock.get_market_ohlcv(
+                                yesterday_date, yesterday_date, ticker
+                            )
+                            
+                            if yesterday_data is not None and not yesterday_data.empty:
+                                data['prev_close'] = int(yesterday_data.iloc[-1]['종가'])
+                                data['prev_volume'] = int(yesterday_data.iloc[-1]['거래량'])
+                                break
+                    except:
+                        pass
+                    
+                    logger.debug(f"수집 완료 {ticker}: 현가={data['current_price']}, 전일={data['prev_close']}, 거래량={data['volume']}")
+                    return data
+                    
+            except:
+                pass
             
             logger.debug(f"ticker {ticker}에 대한 데이터 없음")
             return None
@@ -225,10 +228,18 @@ class StockDataFetcher:
         외국인 매매 데이터 수집 (pykrx 사용)
         (10일 누적 순매수)
         """
+        today_date = datetime.now().strftime('%Y%m%d')
+        return self.get_foreign_buy_data_by_date(ticker, today_date)
+    
+    def get_foreign_buy_data_by_date(self, ticker: str, target_date: str) -> Tuple[float, float]:
+        """
+        특정 날짜 기준 외국인 매매 데이터 수집 (pykrx 사용)
+        (10일 누적 순매수)
+        """
         try:
-            # 최근 10일 누적 순매수 조회
-            end_date = datetime.now().strftime('%Y%m%d')
-            start_date = (datetime.now() - timedelta(days=15)).strftime('%Y%m%d')  # 주말/공휴일 고려
+            # 10일 전부터 해당 날짜까지 누적 순매수 조회
+            end_date = target_date
+            start_date = (datetime.strptime(target_date, '%Y%m%d') - timedelta(days=15)).strftime('%Y%m%d')
             
             try:
                 # pykrx: 투자자별 거래량 조회 (기간 합계)
@@ -435,7 +446,7 @@ class StockScanner:
         self.telegram = TelegramSender(Config.TELEGRAM_BOT_TOKEN, Config.TELEGRAM_CHAT_ID)
         self.results = []
     
-    def scan(self) -> List[Dict]:
+    def scan(self, scan_date: str = None) -> List[Dict]:
         """전종목 스캔 실행"""
         try:
             logger.info("=" * 60)
@@ -443,6 +454,12 @@ class StockScanner:
             logger.info("=" * 60)
             
             self.results = []
+            
+            # 스캔 날짜 설정 (기본값: 오늘)
+            if scan_date is None:
+                scan_date = (datetime.now() - timedelta(days=1)).strftime('%Y%m%d')
+            
+            logger.info(f"기준 날짜: {scan_date}")
             
             # 1. 종목 리스트 수집
             stocks = self.fetcher.get_kospi_kosdaq_list()
@@ -461,13 +478,14 @@ class StockScanner:
                 if Config.TEST_MODE:
                     stock_data = self.fetcher._get_test_data(ticker)
                 else:
-                    stock_data = self.fetcher.get_stock_data(ticker)
+                    # 특정 날짜 데이터 조회
+                    stock_data = self.fetcher.get_stock_data_by_date(ticker, scan_date)
                     if not stock_data:
                         logger.debug(f"[{idx+1}] {name} - 데이터 수집 실패")
                         continue
                     
-                    # 외국인 데이터 수집
-                    today_buy, cumulative = self.fetcher.get_foreign_buy_data(ticker)
+                    # 외국인 데이터 수집 (스캔 날짜 기준)
+                    today_buy, cumulative = self.fetcher.get_foreign_buy_data_by_date(ticker, scan_date)
                     stock_data['foreign_buy'] = today_buy
                     stock_data['foreign_cumulative'] = cumulative
                 
@@ -603,6 +621,23 @@ def main():
         # 테스트 모드: 한 번만 실행
         logger.info("🧪 테스트 모드로 실행\n")
         scheduler.run_once()
+    elif len(sys.argv) > 1 and sys.argv[1].startswith('--date='):
+        # 특정 날짜 모드: 해당 날짜 데이터로 스캔
+        scan_date = sys.argv[1].replace('--date=', '')
+        logger.info(f"📅 특정 날짜 모드: {scan_date}\n")
+        
+        scanner = StockScanner()
+        results = scanner.scan(scan_date=scan_date)
+        
+        if results:
+            logger.info(f"결과 발송: {len(results)}개 종목")
+            scanner.telegram.send_summary(results)
+        else:
+            scanner.telegram.send_message(f"📊 {scan_date} 기준으로 신호가 없습니다.")
+        
+        logger.info("=" * 60)
+        logger.info("실행 완료")
+        logger.info("=" * 60)
     else:
         # 스케줄 모드: 매일 오후 4시 자동 실행
         scheduler.start()
