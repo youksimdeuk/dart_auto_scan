@@ -254,9 +254,9 @@ class StockDataFetcher:
         (10일 누적 순매수)
         """
         try:
-            # 10일 전부터 해당 날짜까지 누적 순매수 조회
+            # 정확히 10일간 (target_date 기준 9일 전 ~ target_date까지)
             end_date = target_date
-            start_date = (datetime.strptime(target_date, '%Y%m%d') - timedelta(days=15)).strftime('%Y%m%d')
+            start_date = (datetime.strptime(target_date, '%Y%m%d') - timedelta(days=9)).strftime('%Y%m%d')
             
             try:
                 # pykrx: 투자자별 거래량 조회 (기간 합계)
@@ -272,7 +272,7 @@ class StockDataFetcher:
                 if '외국인' in investor_data.index:
                     foreign_net_buy = int(investor_data.loc['외국인', '순매수'])
                     
-                    logger.debug(f"[{ticker}] 외국인 10일 누적 순매수: {foreign_net_buy}")
+                    logger.debug(f"[{ticker}] 외국인 10일({start_date}~{end_date}) 누적 순매수: {foreign_net_buy}")
                     
                     return foreign_net_buy, foreign_net_buy
                     
@@ -453,24 +453,33 @@ class TelegramSender:
             return False
     
     def send_summary(self, results: List[Dict], total_scanned: int = 0) -> None:
-        """요약 메시지 발송"""
+        """스캔 결과를 기업별로 개별 메시지 발송"""
         try:
             if not results:
+                # 신호 없는 경우 - 요약 메시지만 발송
                 if total_scanned > 0:
                     message = f"📊 {total_scanned}종목 스캔 완료\n신호 있는 종목: 없음"
                 else:
                     message = "📊 오늘 신호 있는 종목이 없습니다."
+                logger.info(f"[send_summary] 신호 없음 메시지 발송")
+                self.send_message(message)
             else:
-                scanned_text = f"{total_scanned}종목 중 " if total_scanned > 0 else ""
-                message = f"🔍 스캔 결과: {scanned_text}{len(results)}개 통과\n\n"
+                # 각 종목별로 개별 메시지 발송
+                logger.info(f"[send_summary] {len(results)}개 종목 각각 메시지 발송 시작")
                 
-                for result in results[:10]:  # 상위 10개만
-                    message += result.get('message', '') + "\n\n"
+                for idx, result in enumerate(results, 1):
+                    # 각 종목별 메시지 발송
+                    self.send_message(result.get('message', ''))
+                    logger.debug(f"[send_summary] [{idx}/{len(results)}] {result.get('name')} 메시지 발송")
+                    time.sleep(0.5)  # API 과부하 방지
                 
-                if len(results) > 10:
-                    message += f"\n... 외 {len(results) - 10}개 종목"
+                # 마지막에 요약 메시지 발송
+                summary_msg = f"🔍 스캔 결과 최종: {total_scanned}종목 중 {len(results)}개 통과"
+                self.send_message(summary_msg)
+                logger.info(f"[send_summary] 요약 메시지 발송 완료 ({total_scanned}종목 중 {len(results)}개)")
             
-            self.send_message(message)
+        except Exception as e:
+            logger.error(f"요약 메시지 발송 오류: {e}")
             
         except Exception as e:
             logger.error(f"요약 메시지 발송 오류: {e}")
@@ -518,11 +527,13 @@ class StockScanner:
                 ticker = stock_info.get('code')
                 name = stock_info.get('name', ticker)
                 
-                # 데이터 수집 (테스트 모드 또는 실제)
-                if Config.TEST_MODE:
+                # 데이터 수집 (scan_date가 있으면 실제 데이터 사용, 아니면 테스트 모드 체크)
+                use_test_data = Config.TEST_MODE and (scan_date is None or scan_date == (datetime.now() - timedelta(days=1)).strftime('%Y%m%d'))
+                
+                if use_test_data:
                     stock_data = self.fetcher._get_test_data(ticker)
                 else:
-                    # 특정 날짜 데이터 조회
+                    # 특정 날짜 또는 실제 데이터 조회
                     stock_data = self.fetcher.get_stock_data_by_date(ticker, scan_date)
                     if not stock_data:
                         logger.debug(f"[{idx+1}] {name} - 데이터 수집 실패")
@@ -582,11 +593,13 @@ class StockScanner:
             stocks = self.fetcher.get_kospi_kosdaq_list()
             total_stocks = len(stocks) if stocks else 0
             
-            # 결과 텔레그램 발송
+            # 결과 텔레그램 발송 (한 번만)
+            logger.info(f"[execute] send_summary() 호출 - 종목 {len(results)}개")
             if results:
-                logger.info(f"결과 발송: {len(results)}개 종목")
+                logger.info(f"[execute] 결과 발송: {len(results)}개 종목")
                 self.telegram.send_summary(results, total_stocks)
             else:
+                logger.info(f"[execute] 신호 없음 발송")
                 self.telegram.send_summary([], total_stocks)
             
             logger.info("=" * 60)
@@ -642,6 +655,7 @@ class AutoStockScheduler:
     def run_once(self) -> None:
         """한 번만 실행 (테스트용)"""
         logger.info("\n🔍 수동 스캔 시작 (테스트 모드)")
+        logger.info("[run_once] execute() 호출 - 메시지 1번 발송")
         self.scanner.execute()
 
 
