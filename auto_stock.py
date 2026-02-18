@@ -316,6 +316,11 @@ class StockFilter:
             'foreign_buy': 0
         }
         
+        # 계산된 값들 저장
+        volume_ratio = 0
+        price_change_pct = 0
+        foreign_cumulative = 0
+        
         try:
             # 조건 1: 거래량
             if stock_data.get('volume', 0) > 0 and stock_data.get('prev_volume', 0) > 0:
@@ -333,9 +338,10 @@ class StockFilter:
                     scores['price_drop'] = min(100, int(abs(price_change_pct) * 10))
             
             # 조건 3: 외국인 순매수
-            if stock_data.get('foreign_cumulative', 0) > 0:
+            foreign_cumulative = stock_data.get('foreign_cumulative', 0)
+            if foreign_cumulative > 0:
                 conditions_met['foreign_buy'] = True
-                scores['foreign_buy'] = min(100, int(stock_data['foreign_cumulative'] / 1000))
+                scores['foreign_buy'] = min(100, int(foreign_cumulative / 1000))
             
             # 3가지 모두 만족 여부
             all_conditions_met = all(conditions_met.values())
@@ -343,7 +349,10 @@ class StockFilter:
             return all_conditions_met, {
                 'conditions': conditions_met,
                 'scores': scores,
-                'total_score': sum(scores.values()) // 3  # 평균 스코어
+                'total_score': sum(scores.values()) // 3,  # 평균 스코어
+                'volume_ratio': round(volume_ratio, 2),
+                'price_change_pct': round(price_change_pct, 2),
+                'foreign_cumulative': int(foreign_cumulative)
             }
             
         except Exception as e:
@@ -376,11 +385,25 @@ class StockAnalyzer:
             return "❓ 불명"
     
     @staticmethod
-    def format_stock_message(ticker: str, stock_data: Dict, name: str) -> str:
-        """종목 메시지 포맷팅"""
+    def format_stock_message(ticker: str, stock_data: Dict, name: str, filter_result: Dict = None) -> str:
+        """종목 메시지 포맷팅 (상세 정보 포함)"""
         try:
             change_pct = ((stock_data.get('current_price', 0) - stock_data.get('prev_close', 0)) / stock_data.get('prev_close', 1) * 100)
-            message = f"✅ {name} ({ticker})\n현재가: {stock_data.get('current_price', 'N/A')}원 | 변화율: {change_pct:.2f}%"
+            
+            message = f"✅ {name} ({ticker})\n"
+            message += f"현재가: {stock_data.get('current_price', 'N/A'):,}원\n"
+            
+            # 필터 결과에서 상세 정보 추출
+            if filter_result:
+                volume_ratio = filter_result.get('volume_ratio', 0)
+                price_drop = filter_result.get('price_change_pct', 0)
+                foreign_buy = filter_result.get('foreign_cumulative', 0)
+                
+                message += f"📊 거래량: {volume_ratio}배 증가\n"
+                message += f"📉 주가: {price_drop:.2f}% 하락\n"
+                message += f"🌍 10일 외국인 순매수: {foreign_buy:,}주\n"
+            else:
+                message += f"변화율: {change_pct:.2f}%\n"
             
             return message
             
@@ -518,7 +541,7 @@ class StockScanner:
                 if conditions_met:
                     # 메시지 생성
                     message = self.analyzer.format_stock_message(
-                        ticker, stock_data, name
+                        ticker, stock_data, name, filter_result
                     )
                     
                     self.results.append({
