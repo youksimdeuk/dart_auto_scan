@@ -412,13 +412,17 @@ class TelegramSender:
             logger.error(f"텔레그램 발송 오류: {e}")
             return False
     
-    def send_summary(self, results: List[Dict]) -> None:
+    def send_summary(self, results: List[Dict], total_scanned: int = 0) -> None:
         """요약 메시지 발송"""
         try:
             if not results:
-                message = "📊 오늘 신호 있는 종목이 없습니다."
+                if total_scanned > 0:
+                    message = f"📊 {total_scanned}종목 스캔 완료\n신호 있는 종목: 없음"
+                else:
+                    message = "📊 오늘 신호 있는 종목이 없습니다."
             else:
-                message = f"🔍 스캔 결과: {len(results)}개 종목 발견\n\n"
+                scanned_text = f"{total_scanned}종목 중 " if total_scanned > 0 else ""
+                message = f"🔍 스캔 결과: {scanned_text}{len(results)}개 통과\n\n"
                 
                 for result in results[:10]:  # 상위 10개만
                     message += result.get('message', '') + "\n\n"
@@ -534,12 +538,16 @@ class StockScanner:
             # 스캔 실행
             results = self.scan()
             
+            # 스캔한 총 종목 수 계산
+            stocks = self.fetcher.get_kospi_kosdaq_list()
+            total_stocks = len(stocks) if stocks else 0
+            
             # 결과 텔레그램 발송
             if results:
                 logger.info(f"결과 발송: {len(results)}개 종목")
-                self.telegram.send_summary(results)
+                self.telegram.send_summary(results, total_stocks)
             else:
-                self.telegram.send_message("📊 오늘은 신호가 없습니다.")
+                self.telegram.send_summary([], total_stocks)
             
             logger.info("=" * 60)
             logger.info("실행 완료")
@@ -629,11 +637,14 @@ def main():
         scanner = StockScanner()
         results = scanner.scan(scan_date=scan_date)
         
+        stocks = scanner.fetcher.get_kospi_kosdaq_list()
+        total_stocks = len(stocks) if stocks else 0
+        
         if results:
             logger.info(f"결과 발송: {len(results)}개 종목")
-            scanner.telegram.send_summary(results)
+            scanner.telegram.send_summary(results, total_stocks)
         else:
-            scanner.telegram.send_message(f"📊 {scan_date} 기준으로 신호가 없습니다.")
+            scanner.telegram.send_summary([], total_stocks)
         
         logger.info("=" * 60)
         logger.info("실행 완료")
