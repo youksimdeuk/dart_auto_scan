@@ -79,23 +79,40 @@ class StockDataFetcher:
             
             stocks = []
             
-            # pykrx를 사용해 상장 종목 조회
+            # pykrx를 사용해 상장 종목 조회 (KOSPI + KOSDAQ 분리 조회)
             try:
-                # 현재 상장된 모든 종목 조회
-                ticker_list = pykrx_stock.get_market_ticker_list()
+                # KOSPI 종목 조회
+                kospi_list = pykrx_stock.get_market_ticker_list(market='KOSPI')
+                logger.info(f"KOSPI 종목 수집: {len(kospi_list)}개")
                 
-                for ticker in ticker_list:
-                    # 종목명 조회
-                    name = pykrx_stock.get_market_ticker_name(ticker)
-                    
-                    if name:
-                        stocks.append({
-                            'code': ticker,
-                            'name': name
-                        })
+                for ticker in kospi_list:
+                    try:
+                        name = pykrx_stock.get_market_ticker_name(ticker)
+                        if name:
+                            stocks.append({
+                                'code': ticker,
+                                'name': name
+                            })
+                    except:
+                        pass
+                
+                # KOSDAQ 종목 조회
+                kosdaq_list = pykrx_stock.get_market_ticker_list(market='KOSDAQ')
+                logger.info(f"KOSDAQ 종목 수집: {len(kosdaq_list)}개")
+                
+                for ticker in kosdaq_list:
+                    try:
+                        name = pykrx_stock.get_market_ticker_name(ticker)
+                        if name:
+                            stocks.append({
+                                'code': ticker,
+                                'name': name
+                            })
+                    except:
+                        pass
                 
                 if stocks:
-                    logger.info(f"pykrx에서 {len(stocks)}개 종목 수집 완료")
+                    logger.info(f"pykrx에서 {len(stocks)}개 종목 수집 완료 (KOSPI+KOSDAQ)")
                     return stocks
                     
             except Exception as e:
