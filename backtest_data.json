@@ -1,0 +1,140 @@
+{
+  "scans": [
+    {
+      "scan_date": "20260213",
+      "stocks": [
+        {
+          "ticker": "013720",
+          "name": "THE CUBE&",
+          "base_price": 721
+        },
+        {
+          "ticker": "049080",
+          "name": "기가레인",
+          "base_price": 425
+        },
+        {
+          "ticker": "226340",
+          "name": "본느",
+          "base_price": 485
+        },
+        {
+          "ticker": "050090",
+          "name": "비케이홀딩스",
+          "base_price": 605
+        },
+        {
+          "ticker": "054090",
+          "name": "삼진엘앤디",
+          "base_price": 658
+        },
+        {
+          "ticker": "027580",
+          "name": "상보",
+          "base_price": 728
+        },
+        {
+          "ticker": "215790",
+          "name": "이노인스트루먼트",
+          "base_price": 424
+        },
+        {
+          "ticker": "322780",
+          "name": "코퍼스코리아",
+          "base_price": 409
+        },
+        {
+          "ticker": "276730",
+          "name": "한울앤제주",
+          "base_price": 1010
+        },
+        {
+          "ticker": "109960",
+          "name": "앱토크롬",
+          "base_price": 201
+        },
+        {
+          "ticker": "042600",
+          "name": "새로닉스",
+          "base_price": 13120
+        },
+        {
+          "ticker": "065130",
+          "name": "탑엔지니어링",
+          "base_price": 3335
+        },
+        {
+          "ticker": "052770",
+          "name": "아이톡시",
+          "base_price": 603
+        },
+        {
+          "ticker": "065770",
+          "name": "CS",
+          "base_price": 795
+        },
+        {
+          "ticker": "900100",
+          "name": "애머릿지",
+          "base_price": 453
+        },
+        {
+          "ticker": "060900",
+          "name": "에이전트AI",
+          "base_price": 436
+        },
+        {
+          "ticker": "219550",
+          "name": "디와이디",
+          "base_price": 1599
+        },
+        {
+          "ticker": "006200",
+          "name": "한국전자홀딩스",
+          "base_price": 650
+        },
+        {
+          "ticker": "115160",
+          "name": "휴맥스",
+          "base_price": 766
+        },
+        {
+          "ticker": "031860",
+          "name": "디에이치엑스컴퍼니",
+          "base_price": 484
+        },
+        {
+          "ticker": "038060",
+          "name": "루멘스",
+          "base_price": 620
+        },
+        {
+          "ticker": "026910",
+          "name": "광진실업",
+          "base_price": 2430
+        },
+        {
+          "ticker": "175140",
+          "name": "휴먼테크놀로지",
+          "base_price": 3995
+        },
+        {
+          "ticker": "042040",
+          "name": "케이피엠테크",
+          "base_price": 194
+        },
+        {
+          "ticker": "035620",
+          "name": "바른손이앤에이",
+          "base_price": 315
+        },
+        {
+          "ticker": "405000",
+          "name": "플라즈맵",
+          "base_price": 5240
+        }
+      ],
+      "sent_followups": []
+    }
+  ]
+}

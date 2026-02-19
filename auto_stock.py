@@ -12,6 +12,7 @@ import numpy as np
 import requests
 import json
 import os
+import socket
 from datetime import datetime, timedelta
 from typing import List, Dict, Tuple, Optional
 import logging
@@ -21,6 +22,9 @@ import time
 from bs4 import BeautifulSoup
 import re
 from pykrx import stock as pykrx_stock
+
+# pykrx 내부 HTTP 요청 전역 타임아웃 (네트워크 hanging 방지)
+socket.setdefaulttimeout(15)
 
 # 로깅 설정
 logging.basicConfig(
@@ -61,229 +65,111 @@ class Config:
 
 class StockDataFetcher:
     """주식 데이터 수집 클래스"""
-    
-    def __init__(self):
-        self.session = requests.Session()
-        self.timeout = Config.REQUEST_TIMEOUT
-        self.retry_count = Config.REQUEST_RETRY
-        self.headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-        }
-    
-    def get_kospi_kosdaq_list(self) -> List[Dict]:
+
+    def get_all_ohlcv(self, target_date: str) -> Dict[str, Dict]:
         """
-        KOSPI, KOSDAQ 종목 리스트 수집 (pykrx 사용)
+        KOSPI+KOSDAQ 전종목 OHLCV를 bulk API로 한번에 수집 (API 2회 호출)
+        Returns: {ticker: {current_price, volume}}
+        """
+        result = {}
+        for market in ['KOSPI', 'KOSDAQ']:
+            try:
+                df = pykrx_stock.get_market_ohlcv_by_ticker(target_date, market=market)
+                if df is not None and not df.empty:
+                    for ticker in df.index:
+                        row = df.loc[ticker]
+                        close = int(row.get('종가', 0))
+                        volume = int(row.get('거래량', 0))
+                        if close > 0 and volume > 0:
+                            result[ticker] = {
+                                'ticker': ticker,
+                                'current_price': close,
+                                'volume': volume,
+                                'prev_close': 0,
+                                'prev_volume': 0,
+                                'foreign_cumulative': 0
+                            }
+                    logger.info(f"{market} bulk 수집: {len(df)}종목")
+            except Exception as e:
+                logger.error(f"{market} OHLCV bulk 수집 실패: {e}")
+        return result
+
+    def get_prev_ohlcv(self, target_date: str) -> Dict[str, Dict]:
+        """
+        전일 OHLCV bulk 수집 (최대 7일 전까지 탐색해 가장 최근 거래일 사용)
+        Returns: {ticker: {prev_close, prev_volume}}
+        """
+        for delta in range(1, 8):
+            prev_date = (datetime.strptime(target_date, '%Y%m%d') - timedelta(days=delta)).strftime('%Y%m%d')
+            result = {}
+            found = False
+            for market in ['KOSPI', 'KOSDAQ']:
+                try:
+                    df = pykrx_stock.get_market_ohlcv_by_ticker(prev_date, market=market)
+                    if df is not None and not df.empty:
+                        for ticker in df.index:
+                            row = df.loc[ticker]
+                            result[ticker] = {
+                                'prev_close': int(row.get('종가', 0)),
+                                'prev_volume': int(row.get('거래량', 0))
+                            }
+                        found = True
+                except Exception as e:
+                    logger.error(f"{market} 전일 OHLCV 수집 실패 ({prev_date}): {e}")
+            if found:
+                logger.info(f"전일 데이터 기준일: {prev_date} ({len(result)}종목)")
+                return result
+        return {}
+
+    def get_stock_data_by_date(self, ticker: str, target_date: str) -> Optional[Dict]:
+        """
+        단일 종목 데이터 수집 - BacktestTracker 등 개별 조회용
         """
         try:
-            logger.info("종목 리스트 수집 시작...")
-            
-            stocks = []
-            
-            # pykrx를 사용해 상장 종목 조회 (KOSPI + KOSDAQ 분리 조회)
-            try:
-                # KOSPI 종목 조회
-                kospi_list = pykrx_stock.get_market_ticker_list(market='KOSPI')
-                logger.info(f"KOSPI 종목 수집: {len(kospi_list)}개")
-                
-                for ticker in kospi_list:
-                    try:
-                        name = pykrx_stock.get_market_ticker_name(ticker)
-                        if name:
-                            stocks.append({
-                                'code': ticker,
-                                'name': name
-                            })
-                    except:
-                        pass
-                
-                # KOSDAQ 종목 조회
-                kosdaq_list = pykrx_stock.get_market_ticker_list(market='KOSDAQ')
-                logger.info(f"KOSDAQ 종목 수집: {len(kosdaq_list)}개")
-                
-                for ticker in kosdaq_list:
-                    try:
-                        name = pykrx_stock.get_market_ticker_name(ticker)
-                        if name:
-                            stocks.append({
-                                'code': ticker,
-                                'name': name
-                            })
-                    except:
-                        pass
-                
-                if stocks:
-                    logger.info(f"pykrx에서 {len(stocks)}개 종목 수집 완료 (KOSPI+KOSDAQ)")
-                    return stocks
-                    
-            except Exception as e:
-                logger.error(f"pykrx 종목 수집 실패: {e}")
-            
-            # 수집 실패 시 기본 리스트 사용
-            logger.warning("종목 수집 실패, 기본 리스트로 대체")
-            return self._get_default_stocks()
-            
+            df = pykrx_stock.get_market_ohlcv_by_ticker(target_date, market='KOSPI')
+            if df is not None and not df.empty and ticker in df.index:
+                row = df.loc[ticker]
+                return {'ticker': ticker, 'current_price': int(row.get('종가', 0))}
+
+            df = pykrx_stock.get_market_ohlcv_by_ticker(target_date, market='KOSDAQ')
+            if df is not None and not df.empty and ticker in df.index:
+                row = df.loc[ticker]
+                return {'ticker': ticker, 'current_price': int(row.get('종가', 0))}
+        except Exception as e:
+            logger.debug(f"단일 종목 {ticker} 조회 실패: {e}")
+        return None
+
+    def get_foreign_buy_data_by_date(self, ticker: str, target_date: str) -> Tuple[float, float]:
+        """
+        특정 날짜 기준 외국인 10일 누적 순매수 (개별 종목 - 필터 통과 종목에만 호출)
+        """
+        try:
+            end_date = target_date
+            start_date = (datetime.strptime(target_date, '%Y%m%d') - timedelta(days=13)).strftime('%Y%m%d')
+
+            investor_data = pykrx_stock.get_market_trading_volume_by_investor(
+                start_date, end_date, ticker
+            )
+
+            if investor_data is not None and not investor_data.empty:
+                if '외국인' in investor_data.index:
+                    foreign_net_buy = int(investor_data.loc['외국인', '순매수'])
+                    logger.debug(f"[{ticker}] 외국인 10일 순매수: {foreign_net_buy}")
+                    return foreign_net_buy, foreign_net_buy
+
+        except Exception as e:
+            logger.debug(f"외국인 데이터 수집 실패 {ticker}: {e}")
+        return 0, 0
+
+    def get_kospi_kosdaq_list(self) -> List[Dict]:
+        """종목 리스트 반환 (execute()의 total_stocks 계산용)"""
+        try:
+            kospi = pykrx_stock.get_market_ticker_list(market='KOSPI')
+            kosdaq = pykrx_stock.get_market_ticker_list(market='KOSDAQ')
+            return [{'code': t, 'name': ''} for t in list(kospi) + list(kosdaq)]
         except Exception as e:
             logger.error(f"종목 리스트 수집 실패: {e}")
             return []
-    
-    def get_stock_data(self, ticker: str) -> Optional[Dict]:
-        """
-        개별 종목 데이터 수집 (pykrx 사용)
-        - 현재가, 전일 종가, 거래량
-        """
-        today_date = datetime.now().strftime('%Y%m%d')
-        return self.get_stock_data_by_date(ticker, today_date)
-    
-    def get_stock_data_by_date(self, ticker: str, target_date: str) -> Optional[Dict]:
-        """
-        특정 날짜 종목 데이터 수집 (pykrx 사용)
-        - 현재가, 전일 종가, 거래량
-        """
-        try:
-            # 해당 날짜 데이터 조회
-            try:
-                ohlcv_data = pykrx_stock.get_market_ohlcv(target_date, target_date, ticker)
-                
-                if ohlcv_data is not None and not ohlcv_data.empty:
-                    latest = ohlcv_data.iloc[-1]
-                    
-                    data = {
-                        'ticker': ticker,
-                        'current_price': int(latest['종가']),
-                        'prev_close': int(latest['시가']),
-                        'volume': int(latest['거래량']),
-                        'prev_volume': int(latest['거래량']) // 2,
-                        'foreign_cumulative': 0
-                    }
-                    
-                    # 전일 종가 조회
-                    try:
-                        for prev_days in range(1, 20):
-                            yesterday_date = (datetime.strptime(target_date, '%Y%m%d') - timedelta(days=prev_days)).strftime('%Y%m%d')
-                            yesterday_data = pykrx_stock.get_market_ohlcv(
-                                yesterday_date, yesterday_date, ticker
-                            )
-                            
-                            if yesterday_data is not None and not yesterday_data.empty:
-                                data['prev_close'] = int(yesterday_data.iloc[-1]['종가'])
-                                data['prev_volume'] = int(yesterday_data.iloc[-1]['거래량'])
-                                break
-                    except:
-                        pass
-                    
-                    logger.debug(f"수집 완료 {ticker}: 현가={data['current_price']}, 전일={data['prev_close']}, 거래량={data['volume']}")
-                    return data
-                    
-            except:
-                pass
-            
-            logger.debug(f"ticker {ticker}에 대한 데이터 없음")
-            return None
-            
-        except Exception as e:
-            logger.debug(f"종목 {ticker} 데이터 수집 실패: {e}")
-            return None
-    
-    def _get_default_stocks(self) -> List[Dict]:
-        """기본 종목 리스트 (테스트용)"""
-        return [
-            {'code': '005930', 'name': '삼성전자'},
-            {'code': '000660', 'name': 'SK하이닉스'},
-            {'code': '051910', 'name': 'LG화학'},
-            {'code': '055550', 'name': '신한지주'},
-            {'code': '096770', 'name': 'SK이노베이션'},
-            {'code': '247540', 'name': '에코프로비엠'},
-            {'code': '373220', 'name': 'LG에너지솔루션'},
-            {'code': '099320', 'name': 'DB하이텍'},
-            {'code': '068270', 'name': '셀트리온'},
-            {'code': '207940', 'name': '삼성바이오로직스'},
-        ]
-    
-    def _get_test_data(self, ticker: str) -> Optional[Dict]:
-        """
-        테스트용 더미 데이터
-        """
-        # 테스트 데이터셋
-        test_stocks = {
-            '005930': {'current': 161200, 'prev': 169000, 'volume': 12500000, 'prev_vol': 5000000, 'foreign': 50000},
-            '000660': {'current': 880000, 'prev': 920000, 'volume': 10000000, 'prev_vol': 3500000, 'foreign': 30000},
-            '051910': {'current': 314500, 'prev': 337000, 'volume': 8000000, 'prev_vol': 2800000, 'foreign': 20000},
-            '055550': {'current': 98500, 'prev': 106000, 'volume': 12000000, 'prev_vol': 4200000, 'foreign': 45000},
-            '096770': {'current': 109800, 'prev': 118000, 'volume': 6500000, 'prev_vol': 2100000, 'foreign': 15000},
-        }
-        
-        if ticker in test_stocks:
-            test = test_stocks[ticker]
-            return {
-                'ticker': ticker,
-                'current_price': test['current'],
-                'prev_close': test['prev'],
-                'volume': test['volume'],
-                'prev_volume': test['prev_vol'],
-                'foreign_cumulative': test['foreign']
-            }
-        
-        # 기타 종목은 더미 데이터
-        import hashlib
-        # Deterministic한 데이터 생성
-        hash_val = int(hashlib.md5(ticker.encode()).hexdigest(), 16)
-        
-        base_price = 50000 + (hash_val % 500000)
-        change_pct = ((hash_val % 10) - 3) / 100  # -3% ~ +7%
-        
-        return {
-            'ticker': ticker,
-            'current_price': int(base_price * (1 + change_pct)),
-            'prev_close': base_price,
-            'volume': 1000000 + (hash_val % 5000000),
-            'prev_volume': int((1000000 + (hash_val % 5000000)) * 0.6),
-            'foreign_cumulative': (hash_val % 100000) - 50000
-        }
-    
-    def get_foreign_buy_data(self, ticker: str) -> Tuple[float, float]:
-        """
-        외국인 매매 데이터 수집 (pykrx 사용)
-        (10일 누적 순매수)
-        """
-        today_date = datetime.now().strftime('%Y%m%d')
-        return self.get_foreign_buy_data_by_date(ticker, today_date)
-    
-    def get_foreign_buy_data_by_date(self, ticker: str, target_date: str) -> Tuple[float, float]:
-        """
-        특정 날짜 기준 외국인 매매 데이터 수집 (pykrx 사용)
-        (10일 누적 순매수)
-        """
-        try:
-            # 정확히 10일간 (target_date 기준 9일 전 ~ target_date까지)
-            end_date = target_date
-            start_date = (datetime.strptime(target_date, '%Y%m%d') - timedelta(days=9)).strftime('%Y%m%d')
-            
-            try:
-                # pykrx: 투자자별 거래량 조회 (기간 합계)
-                investor_data = pykrx_stock.get_market_trading_volume_by_investor(
-                    start_date, end_date, ticker
-                )
-                
-                if investor_data is None or investor_data.empty:
-                    logger.debug(f"[{ticker}] 외국인 데이터 없음")
-                    return 0, 0
-                
-                # 외국인 10일 누적 순매수 추출
-                if '외국인' in investor_data.index:
-                    foreign_net_buy = int(investor_data.loc['외국인', '순매수'])
-                    
-                    logger.debug(f"[{ticker}] 외국인 10일({start_date}~{end_date}) 누적 순매수: {foreign_net_buy}")
-                    
-                    return foreign_net_buy, foreign_net_buy
-                    
-            except Exception as e:
-                logger.debug(f"외국인 데이터 추출 오류: {e}")
-            
-            return 0, 0
-            
-        except Exception as e:
-            logger.debug(f"외국인 데이터 수집 실패 {ticker}: {e}")
-            return 0, 0
 
 
 # ============================================================================
@@ -642,61 +528,70 @@ class StockScanner:
         self.last_scan_date = None
     
     def scan(self, scan_date: str = None) -> List[Dict]:
-        """전종목 스캔 실행"""
+        """전종목 스캔 실행 (bulk API 방식 - API 4~6회 호출로 전종목 처리)"""
         try:
             logger.info("=" * 60)
             logger.info(f"스캔 시작: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
             logger.info("=" * 60)
-            
+
             self.results = []
-            
-            # 스캔 날짜 설정 (기본값: 오늘)
+
             if scan_date is None:
                 scan_date = (datetime.now() - timedelta(days=1)).strftime('%Y%m%d')
-            
+
             logger.info(f"기준 날짜: {scan_date}")
-            
-            # 1. 종목 리스트 수집
-            stocks = self.fetcher.get_kospi_kosdaq_list()
-            if not stocks:
-                logger.warning("종목 리스트를 수집할 수 없습니다.")
-                stocks = self.fetcher._get_default_stocks()  # Fallback
-            
-            logger.info(f"검사할 종목 수: {len(stocks)}")
-            
-            # 2. 종목별 검사
-            for idx, stock_info in enumerate(stocks):
-                ticker = stock_info.get('code')
-                name = stock_info.get('name', ticker)
-                
-                # 데이터 수집 (scan_date가 있으면 실제 데이터 사용, 아니면 테스트 모드 체크)
-                use_test_data = Config.TEST_MODE and (scan_date is None or scan_date == (datetime.now() - timedelta(days=1)).strftime('%Y%m%d'))
-                
-                if use_test_data:
-                    stock_data = self.fetcher._get_test_data(ticker)
-                else:
-                    # 특정 날짜 또는 실제 데이터 조회
-                    stock_data = self.fetcher.get_stock_data_by_date(ticker, scan_date)
-                    if not stock_data:
-                        logger.debug(f"[{idx+1}] {name} - 데이터 수집 실패")
-                        continue
-                    
-                    # 외국인 데이터 수집 (스캔 날짜 기준)
-                    today_buy, cumulative = self.fetcher.get_foreign_buy_data_by_date(ticker, scan_date)
-                    stock_data['foreign_buy'] = today_buy
-                    stock_data['foreign_cumulative'] = cumulative
-                
-                logger.debug(f"[{idx+1}] {name}: 현가={stock_data.get('current_price')}, 전일={stock_data.get('prev_close')}, 거래량={stock_data.get('volume')}")
-                
-                # 3가지 조건 검사
+
+            # 1. 전종목 당일 OHLCV bulk 수집 (API 2회)
+            logger.info("당일 전종목 OHLCV 수집 중...")
+            today_data = self.fetcher.get_all_ohlcv(scan_date)
+            if not today_data:
+                logger.warning("당일 데이터 없음 - 스캔 종료")
+                self.last_scan_date = scan_date
+                return []
+
+            # 2. 전종목 전일 OHLCV bulk 수집 (API 2회)
+            logger.info("전일 전종목 OHLCV 수집 중...")
+            prev_data = self.fetcher.get_prev_ohlcv(scan_date)
+
+            logger.info(f"당일: {len(today_data)}종목 / 전일: {len(prev_data)}종목")
+
+            # 3. 전일 데이터 병합 + 거래량/가격 1차 필터 (메모리 처리, API 없음)
+            candidates = []
+            for ticker, stock_data in today_data.items():
+                if ticker in prev_data:
+                    stock_data['prev_close'] = prev_data[ticker]['prev_close']
+                    stock_data['prev_volume'] = prev_data[ticker]['prev_volume']
+
+                vol = stock_data.get('volume', 0)
+                prev_vol = stock_data.get('prev_volume', 0)
+                cur = stock_data.get('current_price', 0)
+                prev_c = stock_data.get('prev_close', 0)
+
+                if prev_vol <= 0 or prev_c <= 0:
+                    continue
+
+                volume_ratio = vol / prev_vol
+                price_change = (cur - prev_c) / prev_c * 100
+
+                if volume_ratio >= Config.VOLUME_RATIO and price_change <= Config.PRICE_DROP_PCT:
+                    candidates.append((ticker, stock_data, volume_ratio, price_change))
+
+            logger.info(f"1+2차 필터 통과 (거래량+가격): {len(candidates)}종목 → 외국인 데이터 조회")
+
+            # 4. 후보 종목만 외국인 데이터 개별 조회 + 3차 필터
+            for ticker, stock_data, volume_ratio, price_change in candidates:
+                try:
+                    name = pykrx_stock.get_market_ticker_name(ticker) or ticker
+                except Exception:
+                    name = ticker
+
+                _, cumulative = self.fetcher.get_foreign_buy_data_by_date(ticker, scan_date)
+                stock_data['foreign_cumulative'] = cumulative
+
                 conditions_met, filter_result = self.filter.check_conditions(stock_data)
-                
+
                 if conditions_met:
-                    # 메시지 생성
-                    message = self.analyzer.format_stock_message(
-                        ticker, stock_data, name, filter_result
-                    )
-                    
+                    message = self.analyzer.format_stock_message(ticker, stock_data, name, filter_result)
                     self.results.append({
                         'ticker': ticker,
                         'name': name,
@@ -704,21 +599,11 @@ class StockScanner:
                         'score': filter_result.get('total_score', 0),
                         'base_price': stock_data.get('current_price', 0)
                     })
-                    
-                    logger.info(f"✓ [{idx+1}/{len(stocks)}] {name} ({ticker})")
-                
-                # 진행률 표시
-                if (idx + 1) % 500 == 0:
-                    logger.info(f"  >> 진행: {idx+1}/{len(stocks)} ({(idx+1)/len(stocks)*100:.1f}%)")
-                
-                # API 과부하 방지
-                if (idx + 1) % 100 == 0:
-                    time.sleep(1)
-            
-            # 결과 정렬 (스코어 기준)
+                    logger.info(f"✓ {name} ({ticker}) 거래량{volume_ratio:.1f}배 / {price_change:.1f}% / 외국인 {cumulative:+,}주")
+
             self.results.sort(key=lambda x: x['score'], reverse=True)
-            
-            logger.info(f"스캔 완료: {len(self.results)}개 종목 발견")
+            self.total_scanned = len(today_data)
+            logger.info(f"스캔 완료: {len(today_data)}종목 검사 → {len(self.results)}종목 통과")
 
             self.last_scan_date = scan_date
             return self.results
@@ -737,9 +622,8 @@ class StockScanner:
             # 2. 스캔 실행
             results = self.scan()
 
-            # 3. 스캔한 총 종목 수 계산
-            stocks = self.fetcher.get_kospi_kosdaq_list()
-            total_stocks = len(stocks) if stocks else 0
+            # 3. 스캔한 총 종목 수 (scan()에서 저장)
+            total_stocks = getattr(self, 'total_scanned', 0)
 
             # 4. 결과 텔레그램 발송
             logger.info(f"[execute] send_summary() 호출 - 종목 {len(results)}개")
@@ -846,9 +730,7 @@ def main():
         scanner.backtest.check_and_send_followups()
 
         results = scanner.scan(scan_date=scan_date)
-
-        stocks = scanner.fetcher.get_kospi_kosdaq_list()
-        total_stocks = len(stocks) if stocks else 0
+        total_stocks = getattr(scanner, 'total_scanned', 0)
 
         if results:
             logger.info(f"결과 발송: {len(results)}개 종목")
