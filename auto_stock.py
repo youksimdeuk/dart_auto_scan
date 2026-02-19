@@ -480,9 +480,149 @@ class TelegramSender:
             
         except Exception as e:
             logger.error(f"요약 메시지 발송 오류: {e}")
-            
+
         except Exception as e:
             logger.error(f"요약 메시지 발송 오류: {e}")
+
+
+# ============================================================================
+# 백테스트 추적 (BACKTEST TRACKER)
+# ============================================================================
+
+class BacktestTracker:
+    """
+    백테스트 추적 클래스
+    - 스캔 통과 종목과 기준 종가를 JSON 파일에 저장
+    - 매일 실행 시 3/5/10/15/30일 후 수익률을 텔레그램으로 발송
+    """
+
+    FOLLOW_UP_DAYS = [3, 5, 10, 15, 30]
+    DATA_FILE = 'backtest_data.json'
+
+    def __init__(self, fetcher: 'StockDataFetcher', telegram: 'TelegramSender'):
+        self.fetcher = fetcher
+        self.telegram = telegram
+        self.data = self._load_data()
+
+    def _load_data(self) -> Dict:
+        """저장된 백테스트 데이터 로드"""
+        if os.path.exists(self.DATA_FILE):
+            try:
+                with open(self.DATA_FILE, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except Exception as e:
+                logger.error(f"백테스트 데이터 로드 실패: {e}")
+        return {'scans': []}
+
+    def _save_data(self) -> None:
+        """백테스트 데이터 저장"""
+        try:
+            with open(self.DATA_FILE, 'w', encoding='utf-8') as f:
+                json.dump(self.data, f, ensure_ascii=False, indent=2)
+        except Exception as e:
+            logger.error(f"백테스트 데이터 저장 실패: {e}")
+
+    def save_scan_results(self, scan_date: str, results: List[Dict]) -> None:
+        """스캔 통과 종목 저장 (이미 같은 날짜가 있으면 업데이트)"""
+        if not results:
+            logger.info(f"백테스트: {scan_date} 통과 종목 없음, 저장 생략")
+            return
+
+        stocks = [
+            {'ticker': r['ticker'], 'name': r['name'], 'base_price': r.get('base_price', 0)}
+            for r in results
+        ]
+
+        for scan in self.data['scans']:
+            if scan['scan_date'] == scan_date:
+                scan['stocks'] = stocks
+                self._save_data()
+                logger.info(f"백테스트: {scan_date} 기존 데이터 업데이트 ({len(stocks)}개 종목)")
+                return
+
+        self.data['scans'].append({
+            'scan_date': scan_date,
+            'stocks': stocks,
+            'sent_followups': []
+        })
+        self._save_data()
+        logger.info(f"백테스트: {scan_date} 신규 저장 ({len(stocks)}개 종목)")
+
+    def _get_price_on_or_after(self, ticker: str, target_date: str) -> Tuple[Optional[int], Optional[str]]:
+        """target_date 이후 가장 가까운 거래일의 종가 반환 (최대 5영업일 탐색)"""
+        for offset in range(6):
+            check_date = (datetime.strptime(target_date, '%Y%m%d') + timedelta(days=offset)).strftime('%Y%m%d')
+            data = self.fetcher.get_stock_data_by_date(ticker, check_date)
+            if data and data.get('current_price', 0) > 0:
+                return data['current_price'], check_date
+        return None, None
+
+    def check_and_send_followups(self) -> None:
+        """오늘 기준으로 due된 follow-up 메시지 발송"""
+        today = datetime.now().date()
+        changed = False
+
+        for scan in self.data['scans']:
+            if not scan.get('stocks'):
+                continue
+
+            scan_date_dt = datetime.strptime(scan['scan_date'], '%Y%m%d').date()
+            days_elapsed = (today - scan_date_dt).days
+
+            for follow_days in self.FOLLOW_UP_DAYS:
+                already_sent = follow_days in scan.get('sent_followups', [])
+                if days_elapsed >= follow_days and not already_sent:
+                    self._send_followup_message(scan, follow_days)
+                    scan.setdefault('sent_followups', []).append(follow_days)
+                    changed = True
+
+        if changed:
+            self._save_data()
+
+    def _send_followup_message(self, scan: Dict, follow_days: int) -> None:
+        """follow-up 수익률 메시지 생성 및 발송"""
+        scan_date = scan['scan_date']
+        target_date = (datetime.strptime(scan_date, '%Y%m%d') + timedelta(days=follow_days)).strftime('%Y%m%d')
+
+        sd = f"{scan_date[:4]}/{scan_date[4:6]}/{scan_date[6:]}"
+        td = f"{target_date[:4]}/{target_date[4:6]}/{target_date[6:]}"
+
+        lines = [
+            f"📊 백테스트 결과 ({follow_days}일 후)",
+            f"📅 기준일: {sd} → {td}",
+            ""
+        ]
+
+        gains = []
+        for stock in scan['stocks']:
+            ticker = stock['ticker']
+            name = stock['name']
+            base_price = stock.get('base_price', 0)
+
+            if base_price <= 0:
+                lines.append(f"❓ {name} ({ticker}): 기준가 없음")
+                continue
+
+            target_price, actual_date = self._get_price_on_or_after(ticker, target_date)
+
+            if target_price:
+                change_pct = (target_price - base_price) / base_price * 100
+                emoji = "📈" if change_pct >= 0 else "📉"
+                gains.append(change_pct)
+                note = f" ({actual_date[4:6]}/{actual_date[6:]} 기준)" if actual_date != target_date else ""
+                lines.append(f"{emoji} {name}: {base_price:,}원 → {target_price:,}원 ({change_pct:+.2f}%){note}")
+            else:
+                lines.append(f"❓ {name} ({ticker}): 데이터 없음")
+
+        if gains:
+            avg = sum(gains) / len(gains)
+            win_rate = sum(1 for g in gains if g > 0) / len(gains) * 100
+            lines.append("")
+            lines.append(f"📊 평균 수익률: {avg:+.2f}%")
+            lines.append(f"✅ 승률: {win_rate:.0f}% ({sum(1 for g in gains if g > 0)}/{len(gains)})")
+
+        self.telegram.send_message("\n".join(lines))
+        logger.info(f"백테스트 {follow_days}일 후 메시지 발송 완료 (기준일: {scan_date})")
 
 
 # ============================================================================
@@ -497,7 +637,9 @@ class StockScanner:
         self.filter = StockFilter()
         self.analyzer = StockAnalyzer()
         self.telegram = TelegramSender(Config.TELEGRAM_BOT_TOKEN, Config.TELEGRAM_CHAT_ID)
+        self.backtest = BacktestTracker(self.fetcher, self.telegram)
         self.results = []
+        self.last_scan_date = None
     
     def scan(self, scan_date: str = None) -> List[Dict]:
         """전종목 스캔 실행"""
@@ -559,7 +701,8 @@ class StockScanner:
                         'ticker': ticker,
                         'name': name,
                         'message': message,
-                        'score': filter_result.get('total_score', 0)
+                        'score': filter_result.get('total_score', 0),
+                        'base_price': stock_data.get('current_price', 0)
                     })
                     
                     logger.info(f"✓ [{idx+1}/{len(stocks)}] {name} ({ticker})")
@@ -576,7 +719,8 @@ class StockScanner:
             self.results.sort(key=lambda x: x['score'], reverse=True)
             
             logger.info(f"스캔 완료: {len(self.results)}개 종목 발견")
-            
+
+            self.last_scan_date = scan_date
             return self.results
             
         except Exception as e:
@@ -586,14 +730,18 @@ class StockScanner:
     def execute(self) -> None:
         """전체 실행"""
         try:
-            # 스캔 실행
+            # 1. 과거 백테스트 follow-up 메시지 먼저 발송
+            logger.info("[execute] 백테스트 follow-up 확인 중...")
+            self.backtest.check_and_send_followups()
+
+            # 2. 스캔 실행
             results = self.scan()
-            
-            # 스캔한 총 종목 수 계산
+
+            # 3. 스캔한 총 종목 수 계산
             stocks = self.fetcher.get_kospi_kosdaq_list()
             total_stocks = len(stocks) if stocks else 0
-            
-            # 결과 텔레그램 발송 (한 번만)
+
+            # 4. 결과 텔레그램 발송
             logger.info(f"[execute] send_summary() 호출 - 종목 {len(results)}개")
             if results:
                 logger.info(f"[execute] 결과 발송: {len(results)}개 종목")
@@ -601,11 +749,15 @@ class StockScanner:
             else:
                 logger.info(f"[execute] 신호 없음 발송")
                 self.telegram.send_summary([], total_stocks)
-            
+
+            # 5. 백테스트 데이터 저장 (통과 종목이 있을 때만)
+            if results and self.last_scan_date:
+                self.backtest.save_scan_results(self.last_scan_date, results)
+
             logger.info("=" * 60)
             logger.info("실행 완료")
             logger.info("=" * 60)
-            
+
         except Exception as e:
             logger.error(f"실행 오류: {e}", exc_info=True)
             self.telegram.send_message(f"❌ 스캔 오류: {str(e)}")
@@ -687,19 +839,24 @@ def main():
         # 특정 날짜 모드: 해당 날짜 데이터로 스캔
         scan_date = sys.argv[1].replace('--date=', '')
         logger.info(f"📅 특정 날짜 모드: {scan_date}\n")
-        
+
         scanner = StockScanner()
+
+        # 백테스트 follow-up 먼저 확인
+        scanner.backtest.check_and_send_followups()
+
         results = scanner.scan(scan_date=scan_date)
-        
+
         stocks = scanner.fetcher.get_kospi_kosdaq_list()
         total_stocks = len(stocks) if stocks else 0
-        
+
         if results:
             logger.info(f"결과 발송: {len(results)}개 종목")
             scanner.telegram.send_summary(results, total_stocks)
+            scanner.backtest.save_scan_results(scan_date, results)
         else:
             scanner.telegram.send_summary([], total_stocks)
-        
+
         logger.info("=" * 60)
         logger.info("실행 완료")
         logger.info("=" * 60)
