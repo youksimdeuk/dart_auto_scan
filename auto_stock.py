@@ -8,7 +8,6 @@
 """
 
 import pandas as pd
-import numpy as np
 import requests
 import json
 import os
@@ -19,8 +18,6 @@ import logging
 from apscheduler.schedulers.blocking import BlockingScheduler
 from apscheduler.triggers.cron import CronTrigger
 import time
-from bs4 import BeautifulSoup
-import re
 from pykrx import stock as pykrx_stock
 
 # pykrx 내부 HTTP 요청 전역 타임아웃 (네트워크 hanging 방지)
@@ -65,6 +62,10 @@ class Config:
 
 class StockDataFetcher:
     """주식 데이터 수집 클래스"""
+
+    def __init__(self):
+        # 날짜별 전종목 종가 캐시 {date: {ticker: price}} - 백테스트 follow-up 중복 API 방지
+        self._price_cache: Dict[str, Dict[str, int]] = {}
 
     def get_all_ohlcv(self, target_date: str) -> Dict[str, Dict]:
         """
@@ -123,20 +124,27 @@ class StockDataFetcher:
 
     def get_stock_data_by_date(self, ticker: str, target_date: str) -> Optional[Dict]:
         """
-        단일 종목 데이터 수집 - BacktestTracker 등 개별 조회용
+        단일 종목 종가 조회 - 날짜별 bulk 캐시 사용 (BacktestTracker용)
+        같은 날짜는 최초 1회만 API 호출 후 재사용
         """
-        try:
-            df = pykrx_stock.get_market_ohlcv_by_ticker(target_date, market='KOSPI')
-            if df is not None and not df.empty and ticker in df.index:
-                row = df.loc[ticker]
-                return {'ticker': ticker, 'current_price': int(row.get('종가', 0))}
+        if target_date not in self._price_cache:
+            day_prices: Dict[str, int] = {}
+            for market in ['KOSPI', 'KOSDAQ']:
+                try:
+                    df = pykrx_stock.get_market_ohlcv_by_ticker(target_date, market=market)
+                    if df is not None and not df.empty:
+                        for t in df.index:
+                            price = int(df.loc[t].get('종가', 0))
+                            if price > 0:
+                                day_prices[t] = price
+                except Exception as e:
+                    logger.debug(f"캐시 수집 실패 ({target_date}, {market}): {e}")
+            self._price_cache[target_date] = day_prices
+            logger.debug(f"가격 캐시 저장: {target_date} ({len(day_prices)}종목)")
 
-            df = pykrx_stock.get_market_ohlcv_by_ticker(target_date, market='KOSDAQ')
-            if df is not None and not df.empty and ticker in df.index:
-                row = df.loc[ticker]
-                return {'ticker': ticker, 'current_price': int(row.get('종가', 0))}
-        except Exception as e:
-            logger.debug(f"단일 종목 {ticker} 조회 실패: {e}")
+        price = self._price_cache[target_date].get(ticker, 0)
+        if price > 0:
+            return {'ticker': ticker, 'current_price': price}
         return None
 
     def get_foreign_buy_data_by_date(self, ticker: str, target_date: str) -> Tuple[float, float]:
@@ -161,15 +169,6 @@ class StockDataFetcher:
             logger.debug(f"외국인 데이터 수집 실패 {ticker}: {e}")
         return 0, 0
 
-    def get_kospi_kosdaq_list(self) -> List[Dict]:
-        """종목 리스트 반환 (execute()의 total_stocks 계산용)"""
-        try:
-            kospi = pykrx_stock.get_market_ticker_list(market='KOSPI')
-            kosdaq = pykrx_stock.get_market_ticker_list(market='KOSDAQ')
-            return [{'code': t, 'name': ''} for t in list(kospi) + list(kosdaq)]
-        except Exception as e:
-            logger.error(f"종목 리스트 수집 실패: {e}")
-            return []
 
 
 # ============================================================================
@@ -252,23 +251,6 @@ class StockFilter:
 
 class StockAnalyzer:
     """주식 분석 클래스"""
-    
-    @staticmethod
-    def classify_signal_strength(filter_result: Dict) -> str:
-        """신호 강도 분류"""
-        try:
-            score = filter_result.get('total_score', 0)
-            
-            if score >= 80:
-                return "🔴 강한 매수 신호"
-            elif score >= 60:
-                return "📊 중간 매수 신호"
-            else:
-                return "📈 약한 신호"
-                
-        except Exception as e:
-            logger.error(f"신호 분류 오류: {e}")
-            return "❓ 불명"
     
     @staticmethod
     def format_stock_message(ticker: str, stock_data: Dict, name: str, filter_result: Dict = None) -> str:
@@ -522,7 +504,6 @@ class StockScanner:
         self.analyzer = StockAnalyzer()
         self.telegram = TelegramSender(Config.TELEGRAM_BOT_TOKEN, Config.TELEGRAM_CHAT_ID)
         self.backtest = BacktestTracker(self.fetcher, self.telegram)
-        self.results = []
         self.last_scan_date = None
     
     def scan(self, scan_date: str = None) -> List[Dict]:
@@ -531,8 +512,6 @@ class StockScanner:
             logger.info("=" * 60)
             logger.info(f"스캔 시작: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
             logger.info("=" * 60)
-
-            self.results = []
 
             if scan_date is None:
                 scan_date = datetime.now().strftime('%Y%m%d')
@@ -610,7 +589,7 @@ class StockScanner:
             logger.error(f"스캔 오류: {e}", exc_info=True)
             return []
     
-    def execute(self) -> None:
+    def execute(self, scan_date: str = None) -> None:
         """전체 실행"""
         try:
             # 1. 과거 백테스트 follow-up 메시지 먼저 발송
@@ -618,21 +597,13 @@ class StockScanner:
             self.backtest.check_and_send_followups()
 
             # 2. 스캔 실행
-            results = self.scan()
-
-            # 3. 스캔한 총 종목 수 (scan()에서 저장)
+            results = self.scan(scan_date=scan_date)
             total_stocks = getattr(self, 'total_scanned', 0)
 
-            # 4. 결과 텔레그램 발송
-            logger.info(f"[execute] send_summary() 호출 - 종목 {len(results)}개")
-            if results:
-                logger.info(f"[execute] 결과 발송: {len(results)}개 종목")
-                self.telegram.send_summary(results, total_stocks, scan_date=self.last_scan_date)
-            else:
-                logger.info(f"[execute] 신호 없음 발송")
-                self.telegram.send_summary([], total_stocks, scan_date=self.last_scan_date)
+            # 3. 결과 텔레그램 발송 (send_summary 내부에서 결과 유무 처리)
+            self.telegram.send_summary(results, total_stocks, scan_date=self.last_scan_date)
 
-            # 5. 백테스트 데이터 저장 (통과 종목이 있을 때만)
+            # 4. 백테스트 데이터 저장 (통과 종목이 있을 때만)
             if results and self.last_scan_date:
                 self.backtest.save_scan_results(self.last_scan_date, results)
 
@@ -658,10 +629,10 @@ class AutoStockScheduler:
     
     def setup(self) -> None:
         """스케줄 설정"""
-        # 매일 오후 4시 (16:00) 실행
+        # 매일 오후 6시 (18:00) 실행
         self.scheduler.add_job(
             self.run_scan,
-            CronTrigger(hour=16, minute=0),
+            CronTrigger(hour=18, minute=0),
             id='daily_scan',
             name='Daily Stock Scan',
             misfire_grace_time=60
@@ -721,25 +692,7 @@ def main():
         # 특정 날짜 모드: 해당 날짜 데이터로 스캔
         scan_date = sys.argv[1].replace('--date=', '')
         logger.info(f"📅 특정 날짜 모드: {scan_date}\n")
-
-        scanner = StockScanner()
-
-        # 백테스트 follow-up 먼저 확인
-        scanner.backtest.check_and_send_followups()
-
-        results = scanner.scan(scan_date=scan_date)
-        total_stocks = getattr(scanner, 'total_scanned', 0)
-
-        if results:
-            logger.info(f"결과 발송: {len(results)}개 종목")
-            scanner.telegram.send_summary(results, total_stocks, scan_date=scan_date)
-            scanner.backtest.save_scan_results(scan_date, results)
-        else:
-            scanner.telegram.send_summary([], total_stocks, scan_date=scan_date)
-
-        logger.info("=" * 60)
-        logger.info("실행 완료")
-        logger.info("=" * 60)
+        StockScanner().execute(scan_date=scan_date)
     else:
         # 스케줄 모드: 매일 오후 4시 자동 실행
         scheduler.start()
