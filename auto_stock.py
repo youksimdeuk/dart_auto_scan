@@ -338,34 +338,32 @@ class TelegramSender:
             logger.error(f"텔레그램 발송 오류: {e}")
             return False
     
-    def send_summary(self, results: List[Dict], total_scanned: int = 0) -> None:
+    def send_summary(self, results: List[Dict], total_scanned: int = 0, scan_date: str = None) -> None:
         """스캔 결과를 기업별로 개별 메시지 발송"""
         try:
+            # 날짜 포맷: 20260213 → 2026/02/13
+            if scan_date:
+                date_str = f"{scan_date[:4]}/{scan_date[4:6]}/{scan_date[6:]}"
+            else:
+                date_str = datetime.now().strftime('%Y/%m/%d')
+
             if not results:
-                # 신호 없는 경우 - 요약 메시지만 발송
-                if total_scanned > 0:
-                    message = f"📊 {total_scanned}종목 스캔 완료\n신호 있는 종목: 없음"
-                else:
-                    message = "📊 오늘 신호 있는 종목이 없습니다."
+                message = f"📊 {date_str} 스캔 결과\n{total_scanned}종목 검사 → 신호 없음"
                 logger.info(f"[send_summary] 신호 없음 메시지 발송")
                 self.send_message(message)
             else:
-                # 각 종목별로 개별 메시지 발송
+                # 1. 먼저 요약 메시지 발송
+                summary_msg = f"📊 {date_str} 스캔 결과\n{total_scanned}종목 검사 → {len(results)}개 통과\n\n아래 종목 상세 정보를 확인하세요."
+                self.send_message(summary_msg)
+                logger.info(f"[send_summary] 요약 메시지 발송 완료 ({total_scanned}종목 중 {len(results)}개)")
+                time.sleep(0.5)
+
+                # 2. 각 종목별로 개별 메시지 발송
                 logger.info(f"[send_summary] {len(results)}개 종목 각각 메시지 발송 시작")
-                
                 for idx, result in enumerate(results, 1):
-                    # 각 종목별 메시지 발송
                     self.send_message(result.get('message', ''))
                     logger.debug(f"[send_summary] [{idx}/{len(results)}] {result.get('name')} 메시지 발송")
                     time.sleep(0.5)  # API 과부하 방지
-                
-                # 마지막에 요약 메시지 발송
-                summary_msg = f"🔍 스캔 결과 최종: {total_scanned}종목 중 {len(results)}개 통과"
-                self.send_message(summary_msg)
-                logger.info(f"[send_summary] 요약 메시지 발송 완료 ({total_scanned}종목 중 {len(results)}개)")
-            
-        except Exception as e:
-            logger.error(f"요약 메시지 발송 오류: {e}")
 
         except Exception as e:
             logger.error(f"요약 메시지 발송 오류: {e}")
@@ -629,10 +627,10 @@ class StockScanner:
             logger.info(f"[execute] send_summary() 호출 - 종목 {len(results)}개")
             if results:
                 logger.info(f"[execute] 결과 발송: {len(results)}개 종목")
-                self.telegram.send_summary(results, total_stocks)
+                self.telegram.send_summary(results, total_stocks, scan_date=self.last_scan_date)
             else:
                 logger.info(f"[execute] 신호 없음 발송")
-                self.telegram.send_summary([], total_stocks)
+                self.telegram.send_summary([], total_stocks, scan_date=self.last_scan_date)
 
             # 5. 백테스트 데이터 저장 (통과 종목이 있을 때만)
             if results and self.last_scan_date:
@@ -734,10 +732,10 @@ def main():
 
         if results:
             logger.info(f"결과 발송: {len(results)}개 종목")
-            scanner.telegram.send_summary(results, total_stocks)
+            scanner.telegram.send_summary(results, total_stocks, scan_date=scan_date)
             scanner.backtest.save_scan_results(scan_date, results)
         else:
-            scanner.telegram.send_summary([], total_stocks)
+            scanner.telegram.send_summary([], total_stocks, scan_date=scan_date)
 
         logger.info("=" * 60)
         logger.info("실행 완료")
