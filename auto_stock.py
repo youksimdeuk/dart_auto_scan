@@ -153,7 +153,9 @@ class StockDataFetcher:
         """
         try:
             end_date = target_date
-            start_date = (datetime.strptime(target_date, '%Y%m%d') - timedelta(days=13)).strftime('%Y%m%d')
+            # 10 영업일 기준 (주말 제외) - pd.bdate_range로 정확한 영업일 계산
+            end_dt = datetime.strptime(target_date, '%Y%m%d')
+            start_date = pd.bdate_range(end=end_dt, periods=10)[0].strftime('%Y%m%d')
 
             investor_data = pykrx_stock.get_market_trading_volume_by_investor(
                 start_date, end_date, ticker
@@ -433,11 +435,12 @@ class BacktestTracker:
                 continue
 
             scan_date_dt = datetime.strptime(scan['scan_date'], '%Y%m%d').date()
-            days_elapsed = (today - scan_date_dt).days
+            # 영업일 기준 경과일 계산 (주말 제외)
+            bdays_elapsed = len(pd.bdate_range(scan_date_dt, today)) - 1
 
             for follow_days in self.FOLLOW_UP_DAYS:
                 already_sent = follow_days in scan.get('sent_followups', [])
-                if days_elapsed >= follow_days and not already_sent:
+                if bdays_elapsed >= follow_days and not already_sent:
                     self._send_followup_message(scan, follow_days)
                     scan.setdefault('sent_followups', []).append(follow_days)
                     changed = True
@@ -448,13 +451,15 @@ class BacktestTracker:
     def _send_followup_message(self, scan: Dict, follow_days: int) -> None:
         """follow-up 수익률 메시지 생성 및 발송"""
         scan_date = scan['scan_date']
-        target_date = (datetime.strptime(scan_date, '%Y%m%d') + timedelta(days=follow_days)).strftime('%Y%m%d')
+        # N 영업일 후 날짜 계산 (주말 제외)
+        scan_dt = datetime.strptime(scan_date, '%Y%m%d')
+        target_date = pd.bdate_range(start=scan_dt, periods=follow_days + 1)[-1].strftime('%Y%m%d')
 
         sd = f"{scan_date[:4]}/{scan_date[4:6]}/{scan_date[6:]}"
         td = f"{target_date[:4]}/{target_date[4:6]}/{target_date[6:]}"
 
         lines = [
-            f"📊 백테스트 결과 ({follow_days}일 후)",
+            f"📊 백테스트 결과 ({follow_days}영업일 후)",
             f"📅 기준일: {sd} → {td}",
             ""
         ]
