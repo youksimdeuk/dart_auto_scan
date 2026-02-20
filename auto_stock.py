@@ -53,7 +53,7 @@ class Config:
     REQUEST_RETRY = 3
     
     # 실행 설정
-    RUN_TIME = "16:00"                      # 오후 4시 (한국 기준)
+    RUN_TIME = "18:00"                      # 오후 6시 (한국 기준)
     
     # 테스트 모드 (True 시 더미 데이터 사용)
     TEST_MODE = os.getenv('TEST_MODE', 'false').lower() == 'true'
@@ -537,7 +537,7 @@ class StockScanner:
             self.results = []
 
             if scan_date is None:
-                scan_date = (datetime.now() - timedelta(days=1)).strftime('%Y%m%d')
+                scan_date = datetime.now().strftime('%Y%m%d')
 
             logger.info(f"기준 날짜: {scan_date}")
 
