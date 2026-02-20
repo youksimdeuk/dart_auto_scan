@@ -143,6 +143,11 @@
       "scan_date": "20260220",
       "stocks": [
         {
+          "ticker": "437730",
+          "name": "삼현",
+          "base_price": 49150
+        },
+        {
           "ticker": "489460",
           "name": "바이오비쥬",
           "base_price": 11920
