@@ -43,17 +43,12 @@ class Config:
     # 필터 조건
     VOLUME_RATIO = 2.5                      # 거래량 배수
     PRICE_DROP_PCT = -4.0                   # 주가 하락률 (%)
-    FOREIGN_BUY_SIGNAL = True               # 외국인순매수 신호
-    
+
     # API 설정
-    REQUEST_TIMEOUT = 10
-    REQUEST_RETRY = 3
-    
+    REQUEST_TIMEOUT = 10                    # 텔레그램 API 타임아웃 (초)
+
     # 실행 설정
     RUN_TIME = "18:00"                      # 오후 6시 (한국 기준)
-    
-    # 테스트 모드 (True 시 더미 데이터 사용)
-    TEST_MODE = os.getenv('TEST_MODE', 'false').lower() == 'true'
 
 
 # ============================================================================
@@ -67,32 +62,38 @@ class StockDataFetcher:
         # 날짜별 전종목 종가 캐시 {date: {ticker: price}} - 백테스트 follow-up 중복 API 방지
         self._price_cache: Dict[str, Dict[str, int]] = {}
 
+    def _fetch_ohlcv_df(self, date: str, market: str):
+        """단일 시장 OHLCV DataFrame 반환 (공통 호출 래퍼)"""
+        try:
+            df = pykrx_stock.get_market_ohlcv_by_ticker(date, market=market)
+            return df if df is not None and not df.empty else None
+        except Exception as e:
+            logger.error(f"{market} OHLCV 수집 실패 ({date}): {e}")
+            return None
+
     def get_all_ohlcv(self, target_date: str) -> Dict[str, Dict]:
         """
-        KOSPI+KOSDAQ 전종목 OHLCV를 bulk API로 한번에 수집 (API 2회 호출)
-        Returns: {ticker: {current_price, volume}}
+        KOSPI+KOSDAQ 전종목 OHLCV bulk 수집 (API 2회 호출)
+        Returns: {ticker: {current_price, volume, ...}}
         """
         result = {}
         for market in ['KOSPI', 'KOSDAQ']:
-            try:
-                df = pykrx_stock.get_market_ohlcv_by_ticker(target_date, market=market)
-                if df is not None and not df.empty:
-                    for ticker in df.index:
-                        row = df.loc[ticker]
-                        close = int(row.get('종가', 0))
-                        volume = int(row.get('거래량', 0))
-                        if close > 0 and volume > 0:
-                            result[ticker] = {
-                                'ticker': ticker,
-                                'current_price': close,
-                                'volume': volume,
-                                'prev_close': 0,
-                                'prev_volume': 0,
-                                'foreign_cumulative': 0
-                            }
-                    logger.info(f"{market} bulk 수집: {len(df)}종목")
-            except Exception as e:
-                logger.error(f"{market} OHLCV bulk 수집 실패: {e}")
+            df = self._fetch_ohlcv_df(target_date, market)
+            if df is not None:
+                for ticker in df.index:
+                    row = df.loc[ticker]
+                    close = int(row.get('종가', 0))
+                    volume = int(row.get('거래량', 0))
+                    if close > 0 and volume > 0:
+                        result[ticker] = {
+                            'ticker': ticker,
+                            'current_price': close,
+                            'volume': volume,
+                            'prev_close': 0,
+                            'prev_volume': 0,
+                            'foreign_cumulative': 0
+                        }
+                logger.info(f"{market} bulk 수집: {len(df)}종목")
         return result
 
     def get_prev_ohlcv(self, target_date: str) -> Dict[str, Dict]:
@@ -105,18 +106,15 @@ class StockDataFetcher:
             result = {}
             found = False
             for market in ['KOSPI', 'KOSDAQ']:
-                try:
-                    df = pykrx_stock.get_market_ohlcv_by_ticker(prev_date, market=market)
-                    if df is not None and not df.empty:
-                        for ticker in df.index:
-                            row = df.loc[ticker]
-                            result[ticker] = {
-                                'prev_close': int(row.get('종가', 0)),
-                                'prev_volume': int(row.get('거래량', 0))
-                            }
-                        found = True
-                except Exception as e:
-                    logger.error(f"{market} 전일 OHLCV 수집 실패 ({prev_date}): {e}")
+                df = self._fetch_ohlcv_df(prev_date, market)
+                if df is not None:
+                    for ticker in df.index:
+                        row = df.loc[ticker]
+                        result[ticker] = {
+                            'prev_close': int(row.get('종가', 0)),
+                            'prev_volume': int(row.get('거래량', 0))
+                        }
+                    found = True
             if found:
                 logger.info(f"전일 데이터 기준일: {prev_date} ({len(result)}종목)")
                 return result
@@ -130,15 +128,12 @@ class StockDataFetcher:
         if target_date not in self._price_cache:
             day_prices: Dict[str, int] = {}
             for market in ['KOSPI', 'KOSDAQ']:
-                try:
-                    df = pykrx_stock.get_market_ohlcv_by_ticker(target_date, market=market)
-                    if df is not None and not df.empty:
-                        for t in df.index:
-                            price = int(df.loc[t].get('종가', 0))
-                            if price > 0:
-                                day_prices[t] = price
-                except Exception as e:
-                    logger.debug(f"캐시 수집 실패 ({target_date}, {market}): {e}")
+                df = self._fetch_ohlcv_df(target_date, market)
+                if df is not None:
+                    for t in df.index:
+                        price = int(df.loc[t].get('종가', 0))
+                        if price > 0:
+                            day_prices[t] = price
             self._price_cache[target_date] = day_prices
             logger.debug(f"가격 캐시 저장: {target_date} ({len(day_prices)}종목)")
 
@@ -147,29 +142,27 @@ class StockDataFetcher:
             return {'ticker': ticker, 'current_price': price}
         return None
 
-    def get_foreign_buy_data_by_date(self, ticker: str, target_date: str) -> Tuple[float, float]:
+    def get_foreign_buy_data_by_date(self, ticker: str, target_date: str) -> int:
         """
-        특정 날짜 기준 외국인 10일 누적 순매수 (개별 종목 - 필터 통과 종목에만 호출)
+        특정 날짜 기준 외국인 10영업일 누적 순매수 (개별 종목 - 필터 통과 종목에만 호출)
         """
         try:
-            end_date = target_date
-            # 10 영업일 기준 (주말 제외) - pd.bdate_range로 정확한 영업일 계산
             end_dt = datetime.strptime(target_date, '%Y%m%d')
             start_date = pd.bdate_range(end=end_dt, periods=10)[0].strftime('%Y%m%d')
 
             investor_data = pykrx_stock.get_market_trading_volume_by_investor(
-                start_date, end_date, ticker
+                start_date, target_date, ticker
             )
 
             if investor_data is not None and not investor_data.empty:
                 if '외국인' in investor_data.index:
                     foreign_net_buy = int(investor_data.loc['외국인', '순매수'])
-                    logger.debug(f"[{ticker}] 외국인 10일 순매수: {foreign_net_buy}")
-                    return foreign_net_buy, foreign_net_buy
+                    logger.debug(f"[{ticker}] 외국인 10영업일 순매수: {foreign_net_buy}")
+                    return foreign_net_buy
 
         except Exception as e:
             logger.debug(f"외국인 데이터 수집 실패 {ticker}: {e}")
-        return 0, 0
+        return 0
 
 
 
@@ -234,9 +227,7 @@ class StockFilter:
             all_conditions_met = all(conditions_met.values())
             
             return all_conditions_met, {
-                'conditions': conditions_met,
-                'scores': scores,
-                'total_score': sum(scores.values()) // 3,  # 평균 스코어
+                'total_score': sum(scores.values()) // 3,
                 'volume_ratio': round(volume_ratio, 2),
                 'price_change_pct': round(price_change_pct, 2),
                 'foreign_cumulative': int(foreign_cumulative)
@@ -255,28 +246,20 @@ class StockAnalyzer:
     """주식 분석 클래스"""
     
     @staticmethod
-    def format_stock_message(ticker: str, stock_data: Dict, name: str, filter_result: Dict = None) -> str:
-        """종목 메시지 포맷팅 (상세 정보 포함)"""
+    def format_stock_message(ticker: str, stock_data: Dict, name: str, filter_result: Dict) -> str:
+        """종목 메시지 포맷팅"""
         try:
-            change_pct = ((stock_data.get('current_price', 0) - stock_data.get('prev_close', 0)) / stock_data.get('prev_close', 1) * 100)
-            
-            message = f"✅ {name} ({ticker})\n"
-            message += f"현재가: {stock_data.get('current_price', 'N/A'):,}원\n"
-            
-            # 필터 결과에서 상세 정보 추출
-            if filter_result:
-                volume_ratio = filter_result.get('volume_ratio', 0)
-                price_drop = filter_result.get('price_change_pct', 0)
-                foreign_buy = filter_result.get('foreign_cumulative', 0)
-                
-                message += f"📊 거래량: {volume_ratio}배 증가\n"
-                message += f"📉 주가: {price_drop:.2f}% 하락\n"
-                message += f"🌍 10일 외국인 순매수: {foreign_buy:,}주\n"
-            else:
-                message += f"변화율: {change_pct:.2f}%\n"
-            
-            return message
-            
+            volume_ratio = filter_result.get('volume_ratio', 0)
+            price_drop = filter_result.get('price_change_pct', 0)
+            foreign_buy = filter_result.get('foreign_cumulative', 0)
+
+            return (
+                f"✅ {name} ({ticker})\n"
+                f"현재가: {stock_data.get('current_price', 0):,}원\n"
+                f"📊 거래량: {volume_ratio}배 증가\n"
+                f"📉 주가: {price_drop:.2f}% 하락\n"
+                f"🌍 10영업일 외국인 순매수: {foreign_buy:,}주\n"
+            )
         except Exception as e:
             logger.error(f"메시지 포맷 오류: {e}")
             return f"오류: {ticker}"
@@ -309,10 +292,10 @@ class TelegramSender:
                 'parse_mode': 'HTML'
             }
             
-            response = requests.post(url, data=data, timeout=10)
-            
+            response = requests.post(url, data=data, timeout=Config.REQUEST_TIMEOUT)
+
             if response.status_code == 200:
-                logger.info("텔레그램 메시지 발송 성공")
+                logger.debug("텔레그램 메시지 발송 성공")
                 return True
             else:
                 logger.error(f"텔레그램 발송 실패: {response.status_code}")
@@ -568,7 +551,7 @@ class StockScanner:
                 except Exception:
                     name = ticker
 
-                _, cumulative = self.fetcher.get_foreign_buy_data_by_date(ticker, scan_date)
+                cumulative = self.fetcher.get_foreign_buy_data_by_date(ticker, scan_date)
                 stock_data['foreign_cumulative'] = cumulative
 
                 conditions_met, filter_result = self.filter.check_conditions(stock_data)
@@ -687,21 +670,19 @@ def main():
         logger.warning("⚠️ 텔레그램 토큰이 설정되지 않았습니다.")
         logger.warning("   Config.TELEGRAM_BOT_TOKEN 을 수정하세요.\n")
     
-    scheduler = AutoStockScheduler()
-    
     # 인자 확인
     if len(sys.argv) > 1 and sys.argv[1] == '--test':
         # 테스트 모드: 한 번만 실행
         logger.info("🧪 테스트 모드로 실행\n")
-        scheduler.run_once()
+        AutoStockScheduler().run_once()
     elif len(sys.argv) > 1 and sys.argv[1].startswith('--date='):
         # 특정 날짜 모드: 해당 날짜 데이터로 스캔
         scan_date = sys.argv[1].replace('--date=', '')
         logger.info(f"📅 특정 날짜 모드: {scan_date}\n")
         StockScanner().execute(scan_date=scan_date)
     else:
-        # 스케줄 모드: 매일 오후 4시 자동 실행
-        scheduler.start()
+        # 스케줄 모드: 매일 오후 6시 자동 실행
+        AutoStockScheduler().start()
 
 
 if __name__ == "__main__":
