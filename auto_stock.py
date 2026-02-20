@@ -556,6 +556,7 @@ class StockScanner:
             logger.info(f"1+2차 필터 통과 (거래량+가격): {len(candidates)}종목 → 외국인 데이터 조회")
 
             # 4. 후보 종목만 외국인 데이터 개별 조회 + 3차 필터
+            results = []
             for ticker, stock_data, volume_ratio, price_change in candidates:
                 try:
                     name = pykrx_stock.get_market_ticker_name(ticker) or ticker
@@ -569,7 +570,7 @@ class StockScanner:
 
                 if conditions_met:
                     message = self.analyzer.format_stock_message(ticker, stock_data, name, filter_result)
-                    self.results.append({
+                    results.append({
                         'ticker': ticker,
                         'name': name,
                         'message': message,
@@ -578,12 +579,12 @@ class StockScanner:
                     })
                     logger.info(f"✓ {name} ({ticker}) 거래량{volume_ratio:.1f}배 / {price_change:.1f}% / 외국인 {cumulative:+,}주")
 
-            self.results.sort(key=lambda x: x['score'], reverse=True)
+            results.sort(key=lambda x: x['score'], reverse=True)
             self.total_scanned = len(today_data)
-            logger.info(f"스캔 완료: {len(today_data)}종목 검사 → {len(self.results)}종목 통과")
+            logger.info(f"스캔 완료: {len(today_data)}종목 검사 → {len(results)}종목 통과")
 
             self.last_scan_date = scan_date
-            return self.results
+            return results
             
         except Exception as e:
             logger.error(f"스캔 오류: {e}", exc_info=True)
