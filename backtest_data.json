@@ -134,6 +134,35 @@
           "base_price": 5240
         }
       ],
+      "sent_followups": [
+        3,
+        5
+      ]
+    },
+    {
+      "scan_date": "20260220",
+      "stocks": [
+        {
+          "ticker": "489460",
+          "name": "바이오비쥬",
+          "base_price": 11920
+        },
+        {
+          "ticker": "131760",
+          "name": "파인텍",
+          "base_price": 632
+        },
+        {
+          "ticker": "361670",
+          "name": "삼영에스앤씨",
+          "base_price": 2870
+        },
+        {
+          "ticker": "488280",
+          "name": "에스투더블유",
+          "base_price": 19840
+        }
+      ],
       "sent_followups": []
     }
   ]
