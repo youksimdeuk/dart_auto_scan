@@ -169,6 +169,47 @@
         }
       ],
       "sent_followups": []
+    },
+    {
+      "scan_date": "20260224",
+      "stocks": [
+        {
+          "ticker": "403870",
+          "name": "HPSP",
+          "base_price": 40950
+        },
+        {
+          "ticker": "288330",
+          "name": "파라택시스코리아",
+          "base_price": 690
+        },
+        {
+          "ticker": "078860",
+          "name": "스테이지원엔터",
+          "base_price": 654
+        },
+        {
+          "ticker": "308430",
+          "name": "셀비온",
+          "base_price": 30900
+        },
+        {
+          "ticker": "058450",
+          "name": "한주에이알티",
+          "base_price": 794
+        },
+        {
+          "ticker": "267290",
+          "name": "경동도시가스",
+          "base_price": 22750
+        },
+        {
+          "ticker": "221800",
+          "name": "유투바이오",
+          "base_price": 19970
+        }
+      ],
+      "sent_followups": []
     }
   ]
 }
