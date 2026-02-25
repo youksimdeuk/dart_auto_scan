@@ -168,7 +168,9 @@
           "base_price": 19840
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260224",
@@ -207,6 +209,57 @@
           "ticker": "221800",
           "name": "유투바이오",
           "base_price": 19970
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260225",
+      "stocks": [
+        {
+          "ticker": "078860",
+          "name": "스테이지원엔터",
+          "base_price": 458
+        },
+        {
+          "ticker": "313760",
+          "name": "캐리",
+          "base_price": 575
+        },
+        {
+          "ticker": "307870",
+          "name": "비투엔",
+          "base_price": 1012
+        },
+        {
+          "ticker": "250930",
+          "name": "예선테크",
+          "base_price": 474
+        },
+        {
+          "ticker": "058450",
+          "name": "한주에이알티",
+          "base_price": 716
+        },
+        {
+          "ticker": "189980",
+          "name": "흥국에프엔비",
+          "base_price": 1788
+        },
+        {
+          "ticker": "115480",
+          "name": "씨유메디칼",
+          "base_price": 550
+        },
+        {
+          "ticker": "008600",
+          "name": "윌비스",
+          "base_price": 277
+        },
+        {
+          "ticker": "001540",
+          "name": "안국약품",
+          "base_price": 8800
         }
       ],
       "sent_followups": []
