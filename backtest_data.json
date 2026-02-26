@@ -263,6 +263,72 @@
         }
       ],
       "sent_followups": []
+    },
+    {
+      "scan_date": "20260226",
+      "stocks": [
+        {
+          "ticker": "009270",
+          "name": "신원",
+          "base_price": 1484
+        },
+        {
+          "ticker": "224060",
+          "name": "더코디",
+          "base_price": 3550
+        },
+        {
+          "ticker": "187420",
+          "name": "HLB제넥스",
+          "base_price": 2685
+        },
+        {
+          "ticker": "093320",
+          "name": "케이아이엔엑스",
+          "base_price": 117200
+        },
+        {
+          "ticker": "308100",
+          "name": "형지글로벌",
+          "base_price": 1174
+        },
+        {
+          "ticker": "041920",
+          "name": "메디아나",
+          "base_price": 21400
+        },
+        {
+          "ticker": "001420",
+          "name": "태원물산",
+          "base_price": 2930
+        },
+        {
+          "ticker": "060310",
+          "name": "3S",
+          "base_price": 1329
+        },
+        {
+          "ticker": "199730",
+          "name": "바이오인프라",
+          "base_price": 4005
+        },
+        {
+          "ticker": "049550",
+          "name": "잉크테크",
+          "base_price": 3305
+        },
+        {
+          "ticker": "413640",
+          "name": "비아이매트릭스",
+          "base_price": 9150
+        },
+        {
+          "ticker": "318160",
+          "name": "셀바이오휴먼텍",
+          "base_price": 7160
+        }
+      ],
+      "sent_followups": []
     }
   ]
 }
