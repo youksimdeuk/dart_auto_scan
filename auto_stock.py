@@ -401,8 +401,13 @@ class BacktestTracker:
 
     def _get_price_on_or_after(self, ticker: str, target_date: str) -> Tuple[Optional[int], Optional[str]]:
         """target_date 이후 가장 가까운 거래일의 종가 반환 (최대 5영업일 탐색)"""
+        today = datetime.now().date()
         for offset in range(6):
-            check_date = (datetime.strptime(target_date, '%Y%m%d') + timedelta(days=offset)).strftime('%Y%m%d')
+            check_dt = datetime.strptime(target_date, '%Y%m%d') + timedelta(days=offset)
+            # 아직 도래하지 않은 미래 날짜는 조회하지 않는다.
+            if check_dt.date() > today:
+                break
+            check_date = check_dt.strftime('%Y%m%d')
             data = self.fetcher.get_stock_data_by_date(ticker, check_date)
             if data and data.get('current_price', 0) > 0:
                 return data['current_price'], check_date
@@ -424,15 +429,20 @@ class BacktestTracker:
             for follow_days in self.FOLLOW_UP_DAYS:
                 already_sent = follow_days in scan.get('sent_followups', [])
                 if bdays_elapsed >= follow_days and not already_sent:
-                    self._send_followup_message(scan, follow_days)
-                    scan.setdefault('sent_followups', []).append(follow_days)
-                    changed = True
+                    sent = self._send_followup_message(scan, follow_days)
+                    if sent:
+                        scan.setdefault('sent_followups', []).append(follow_days)
+                        changed = True
+                    else:
+                        logger.warning(
+                            f"백테스트 {follow_days}일 후 전송 보류 (기준일: {scan['scan_date']}) - 다음 실행에서 재시도"
+                        )
 
         if changed:
             self._save_data()
 
-    def _send_followup_message(self, scan: Dict, follow_days: int) -> None:
-        """follow-up 수익률 메시지 생성 및 발송"""
+    def _send_followup_message(self, scan: Dict, follow_days: int) -> bool:
+        """follow-up 수익률 메시지 생성 및 발송 (전송 성공 시 True)"""
         scan_date = scan['scan_date']
         # N 영업일 후 날짜 계산 (주말 제외)
         scan_dt = datetime.strptime(scan_date, '%Y%m%d')
@@ -448,6 +458,7 @@ class BacktestTracker:
         ]
 
         gains = []
+        resolved_prices = 0
         for stock in scan['stocks']:
             ticker = stock['ticker']
             name = stock['name']
@@ -460,6 +471,7 @@ class BacktestTracker:
             target_price, actual_date = self._get_price_on_or_after(ticker, target_date)
 
             if target_price:
+                resolved_prices += 1
                 change_pct = (target_price - base_price) / base_price * 100
                 emoji = "📈" if change_pct >= 0 else "📉"
                 gains.append(change_pct)
@@ -467,6 +479,11 @@ class BacktestTracker:
                 lines.append(f"{emoji} {name}: {base_price:,}원 → {target_price:,}원 ({change_pct:+.2f}%){note}")
             else:
                 lines.append(f"❓ {name} ({ticker}): 데이터 없음")
+
+        # 전 종목 가격 조회 실패 시 알림/기록을 생략하고 다음 실행에서 재시도한다.
+        if resolved_prices == 0:
+            logger.warning(f"백테스트 {follow_days}일 후 유효 가격 0건 (기준일: {scan_date})")
+            return False
 
         if gains:
             avg = sum(gains) / len(gains)
@@ -477,6 +494,7 @@ class BacktestTracker:
 
         self.telegram.send_message("\n".join(lines))
         logger.info(f"백테스트 {follow_days}일 후 메시지 발송 완료 (기준일: {scan_date})")
+        return True
 
 
 # ============================================================================
