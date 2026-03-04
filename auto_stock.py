@@ -82,8 +82,10 @@ class KrxSessionAuth:
     """data.krx.co.kr 로그인 세션 확보 및 pykrx 주입"""
 
     LOGIN_URL_CANDIDATES = [
+        "https://data.krx.co.kr/comm/authService/login/login.do",
         "https://data.krx.co.kr/comm/login/login.do",
         "https://data.krx.co.kr/comm/bldAttendant/login/login.do",
+        "https://data.krx.co.kr/comm/user/login/login.do",
     ]
 
     def __init__(self, user_id: str, password: str, timeout: int = 10):
@@ -136,6 +138,9 @@ class KrxSessionAuth:
         payload_candidates = [
             {"loginId": self.user_id, "loginPw": self.password},
             {"userId": self.user_id, "userPw": self.password},
+            {"user_id": self.user_id, "user_pw": self.password},
+            {"mbrId": self.user_id, "mbrPw": self.password},
+            {"usrId": self.user_id, "usrPwd": self.password},
             {"id": self.user_id, "password": self.password},
         ]
 
@@ -167,8 +172,14 @@ class KrxOpenApiFetcher:
     """KRX OpenAPI를 통한 전종목 OHLCV bulk 조회"""
 
     ENDPOINTS = {
-        'KOSPI': "https://data-dbg.krx.co.kr/svc/apis/sto/stk_bydd_trd",
-        'KOSDAQ': "https://data-dbg.krx.co.kr/svc/apis/sto/ksq_bydd_trd",
+        'KOSPI': [
+            "https://data-dbg.krx.co.kr/svc/apis/sto/stk_bydd_trd",
+            "http://data-dbg.krx.co.kr/svc/apis/sto/stk_bydd_trd",
+        ],
+        'KOSDAQ': [
+            "https://data-dbg.krx.co.kr/svc/apis/sto/ksq_bydd_trd",
+            "http://data-dbg.krx.co.kr/svc/apis/sto/ksq_bydd_trd",
+        ],
     }
 
     def __init__(self, api_key: str, timeout: int = 10):
@@ -232,36 +243,59 @@ class KrxOpenApiFetcher:
                         return nested
         return []
 
-    def _request_rows(self, url: str, target_date: str) -> List[Dict]:
+    def _request_rows(self, urls: List[str], market: str, target_date: str) -> List[Dict]:
         if not self.api_key:
             return []
 
         headers = {"AUTH_KEY": self.api_key}
         date_keys = ('basDd', 'basDt', 'trdDd', 'date')
-        request_modes = ('data', 'params', 'json')
 
-        for date_key in date_keys:
-            payload = {date_key: target_date}
-            for mode in request_modes:
-                kwargs = {'headers': headers, 'timeout': self.timeout, mode: payload}
+        for url in urls:
+            for date_key in date_keys:
+                payload = {date_key: target_date}
+
+                # 공식 예시 형태(GET + basDd) 우선 시도
                 try:
-                    resp = self.session.post(url, **kwargs)
+                    resp = self.session.get(
+                        url,
+                        headers=headers,
+                        params=payload,
+                        timeout=self.timeout
+                    )
                     if resp.status_code != 200:
+                        if resp.status_code in (401, 403):
+                            logger.warning(
+                                f"{market} KRX OpenAPI 인증 실패({resp.status_code}) - AUTH_KEY 확인 필요"
+                            )
                         continue
                     rows = self._extract_rows(resp.json())
                     if rows:
                         return rows
                 except Exception as e:
-                    logger.debug(f"KRX OpenAPI 요청 실패 ({url}, {mode}, {date_key}): {e}")
+                    logger.debug(f"KRX OpenAPI GET 요청 실패 ({market}, {url}, {date_key}): {e}")
+
+                # 일부 구간 호환을 위해 POST(data/json)도 순차 시도
+                for mode in ('data', 'json'):
+                    kwargs = {'headers': headers, 'timeout': self.timeout, mode: payload}
+                    try:
+                        resp = self.session.post(url, **kwargs)
+                        if resp.status_code != 200:
+                            continue
+                        rows = self._extract_rows(resp.json())
+                        if rows:
+                            return rows
+                    except Exception as e:
+                        logger.debug(f"KRX OpenAPI POST 요청 실패 ({market}, {url}, {mode}, {date_key}): {e}")
         return []
 
     def fetch_market_ohlcv_df(self, target_date: str, market: str) -> Optional[pd.DataFrame]:
-        url = self.ENDPOINTS.get(market)
-        if not url:
+        urls = self.ENDPOINTS.get(market)
+        if not urls:
             return None
 
-        rows = self._request_rows(url, target_date)
+        rows = self._request_rows(urls=urls, market=market, target_date=target_date)
         if not rows:
+            logger.warning(f"{market} KRX OpenAPI 응답 rows 없음 ({target_date})")
             return None
 
         parsed: Dict[str, Dict[str, Any]] = {}
