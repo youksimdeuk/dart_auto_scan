@@ -27,6 +27,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests pandas numpy apscheduler beautifulsoup4 lxml pykrx
 
+      - name: Probe KRX API auth (non-blocking)
+        continue-on-error: true
+        env:
+          KRX_API_KEY: ${{ secrets.KRX_API_KEY }}
+        run: |
+          python check_krx_api_auth.py
+
       - name: Run stock scanner
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
