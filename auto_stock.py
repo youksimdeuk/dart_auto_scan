@@ -247,45 +247,50 @@ class KrxOpenApiFetcher:
         if not self.api_key:
             return []
 
-        headers = {"AUTH_KEY": self.api_key}
+        headers_candidates = [
+            {"AUTH_KEY": self.api_key},
+            {"AUTH-KEY": self.api_key},
+            {"auth_key": self.api_key},
+        ]
         date_keys = ('basDd', 'basDt', 'trdDd', 'date')
 
         for url in urls:
             for date_key in date_keys:
                 payload = {date_key: target_date}
 
-                # 공식 예시 형태(GET + basDd) 우선 시도
-                try:
-                    resp = self.session.get(
-                        url,
-                        headers=headers,
-                        params=payload,
-                        timeout=self.timeout
-                    )
-                    if resp.status_code != 200:
-                        if resp.status_code in (401, 403):
-                            logger.warning(
-                                f"{market} KRX OpenAPI 인증 실패({resp.status_code}) - AUTH_KEY 확인 필요"
-                            )
-                        continue
-                    rows = self._extract_rows(resp.json())
-                    if rows:
-                        return rows
-                except Exception as e:
-                    logger.debug(f"KRX OpenAPI GET 요청 실패 ({market}, {url}, {date_key}): {e}")
-
-                # 일부 구간 호환을 위해 POST(data/json)도 순차 시도
-                for mode in ('data', 'json'):
-                    kwargs = {'headers': headers, 'timeout': self.timeout, mode: payload}
+                for headers in headers_candidates:
+                    # 공식 예시 형태(GET + basDd) 우선 시도
                     try:
-                        resp = self.session.post(url, **kwargs)
+                        resp = self.session.get(
+                            url,
+                            headers=headers,
+                            params=payload,
+                            timeout=self.timeout
+                        )
                         if resp.status_code != 200:
+                            if resp.status_code in (401, 403):
+                                logger.warning(
+                                    f"{market} KRX OpenAPI 인증 실패({resp.status_code}) - AUTH_KEY 확인 필요"
+                                )
                             continue
                         rows = self._extract_rows(resp.json())
                         if rows:
                             return rows
                     except Exception as e:
-                        logger.debug(f"KRX OpenAPI POST 요청 실패 ({market}, {url}, {mode}, {date_key}): {e}")
+                        logger.debug(f"KRX OpenAPI GET 요청 실패 ({market}, {url}, {date_key}): {e}")
+
+                    # 일부 구간 호환을 위해 POST(data/json)도 순차 시도
+                    for mode in ('data', 'json'):
+                        kwargs = {'headers': headers, 'timeout': self.timeout, mode: payload}
+                        try:
+                            resp = self.session.post(url, **kwargs)
+                            if resp.status_code != 200:
+                                continue
+                            rows = self._extract_rows(resp.json())
+                            if rows:
+                                return rows
+                        except Exception as e:
+                            logger.debug(f"KRX OpenAPI POST 요청 실패 ({market}, {url}, {mode}, {date_key}): {e}")
         return []
 
     def fetch_market_ohlcv_df(self, target_date: str, market: str) -> Optional[pd.DataFrame]:
