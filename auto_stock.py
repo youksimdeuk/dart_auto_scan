@@ -12,8 +12,9 @@ import requests
 import json
 import os
 import socket
+import re
 from datetime import datetime, timedelta
-from typing import List, Dict, Tuple, Optional
+from typing import Any, List, Dict, Tuple, Optional
 import logging
 from apscheduler.schedulers.blocking import BlockingScheduler
 from apscheduler.triggers.cron import CronTrigger
@@ -39,6 +40,11 @@ class Config:
     # 텔레그램 토큰, 채팅 ID (환경변수에서 읽기)
     TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN', "8587133354:AAFo1AviKo7ENcW55F8mnDhFniS-PsAmHgY")
     TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID', "1249787976")
+
+    # KRX 인증/조회 설정
+    KRX_API_KEY = os.getenv('KRX_API_KEY', '')
+    KRX_USER_ID = os.getenv('KRX_USER_ID', '')
+    KRX_PASSWORD = os.getenv('KRX_PASSWORD', '')
     
     # 필터 조건
     VOLUME_RATIO = 2.5                      # 거래량 배수
@@ -46,6 +52,7 @@ class Config:
 
     # API 설정
     REQUEST_TIMEOUT = 10                    # 텔레그램 API 타임아웃 (초)
+    KRX_API_TIMEOUT = 10                    # KRX API 타임아웃 (초)
 
     # 실행 설정
     RUN_TIME = "18:00"                      # 오후 6시 (한국 기준)
@@ -55,15 +62,255 @@ class Config:
 # 데이터 수집 (DATA FETCHER)
 # ============================================================================
 
+class SessionRequestsAdapter:
+    """pykrx webio.requests 대체용 어댑터 (requests-like interface)"""
+
+    def __init__(self, session: requests.Session, timeout: int):
+        self._session = session
+        self._timeout = timeout
+
+    def get(self, url: str, **kwargs):
+        kwargs.setdefault('timeout', self._timeout)
+        return self._session.get(url, **kwargs)
+
+    def post(self, url: str, **kwargs):
+        kwargs.setdefault('timeout', self._timeout)
+        return self._session.post(url, **kwargs)
+
+
+class KrxSessionAuth:
+    """data.krx.co.kr 로그인 세션 확보 및 pykrx 주입"""
+
+    LOGIN_URL_CANDIDATES = [
+        "https://data.krx.co.kr/comm/login/login.do",
+        "https://data.krx.co.kr/comm/bldAttendant/login/login.do",
+    ]
+
+    def __init__(self, user_id: str, password: str, timeout: int = 10):
+        self.user_id = user_id
+        self.password = password
+        self.timeout = timeout
+        self.session = requests.Session()
+        self.session.headers.update({
+            "User-Agent": "Mozilla/5.0",
+            "Referer": "https://data.krx.co.kr/contents/MDC/MDI/outerLoader/index.cmd",
+        })
+
+    def _is_login_success(self, response: requests.Response) -> bool:
+        if response.status_code != 200:
+            return False
+
+        try:
+            payload = response.json()
+            if isinstance(payload, dict):
+                for key in ('success', 'isSuccess'):
+                    if payload.get(key) is True:
+                        return True
+                code = str(payload.get('code', payload.get('resultCode', payload.get('resultCd', '')))).upper()
+                if code in ('0', '00', 'S', 'SUCCESS'):
+                    return True
+        except ValueError:
+            pass
+
+        if self.session.cookies:
+            text = response.text.lower()
+            fail_markers = ('fail', 'error', 'invalid', '로그인 실패')
+            return not any(marker in text for marker in fail_markers)
+
+        return False
+
+    def login(self) -> bool:
+        if not self.user_id or not self.password:
+            logger.warning("KRX 로그인 계정이 없어 외국인 순매수 조회를 비활성화합니다.")
+            return False
+
+        # 세션 쿠키 초기화
+        try:
+            self.session.get(
+                "https://data.krx.co.kr/contents/MDC/MDI/mdiLoader/index.cmd",
+                timeout=self.timeout
+            )
+        except Exception as e:
+            logger.debug(f"KRX 로그인 사전 요청 실패(무시): {e}")
+
+        payload_candidates = [
+            {"loginId": self.user_id, "loginPw": self.password},
+            {"userId": self.user_id, "userPw": self.password},
+            {"id": self.user_id, "password": self.password},
+        ]
+
+        for login_url in self.LOGIN_URL_CANDIDATES:
+            for payload in payload_candidates:
+                try:
+                    resp = self.session.post(login_url, data=payload, timeout=self.timeout)
+                    if self._is_login_success(resp):
+                        logger.info(f"KRX 로그인 성공 ({login_url})")
+                        return True
+                except Exception as e:
+                    logger.debug(f"KRX 로그인 시도 실패 ({login_url}): {e}")
+
+        logger.warning("KRX 로그인 실패: 외국인 순매수 조회를 건너뜁니다.")
+        return False
+
+    def inject_to_pykrx(self) -> bool:
+        try:
+            from pykrx.website.comm import webio
+            webio.requests = SessionRequestsAdapter(self.session, self.timeout)
+            logger.info("pykrx 요청 경로에 KRX 인증 세션을 주입했습니다.")
+            return True
+        except Exception as e:
+            logger.warning(f"pykrx 세션 주입 실패: {e}")
+            return False
+
+
+class KrxOpenApiFetcher:
+    """KRX OpenAPI를 통한 전종목 OHLCV bulk 조회"""
+
+    ENDPOINTS = {
+        'KOSPI': "https://data-dbg.krx.co.kr/svc/apis/sto/stk_bydd_trd",
+        'KOSDAQ': "https://data-dbg.krx.co.kr/svc/apis/sto/ksq_bydd_trd",
+    }
+
+    def __init__(self, api_key: str, timeout: int = 10):
+        self.api_key = (api_key or '').strip()
+        self.timeout = timeout
+        self.session = requests.Session()
+        self.session.headers.update({
+            "User-Agent": "Mozilla/5.0",
+            "Accept": "application/json",
+        })
+
+    @staticmethod
+    def _to_int(value: Any) -> int:
+        if value is None:
+            return 0
+        if isinstance(value, (int, float)):
+            return int(value)
+        text = str(value).strip().replace(',', '')
+        if text in ('', '-', '--'):
+            return 0
+        try:
+            return int(float(text))
+        except ValueError:
+            return 0
+
+    @staticmethod
+    def _normalize_ticker(raw: Any) -> str:
+        text = str(raw or '').strip().upper()
+        if not text:
+            return ''
+        if text.startswith('A') and len(text) >= 7 and text[1:7].isdigit():
+            return text[1:7]
+        m = re.search(r'(\d{6})$', text)
+        if m:
+            return m.group(1)
+        m = re.search(r'(\d{6})', text)
+        if m:
+            return m.group(1)
+        return text
+
+    @staticmethod
+    def _extract_rows(payload: Any) -> List[Dict]:
+        if isinstance(payload, list):
+            return [row for row in payload if isinstance(row, dict)]
+
+        if not isinstance(payload, dict):
+            return []
+
+        preferred_keys = ('output', 'OutBlock_1', 'OutBlock1', 'data', 'result', 'items')
+        for key in preferred_keys:
+            value = payload.get(key)
+            if isinstance(value, list):
+                return [row for row in value if isinstance(row, dict)]
+
+        for value in payload.values():
+            if isinstance(value, list) and value and isinstance(value[0], dict):
+                return value
+            if isinstance(value, dict):
+                for nested in value.values():
+                    if isinstance(nested, list) and nested and isinstance(nested[0], dict):
+                        return nested
+        return []
+
+    def _request_rows(self, url: str, target_date: str) -> List[Dict]:
+        if not self.api_key:
+            return []
+
+        headers = {"AUTH_KEY": self.api_key}
+        date_keys = ('basDd', 'basDt', 'trdDd', 'date')
+        request_modes = ('data', 'params', 'json')
+
+        for date_key in date_keys:
+            payload = {date_key: target_date}
+            for mode in request_modes:
+                kwargs = {'headers': headers, 'timeout': self.timeout, mode: payload}
+                try:
+                    resp = self.session.post(url, **kwargs)
+                    if resp.status_code != 200:
+                        continue
+                    rows = self._extract_rows(resp.json())
+                    if rows:
+                        return rows
+                except Exception as e:
+                    logger.debug(f"KRX OpenAPI 요청 실패 ({url}, {mode}, {date_key}): {e}")
+        return []
+
+    def fetch_market_ohlcv_df(self, target_date: str, market: str) -> Optional[pd.DataFrame]:
+        url = self.ENDPOINTS.get(market)
+        if not url:
+            return None
+
+        rows = self._request_rows(url, target_date)
+        if not rows:
+            return None
+
+        parsed: Dict[str, Dict[str, Any]] = {}
+        for row in rows:
+            ticker = self._normalize_ticker(
+                row.get('ISU_CD') or row.get('ISU_SRT_CD') or row.get('isuCd') or row.get('isuSrtCd')
+            )
+            if not ticker:
+                continue
+
+            close = self._to_int(row.get('TDD_CLSPRC') or row.get('tddClsprc'))
+            volume = self._to_int(row.get('ACC_TRDVOL') or row.get('accTrdvol'))
+            if close <= 0 or volume <= 0:
+                continue
+
+            name = str(row.get('ISU_NM') or row.get('isuNm') or '').strip() or ticker
+            parsed[ticker] = {
+                '종가': close,
+                '거래량': volume,
+                '종목명': name,
+            }
+
+        if not parsed:
+            return None
+
+        df = pd.DataFrame.from_dict(parsed, orient='index')
+        df.index.name = '티커'
+        return df
+
+
 class StockDataFetcher:
     """주식 데이터 수집 클래스"""
 
     def __init__(self):
         # 날짜별 전종목 종가 캐시 {date: {ticker: price}} - 백테스트 follow-up 중복 API 방지
         self._price_cache: Dict[str, Dict[str, int]] = {}
+        self.krx_openapi = KrxOpenApiFetcher(
+            api_key=Config.KRX_API_KEY,
+            timeout=Config.KRX_API_TIMEOUT
+        )
 
     def _fetch_ohlcv_df(self, date: str, market: str):
         """단일 시장 OHLCV DataFrame 반환 (공통 호출 래퍼)"""
+        if Config.KRX_API_KEY:
+            df = self.krx_openapi.fetch_market_ohlcv_df(date, market)
+            if df is not None and not df.empty:
+                return df
+            logger.warning(f"{market} KRX OpenAPI 데이터 없음 ({date}) - pykrx fallback 시도")
+
         try:
             df = pykrx_stock.get_market_ohlcv_by_ticker(date, market=market)
             return df if df is not None and not df.empty else None
@@ -84,9 +331,11 @@ class StockDataFetcher:
                     row = df.loc[ticker]
                     close = int(row.get('종가', 0))
                     volume = int(row.get('거래량', 0))
+                    name = str(row.get('종목명', ticker))
                     if close > 0 and volume > 0:
                         result[ticker] = {
                             'ticker': ticker,
+                            'name': name,
                             'current_price': close,
                             'volume': volume,
                             'prev_close': 0,
@@ -174,7 +423,7 @@ class StockFilter:
     """주식 필터링 클래스"""
     
     @staticmethod
-    def check_conditions(stock_data: Dict) -> Tuple[bool, Dict]:
+    def check_conditions(stock_data: Dict, require_foreign: bool = True) -> Tuple[bool, Dict]:
         """
         3가지 조건 검사
         1. 거래량 전날 대비 2.5배 이상
@@ -219,18 +468,25 @@ class StockFilter:
             
             # 조건 3: 외국인 순매수
             foreign_cumulative = stock_data.get('foreign_cumulative', 0)
-            if foreign_cumulative > 0:
+            if require_foreign and foreign_cumulative > 0:
                 conditions_met['foreign_buy'] = True
                 scores['foreign_buy'] = min(100, int(foreign_cumulative / 1000))
+            elif not require_foreign:
+                conditions_met['foreign_buy'] = True
             
             # 3가지 모두 만족 여부
             all_conditions_met = all(conditions_met.values())
+            active_scores = [scores['volume'], scores['price_drop']]
+            if require_foreign:
+                active_scores.append(scores['foreign_buy'])
+            total_score = sum(active_scores) // len(active_scores) if active_scores else 0
             
             return all_conditions_met, {
-                'total_score': sum(scores.values()) // 3,
+                'total_score': total_score,
                 'volume_ratio': round(volume_ratio, 2),
                 'price_change_pct': round(price_change_pct, 2),
-                'foreign_cumulative': int(foreign_cumulative)
+                'foreign_cumulative': int(foreign_cumulative),
+                'foreign_required': require_foreign,
             }
             
         except Exception as e:
@@ -252,13 +508,19 @@ class StockAnalyzer:
             volume_ratio = filter_result.get('volume_ratio', 0)
             price_drop = filter_result.get('price_change_pct', 0)
             foreign_buy = filter_result.get('foreign_cumulative', 0)
+            foreign_required = filter_result.get('foreign_required', True)
+
+            if foreign_required:
+                foreign_line = f"🌍 10영업일 외국인 순매수: {foreign_buy:,}주"
+            else:
+                foreign_line = "🌍 10영업일 외국인 순매수: 조회 스킵"
 
             return (
                 f"✅ {name} ({ticker})\n"
                 f"현재가: {stock_data.get('current_price', 0):,}원\n"
                 f"📊 거래량: {volume_ratio}배 증가\n"
                 f"📉 주가: {price_drop:.2f}% 하락\n"
-                f"🌍 10영업일 외국인 순매수: {foreign_buy:,}주\n"
+                f"{foreign_line}\n"
             )
         except Exception as e:
             logger.error(f"메시지 포맷 오류: {e}")
@@ -511,6 +773,35 @@ class StockScanner:
         self.telegram = TelegramSender(Config.TELEGRAM_BOT_TOKEN, Config.TELEGRAM_CHAT_ID)
         self.backtest = BacktestTracker(self.fetcher, self.telegram)
         self.last_scan_date = None
+        self.foreign_buy_enabled = False
+        self.foreign_auth_message = ""
+
+    @staticmethod
+    def _previous_business_day(date_str: str) -> str:
+        dt = datetime.strptime(date_str, '%Y%m%d').date() - timedelta(days=1)
+        while dt.weekday() >= 5:
+            dt -= timedelta(days=1)
+        return dt.strftime('%Y%m%d')
+
+    def _prepare_foreign_session(self) -> None:
+        """매 실행마다 KRX 로그인 후 pykrx에 세션을 주입"""
+        user_id = Config.KRX_USER_ID.strip()
+        password = Config.KRX_PASSWORD.strip()
+
+        if not user_id or not password:
+            self.foreign_buy_enabled = False
+            self.foreign_auth_message = "KRX_USER_ID/KRX_PASSWORD 미설정으로 외국인 순매수 조건을 스킵합니다."
+            logger.warning(self.foreign_auth_message)
+            return
+
+        auth = KrxSessionAuth(user_id=user_id, password=password, timeout=Config.KRX_API_TIMEOUT)
+        if auth.login() and auth.inject_to_pykrx():
+            self.foreign_buy_enabled = True
+            self.foreign_auth_message = ""
+        else:
+            self.foreign_buy_enabled = False
+            self.foreign_auth_message = "KRX 로그인/세션 주입 실패로 외국인 순매수 조건을 스킵합니다."
+            logger.warning(self.foreign_auth_message)
     
     def scan(self, scan_date: str = None) -> List[Dict]:
         """전종목 스캔 실행 (bulk API 방식 - API 4~6회 호출로 전종목 처리)"""
@@ -519,22 +810,26 @@ class StockScanner:
             logger.info(f"스캔 시작: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
             logger.info("=" * 60)
 
+            requested_date = scan_date or datetime.now().strftime('%Y%m%d')
             if scan_date is None:
-                scan_date = datetime.now().strftime('%Y%m%d')
+                data_date = self._previous_business_day(requested_date)
+                logger.info(f"요청 날짜: {requested_date} / 실제 조회 날짜(전 영업일): {data_date}")
+            else:
+                data_date = requested_date
 
-            logger.info(f"기준 날짜: {scan_date}")
+            logger.info(f"기준 날짜: {data_date}")
 
             # 1. 전종목 당일 OHLCV bulk 수집 (API 2회)
-            logger.info("당일 전종목 OHLCV 수집 중...")
-            today_data = self.fetcher.get_all_ohlcv(scan_date)
+            logger.info("기준일 전종목 OHLCV 수집 중...")
+            today_data = self.fetcher.get_all_ohlcv(data_date)
             if not today_data:
-                logger.warning("당일 데이터 없음 - 스캔 종료")
-                self.last_scan_date = scan_date
+                logger.warning("기준일 데이터 없음 - 스캔 종료")
+                self.last_scan_date = data_date
                 return []
 
             # 2. 전종목 전일 OHLCV bulk 수집 (API 2회)
             logger.info("전일 전종목 OHLCV 수집 중...")
-            prev_data = self.fetcher.get_prev_ohlcv(scan_date)
+            prev_data = self.fetcher.get_prev_ohlcv(data_date)
 
             logger.info(f"당일: {len(today_data)}종목 / 전일: {len(prev_data)}종목")
 
@@ -564,15 +859,18 @@ class StockScanner:
             # 4. 후보 종목만 외국인 데이터 개별 조회 + 3차 필터
             results = []
             for ticker, stock_data, volume_ratio, price_change in candidates:
-                try:
-                    name = pykrx_stock.get_market_ticker_name(ticker) or ticker
-                except Exception:
-                    name = ticker
+                name = stock_data.get('name', ticker)
 
-                cumulative = self.fetcher.get_foreign_buy_data_by_date(ticker, scan_date)
+                if self.foreign_buy_enabled:
+                    cumulative = self.fetcher.get_foreign_buy_data_by_date(ticker, data_date)
+                else:
+                    cumulative = 0
                 stock_data['foreign_cumulative'] = cumulative
 
-                conditions_met, filter_result = self.filter.check_conditions(stock_data)
+                conditions_met, filter_result = self.filter.check_conditions(
+                    stock_data,
+                    require_foreign=self.foreign_buy_enabled
+                )
 
                 if conditions_met:
                     message = self.analyzer.format_stock_message(ticker, stock_data, name, filter_result)
@@ -583,13 +881,16 @@ class StockScanner:
                         'score': filter_result.get('total_score', 0),
                         'base_price': stock_data.get('current_price', 0)
                     })
-                    logger.info(f"✓ {name} ({ticker}) 거래량{volume_ratio:.1f}배 / {price_change:.1f}% / 외국인 {cumulative:+,}주")
+                    if self.foreign_buy_enabled:
+                        logger.info(f"✓ {name} ({ticker}) 거래량{volume_ratio:.1f}배 / {price_change:.1f}% / 외국인 {cumulative:+,}주")
+                    else:
+                        logger.info(f"✓ {name} ({ticker}) 거래량{volume_ratio:.1f}배 / {price_change:.1f}% / 외국인 조건 스킵")
 
             results.sort(key=lambda x: x['score'], reverse=True)
             self.total_scanned = len(today_data)
             logger.info(f"스캔 완료: {len(today_data)}종목 검사 → {len(results)}종목 통과")
 
-            self.last_scan_date = scan_date
+            self.last_scan_date = data_date
             return results
             
         except Exception as e:
@@ -603,14 +904,22 @@ class StockScanner:
             logger.info("[execute] 백테스트 follow-up 확인 중...")
             self.backtest.check_and_send_followups()
 
-            # 2. 스캔 실행
+            # 2. 외국인 순매수 조회용 세션 준비
+            self._prepare_foreign_session()
+            if not self.foreign_buy_enabled:
+                self.telegram.send_message(
+                    f"⚠️ {self.foreign_auth_message}\n"
+                    "오늘 스캔은 거래량/주가 하락 조건만으로 진행합니다."
+                )
+
+            # 3. 스캔 실행
             results = self.scan(scan_date=scan_date)
             total_stocks = getattr(self, 'total_scanned', 0)
 
-            # 3. 결과 텔레그램 발송 (send_summary 내부에서 결과 유무 처리)
+            # 4. 결과 텔레그램 발송 (send_summary 내부에서 결과 유무 처리)
             self.telegram.send_summary(results, total_stocks, scan_date=self.last_scan_date)
 
-            # 4. 백테스트 데이터 저장 (통과 종목이 있을 때만)
+            # 5. 백테스트 데이터 저장 (통과 종목이 있을 때만)
             if results and self.last_scan_date:
                 self.backtest.save_scan_results(self.last_scan_date, results)
 

@@ -31,6 +31,9 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          KRX_API_KEY: ${{ secrets.KRX_API_KEY }}
+          KRX_USER_ID: ${{ secrets.KRX_USER_ID }}
+          KRX_PASSWORD: ${{ secrets.KRX_PASSWORD }}
         run: |
           python auto_stock.py --test
 
