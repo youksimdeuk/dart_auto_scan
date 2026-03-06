@@ -337,7 +337,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -1227,6 +1228,27 @@
           "ticker": "001685",
           "name": "대상우",
           "base_price": 16680
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260305",
+      "stocks": [
+        {
+          "ticker": "011330",
+          "name": "유니켐",
+          "base_price": 755
+        },
+        {
+          "ticker": "369370",
+          "name": "블리츠웨이엔터테인먼트",
+          "base_price": 799
+        },
+        {
+          "ticker": "045510",
+          "name": "정원엔시스",
+          "base_price": 700
         }
       ],
       "sent_followups": []
