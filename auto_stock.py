@@ -13,6 +13,7 @@ import json
 import os
 import socket
 import re
+from io import StringIO
 from datetime import datetime, timedelta
 from typing import Any, List, Dict, Tuple, Optional
 import logging
@@ -24,12 +25,51 @@ from pykrx import stock as pykrx_stock
 # pykrx 내부 HTTP 요청 전역 타임아웃 (네트워크 hanging 방지)
 socket.setdefaulttimeout(15)
 
+# pykrx 내부의 잘못된 logging.info(args, kwargs) 호출로 인한 포맷 예외 방지
+class SafeLogRecord(logging.LogRecord):
+    def getMessage(self) -> str:
+        msg = str(self.msg)
+        if self.args:
+            try:
+                msg = msg % self.args
+            except Exception:
+                # 포맷이 깨진 로그는 원문 메시지만 사용
+                return msg
+        return msg
+
+
+class DropPykrxUtilNoise(logging.Filter):
+    def filter(self, record: logging.LogRecord) -> bool:
+        path = str(getattr(record, "pathname", "")).replace("/", "\\")
+        return "pykrx\\website\\comm\\util.py" not in path
+
+
+logging.setLogRecordFactory(SafeLogRecord)
+
 # 로깅 설정
+LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO").upper()
+LOG_LEVEL_VALUE = getattr(logging, LOG_LEVEL, logging.INFO)
 logging.basicConfig(
-    level=logging.DEBUG,
+    level=LOG_LEVEL_VALUE,
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
+
+root_logger = logging.getLogger()
+for handler in root_logger.handlers:
+    handler.addFilter(DropPykrxUtilNoise())
+
+# 민감정보(토큰 포함 URL) 노출 방지를 위해 HTTP 디버그 로그는 억제
+logging.getLogger("urllib3").setLevel(logging.WARNING)
+logging.getLogger("requests").setLevel(logging.WARNING)
+
+
+def env_flag(name: str, default: bool = False) -> bool:
+    value = os.getenv(name)
+    if value is None:
+        return default
+    return value.strip().lower() in ("1", "true", "yes", "y", "on")
+
 
 # ============================================================================
 # 설정 (CONFIG)
@@ -38,8 +78,8 @@ logger = logging.getLogger(__name__)
 class Config:
     """설정 클래스"""
     # 텔레그램 토큰, 채팅 ID (환경변수에서 읽기)
-    TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN', "8587133354:AAFo1AviKo7ENcW55F8mnDhFniS-PsAmHgY")
-    TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID', "1249787976")
+    TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN', "YOUR_BOT_TOKEN")
+    TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID', "YOUR_CHAT_ID")
 
     # KRX 인증/조회 설정
     KRX_API_KEY = os.getenv('KRX_API_KEY', '')
@@ -53,6 +93,8 @@ class Config:
     # API 설정
     REQUEST_TIMEOUT = 10                    # 텔레그램 API 타임아웃 (초)
     KRX_API_TIMEOUT = 10                    # KRX API 타임아웃 (초)
+    KRX_OPENAPI_RETRY = 2                   # KRX OpenAPI 요청 재시도 횟수
+    USE_PYKRX_FALLBACK = env_flag('USE_PYKRX_FALLBACK', False)
 
     # 실행 설정
     RUN_TIME = "18:00"                      # 오후 6시 (한국 기준)
@@ -181,10 +223,19 @@ class KrxOpenApiFetcher:
             "http://data-dbg.krx.co.kr/svc/apis/sto/ksq_bydd_trd",
         ],
     }
+    REQUEST_PROFILES = (
+        ("GET", "AUTH_KEY", "basDd"),
+        ("GET", "auth_key", "basDd"),
+        ("POST_DATA", "AUTH_KEY", "basDd"),
+        ("POST_JSON", "AUTH_KEY", "basDd"),
+        ("GET", "AUTH_KEY", "trdDd"),
+        ("GET", "auth_key", "trdDd"),
+    )
 
     def __init__(self, api_key: str, timeout: int = 10):
         self.api_key = (api_key or '').strip()
         self.timeout = timeout
+        self._working_profiles: Dict[str, Tuple[str, str, str]] = {}
         self.session = requests.Session()
         self.session.headers.update({
             "User-Agent": "Mozilla/5.0",
@@ -247,50 +298,73 @@ class KrxOpenApiFetcher:
         if not self.api_key:
             return []
 
-        headers_candidates = [
-            {"AUTH_KEY": self.api_key},
-            {"AUTH-KEY": self.api_key},
-            {"auth_key": self.api_key},
-        ]
-        date_keys = ('basDd', 'basDt', 'trdDd', 'date')
+        urls_preferred = [u for u in urls if u.startswith("https://")] or urls
 
-        for url in urls:
-            for date_key in date_keys:
+        profiles: List[Tuple[str, str, str]] = []
+        cached = self._working_profiles.get(market)
+        if cached is not None:
+            profiles.append(cached)
+        profiles.extend(p for p in self.REQUEST_PROFILES if p != cached)
+
+        auth_error_count = 0
+        had_success_status = False
+
+        for url in urls_preferred:
+            for mode, header_key, date_key in profiles:
+                headers = {header_key: self.api_key}
                 payload = {date_key: target_date}
 
-                for headers in headers_candidates:
-                    # 공식 예시 형태(GET + basDd) 우선 시도
+                resp = None
+                for _ in range(max(1, Config.KRX_OPENAPI_RETRY)):
                     try:
-                        resp = self.session.get(
-                            url,
-                            headers=headers,
-                            params=payload,
-                            timeout=self.timeout
+                        if mode == "GET":
+                            resp = self.session.get(
+                                url,
+                                headers=headers,
+                                params=payload,
+                                timeout=self.timeout,
+                            )
+                        elif mode == "POST_DATA":
+                            resp = self.session.post(
+                                url,
+                                headers=headers,
+                                data=payload,
+                                timeout=self.timeout,
+                            )
+                        else:
+                            resp = self.session.post(
+                                url,
+                                headers=headers,
+                                json=payload,
+                                timeout=self.timeout,
+                            )
+                        break
+                    except requests.RequestException as e:
+                        logger.debug(
+                            f"KRX OpenAPI 요청 실패 ({market}, {mode}, {header_key}, {date_key}): {e}"
                         )
-                        if resp.status_code != 200:
-                            if resp.status_code in (401, 403):
-                                logger.warning(
-                                    f"{market} KRX OpenAPI 인증 실패({resp.status_code}) - AUTH_KEY 확인 필요"
-                                )
-                            continue
-                        rows = self._extract_rows(resp.json())
-                        if rows:
-                            return rows
-                    except Exception as e:
-                        logger.debug(f"KRX OpenAPI GET 요청 실패 ({market}, {url}, {date_key}): {e}")
 
-                    # 일부 구간 호환을 위해 POST(data/json)도 순차 시도
-                    for mode in ('data', 'json'):
-                        kwargs = {'headers': headers, 'timeout': self.timeout, mode: payload}
-                        try:
-                            resp = self.session.post(url, **kwargs)
-                            if resp.status_code != 200:
-                                continue
-                            rows = self._extract_rows(resp.json())
-                            if rows:
-                                return rows
-                        except Exception as e:
-                            logger.debug(f"KRX OpenAPI POST 요청 실패 ({market}, {url}, {mode}, {date_key}): {e}")
+                if resp is None:
+                    continue
+
+                if resp.status_code in (401, 403):
+                    auth_error_count += 1
+                    continue
+                if resp.status_code != 200:
+                    continue
+
+                had_success_status = True
+                try:
+                    rows = self._extract_rows(resp.json())
+                except ValueError:
+                    rows = []
+
+                if rows:
+                    self._working_profiles[market] = (mode, header_key, date_key)
+                    return rows
+
+        if auth_error_count and not had_success_status:
+            logger.warning(f"{market} KRX OpenAPI 인증 실패(401/403) - AUTH_KEY 확인 필요")
         return []
 
     def fetch_market_ohlcv_df(self, target_date: str, market: str) -> Optional[pd.DataFrame]:
@@ -348,6 +422,8 @@ class StockDataFetcher:
             df = self.krx_openapi.fetch_market_ohlcv_df(date, market)
             if df is not None and not df.empty:
                 return df
+            if not Config.USE_PYKRX_FALLBACK:
+                return None
             logger.warning(f"{market} KRX OpenAPI 데이터 없음 ({date}) - pykrx fallback 시도")
 
         try:
@@ -443,14 +519,117 @@ class StockDataFetcher:
             )
 
             if investor_data is not None and not investor_data.empty:
-                if '외국인' in investor_data.index:
-                    foreign_net_buy = int(investor_data.loc['외국인', '순매수'])
-                    logger.debug(f"[{ticker}] 외국인 10영업일 순매수: {foreign_net_buy}")
-                    return foreign_net_buy
+                idx_name = None
+                for candidate in ('외국인', '외국인합계'):
+                    if candidate in investor_data.index:
+                        idx_name = candidate
+                        break
+
+                if idx_name is not None:
+                    if isinstance(investor_data.columns, pd.MultiIndex):
+                        target_col = next(
+                            (c for c in investor_data.columns if str(c[-1]).strip() == '순매수'),
+                            None
+                        )
+                    else:
+                        target_col = '순매수' if '순매수' in investor_data.columns else None
+
+                    if target_col is not None:
+                        foreign_net_buy = int(investor_data.loc[idx_name, target_col])
+                        logger.debug(f"[{ticker}] 외국인 10영업일 순매수(pykrx): {foreign_net_buy}")
+                        return foreign_net_buy
 
         except Exception as e:
-            logger.debug(f"외국인 데이터 수집 실패 {ticker}: {e}")
+            logger.debug(f"외국인 데이터 수집 실패(pykrx) {ticker}: {e}")
+
+        fallback = self._get_foreign_buy_from_naver(ticker=ticker, target_date=target_date, days=10)
+        if fallback is not None:
+            logger.debug(f"[{ticker}] 외국인 10영업일 순매수(naver): {fallback}")
+            return fallback
         return 0
+
+    @staticmethod
+    def _to_int_value(value: Any) -> int:
+        text = str(value).strip().replace(',', '').replace('+', '')
+        if text in ('', 'nan', 'None', '-'):
+            return 0
+        try:
+            return int(float(text))
+        except ValueError:
+            return 0
+
+    def _get_foreign_buy_from_naver(self, ticker: str, target_date: str, days: int = 10) -> Optional[int]:
+        """네이버 금융 개별종목 외국인 순매매량 페이지를 사용한 폴백."""
+        try:
+            target_dt = datetime.strptime(target_date, '%Y%m%d').date()
+        except ValueError:
+            return None
+
+        rows: List[Tuple[datetime.date, int]] = []
+        headers = {"User-Agent": "Mozilla/5.0"}
+
+        for page in range(1, 6):
+            url = f"https://finance.naver.com/item/frgn.naver?code={ticker}&page={page}"
+            try:
+                resp = requests.get(url, headers=headers, timeout=8)
+                resp.raise_for_status()
+                tables = pd.read_html(StringIO(resp.text))
+            except Exception:
+                continue
+
+            # 테이블 인덱스가 종목 규모에 따라 다르므로 컬럼 내용으로 탐색
+            target_table = None
+            for t in tables:
+                cols = t.columns
+                if isinstance(cols, pd.MultiIndex):
+                    flat = [" ".join([str(x).strip() for x in c if str(x).strip() and str(x).strip().lower() != 'nan']) for c in cols]
+                else:
+                    flat = [str(c).strip() for c in cols]
+                if any('날짜' in c for c in flat) and any('외국인' in c and '순매매량' in c for c in flat):
+                    t.columns = flat
+                    target_table = t
+                    break
+
+            if target_table is None:
+                continue
+
+            table = target_table
+            date_col = next((c for c in table.columns if '날짜' in c), None)
+            foreign_col = next((c for c in table.columns if '외국인' in c and '순매매량' in c), None)
+            if not date_col or not foreign_col:
+                continue
+
+            for _, row in table.iterrows():
+                raw_date = str(row.get(date_col, '')).strip()
+                if not raw_date or raw_date.lower() == 'nan':
+                    continue
+
+                try:
+                    row_dt = datetime.strptime(raw_date, '%Y.%m.%d').date()
+                except ValueError:
+                    continue
+
+                if row_dt > target_dt:
+                    continue
+
+                rows.append((row_dt, self._to_int_value(row.get(foreign_col, 0))))
+
+            if len(rows) >= days:
+                break
+
+        if not rows:
+            return None
+
+        by_date: Dict[datetime.date, int] = {}
+        for dt, value in rows:
+            if dt not in by_date:
+                by_date[dt] = value
+
+        selected = sorted(by_date.items(), key=lambda x: x[0], reverse=True)[:days]
+        if not selected:
+            return None
+
+        return int(sum(value for _, value in selected))
 
 
 
@@ -582,8 +761,11 @@ class TelegramSender:
         """메시지 발송"""
         try:
             if self.bot_token == "YOUR_BOT_TOKEN":
+                import sys
                 logger.warning("텔레그램 토큰이 설정되지 않았습니다.")
-                print(f"\n[테스트 메시지]\n{message}\n")
+                encoding = getattr(sys.stdout, "encoding", None) or "utf-8"
+                safe_message = message.encode(encoding, errors="replace").decode(encoding, errors="replace")
+                print(f"\n[테스트 메시지]\n{safe_message}\n")
                 return False
             
             url = f"{self.api_url}/sendMessage"
@@ -828,9 +1010,9 @@ class StockScanner:
         password = Config.KRX_PASSWORD.strip()
 
         if not user_id or not password:
-            self.foreign_buy_enabled = False
-            self.foreign_auth_message = "KRX_USER_ID/KRX_PASSWORD 미설정으로 외국인 순매수 조건을 스킵합니다."
-            logger.warning(self.foreign_auth_message)
+            self.foreign_buy_enabled = True
+            self.foreign_auth_message = "KRX 로그인 미설정: 외국인 순매수는 네이버 데이터로 조회합니다."
+            logger.info(self.foreign_auth_message)
             return
 
         auth = KrxSessionAuth(user_id=user_id, password=password, timeout=Config.KRX_API_TIMEOUT)
@@ -838,8 +1020,8 @@ class StockScanner:
             self.foreign_buy_enabled = True
             self.foreign_auth_message = ""
         else:
-            self.foreign_buy_enabled = False
-            self.foreign_auth_message = "KRX 로그인/세션 주입 실패로 외국인 순매수 조건을 스킵합니다."
+            self.foreign_buy_enabled = True
+            self.foreign_auth_message = "KRX 로그인 실패: 외국인 순매수는 네이버 데이터로 대체합니다."
             logger.warning(self.foreign_auth_message)
     
     def scan(self, scan_date: str = None) -> List[Dict]:
