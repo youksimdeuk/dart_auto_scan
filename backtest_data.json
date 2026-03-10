@@ -353,6 +353,207 @@
         }
       ],
       "sent_followups": []
+    },
+    {
+      "scan_date": "20260309",
+      "stocks": [
+        {
+          "ticker": "432320",
+          "name": "KB스타리츠",
+          "base_price": 2850
+        },
+        {
+          "ticker": "118000",
+          "name": "메타케어",
+          "base_price": 257
+        },
+        {
+          "ticker": "091810",
+          "name": "티웨이항공",
+          "base_price": 1072
+        },
+        {
+          "ticker": "184230",
+          "name": "SGA솔루션즈",
+          "base_price": 536
+        },
+        {
+          "ticker": "106080",
+          "name": "케이이엠텍",
+          "base_price": 297
+        },
+        {
+          "ticker": "348950",
+          "name": "제이알글로벌리츠",
+          "base_price": 1642
+        },
+        {
+          "ticker": "208860",
+          "name": "다산디엠씨",
+          "base_price": 1351
+        },
+        {
+          "ticker": "000390",
+          "name": "삼화페인트",
+          "base_price": 9470
+        },
+        {
+          "ticker": "004870",
+          "name": "티웨이홀딩스",
+          "base_price": 337
+        },
+        {
+          "ticker": "168330",
+          "name": "내츄럴엔도텍",
+          "base_price": 2420
+        },
+        {
+          "ticker": "072990",
+          "name": "에이치시티",
+          "base_price": 5010
+        },
+        {
+          "ticker": "191420",
+          "name": "테고사이언스",
+          "base_price": 11620
+        },
+        {
+          "ticker": "446840",
+          "name": "지슨",
+          "base_price": 1366
+        },
+        {
+          "ticker": "016610",
+          "name": "DB증권",
+          "base_price": 13330
+        },
+        {
+          "ticker": "066910",
+          "name": "손오공",
+          "base_price": 639
+        },
+        {
+          "ticker": "206560",
+          "name": "덱스터",
+          "base_price": 2920
+        },
+        {
+          "ticker": "290120",
+          "name": "DH오토리드",
+          "base_price": 2455
+        },
+        {
+          "ticker": "040610",
+          "name": "SG&G",
+          "base_price": 1815
+        },
+        {
+          "ticker": "109610",
+          "name": "에스와이",
+          "base_price": 2585
+        },
+        {
+          "ticker": "445680",
+          "name": "큐리옥스바이오시스템즈",
+          "base_price": 93700
+        },
+        {
+          "ticker": "010640",
+          "name": "진양폴리",
+          "base_price": 2380
+        },
+        {
+          "ticker": "080420",
+          "name": "모다이노칩",
+          "base_price": 1885
+        },
+        {
+          "ticker": "240550",
+          "name": "동방메디컬",
+          "base_price": 6410
+        },
+        {
+          "ticker": "340810",
+          "name": "시선AI",
+          "base_price": 2420
+        },
+        {
+          "ticker": "003220",
+          "name": "대원제약",
+          "base_price": 10190
+        },
+        {
+          "ticker": "051630",
+          "name": "진양화학",
+          "base_price": 2040
+        },
+        {
+          "ticker": "102370",
+          "name": "케이옥션",
+          "base_price": 3380
+        },
+        {
+          "ticker": "005430",
+          "name": "한국공항",
+          "base_price": 56700
+        },
+        {
+          "ticker": "024830",
+          "name": "세원물산",
+          "base_price": 10740
+        },
+        {
+          "ticker": "452400",
+          "name": "이닉스",
+          "base_price": 8420
+        },
+        {
+          "ticker": "037370",
+          "name": "EG",
+          "base_price": 4895
+        },
+        {
+          "ticker": "464280",
+          "name": "티디에스팜",
+          "base_price": 8570
+        },
+        {
+          "ticker": "270870",
+          "name": "뉴트리",
+          "base_price": 4095
+        },
+        {
+          "ticker": "373160",
+          "name": "데이원컴퍼니",
+          "base_price": 3915
+        },
+        {
+          "ticker": "090435",
+          "name": "아모레퍼시픽우",
+          "base_price": 44550
+        },
+        {
+          "ticker": "221840",
+          "name": "하이즈항공",
+          "base_price": 2495
+        },
+        {
+          "ticker": "001465",
+          "name": "BYC우",
+          "base_price": 25900
+        },
+        {
+          "ticker": "016250",
+          "name": "SGC E&C",
+          "base_price": 17090
+        },
+        {
+          "ticker": "321260",
+          "name": "프로이천",
+          "base_price": 1499
+        }
+      ],
+      "sent_followups": []
     }
   ]
 }
