@@ -217,7 +217,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -551,6 +552,27 @@
           "ticker": "321260",
           "name": "프로이천",
           "base_price": 1499
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260310",
+      "stocks": [
+        {
+          "ticker": "377030",
+          "name": "비트맥스",
+          "base_price": 919
+        },
+        {
+          "ticker": "085810",
+          "name": "알티캐스트",
+          "base_price": 478
+        },
+        {
+          "ticker": "307870",
+          "name": "비투엔",
+          "base_price": 620
         }
       ],
       "sent_followups": []
