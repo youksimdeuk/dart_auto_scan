@@ -272,7 +272,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -353,7 +354,9 @@
           "base_price": 54400
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260309",
@@ -573,6 +576,17 @@
           "ticker": "307870",
           "name": "비투엔",
           "base_price": 620
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260311",
+      "stocks": [
+        {
+          "ticker": "092600",
+          "name": "앤씨앤",
+          "base_price": 575
         }
       ],
       "sent_followups": []
