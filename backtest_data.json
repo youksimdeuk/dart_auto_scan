@@ -342,7 +342,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -557,7 +558,9 @@
           "base_price": 1499
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260310",
@@ -587,6 +590,47 @@
           "ticker": "092600",
           "name": "앤씨앤",
           "base_price": 575
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260312",
+      "stocks": [
+        {
+          "ticker": "012340",
+          "name": "뉴인텍",
+          "base_price": 384
+        },
+        {
+          "ticker": "043100",
+          "name": "알파AI",
+          "base_price": 997
+        },
+        {
+          "ticker": "016600",
+          "name": "큐캐피탈",
+          "base_price": 290
+        },
+        {
+          "ticker": "145210",
+          "name": "다이나믹디자인",
+          "base_price": 264
+        },
+        {
+          "ticker": "001620",
+          "name": "케이비아이동국실업",
+          "base_price": 627
+        },
+        {
+          "ticker": "078590",
+          "name": "휴림에이텍",
+          "base_price": 551
+        },
+        {
+          "ticker": "031860",
+          "name": "디에이치엑스컴퍼니",
+          "base_price": 562
         }
       ],
       "sent_followups": []
