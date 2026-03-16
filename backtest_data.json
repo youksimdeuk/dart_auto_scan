@@ -173,7 +173,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -356,7 +357,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -581,7 +583,9 @@
           "base_price": 620
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260311",
@@ -631,6 +635,82 @@
           "ticker": "031860",
           "name": "디에이치엑스컴퍼니",
           "base_price": 562
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260313",
+      "stocks": [
+        {
+          "ticker": "035620",
+          "name": "바른손이앤에이",
+          "base_price": 243
+        },
+        {
+          "ticker": "096690",
+          "name": "에이루트",
+          "base_price": 1220
+        },
+        {
+          "ticker": "069920",
+          "name": "엑시온그룹",
+          "base_price": 517
+        },
+        {
+          "ticker": "277880",
+          "name": "티에스아이",
+          "base_price": 4720
+        },
+        {
+          "ticker": "018700",
+          "name": "바른손",
+          "base_price": 562
+        },
+        {
+          "ticker": "153460",
+          "name": "네이블",
+          "base_price": 6310
+        },
+        {
+          "ticker": "290740",
+          "name": "액트로",
+          "base_price": 24600
+        },
+        {
+          "ticker": "033790",
+          "name": "피노",
+          "base_price": 5420
+        },
+        {
+          "ticker": "065060",
+          "name": "지엔코",
+          "base_price": 517
+        },
+        {
+          "ticker": "033050",
+          "name": "제이엠아이",
+          "base_price": 865
+        },
+        {
+          "ticker": "003960",
+          "name": "사조대림",
+          "base_price": 33300
+        },
+        {
+          "ticker": "007815",
+          "name": "코리아써우",
+          "base_price": 14700
+        },
+        {
+          "ticker": "001460",
+          "name": "BYC",
+          "base_price": 44600
+        },
+        {
+          "ticker": "110020",
+          "name": "전진바이오팜",
+          "base_price": 1792
         }
       ],
       "sent_followups": []
