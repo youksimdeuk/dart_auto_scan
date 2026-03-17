@@ -561,7 +561,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -596,7 +597,9 @@
           "base_price": 575
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260312",
@@ -711,6 +714,77 @@
           "ticker": "110020",
           "name": "전진바이오팜",
           "base_price": 1792
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260316",
+      "stocks": [
+        {
+          "ticker": "002070",
+          "name": "비비안",
+          "base_price": 375
+        },
+        {
+          "ticker": "036090",
+          "name": "위지트",
+          "base_price": 558
+        },
+        {
+          "ticker": "307180",
+          "name": "아이엘",
+          "base_price": 4295
+        },
+        {
+          "ticker": "040350",
+          "name": "크레오에스지",
+          "base_price": 613
+        },
+        {
+          "ticker": "042520",
+          "name": "한스바이오메드",
+          "base_price": 40100
+        },
+        {
+          "ticker": "123840",
+          "name": "뉴온",
+          "base_price": 608
+        },
+        {
+          "ticker": "026040",
+          "name": "제이에스티나",
+          "base_price": 2970
+        },
+        {
+          "ticker": "475230",
+          "name": "엔알비",
+          "base_price": 22700
+        },
+        {
+          "ticker": "051780",
+          "name": "큐로홀딩스",
+          "base_price": 664
+        },
+        {
+          "ticker": "066900",
+          "name": "디에이피",
+          "base_price": 1601
+        },
+        {
+          "ticker": "036170",
+          "name": "에이치엠넥스",
+          "base_price": 5250
+        },
+        {
+          "ticker": "489460",
+          "name": "바이오비쥬",
+          "base_price": 9000
+        },
+        {
+          "ticker": "039830",
+          "name": "오로라",
+          "base_price": 10420
         }
       ],
       "sent_followups": []
