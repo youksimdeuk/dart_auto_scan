@@ -219,7 +219,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -585,7 +586,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -640,7 +642,9 @@
           "base_price": 562
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260313",
@@ -785,6 +789,77 @@
           "ticker": "039830",
           "name": "오로라",
           "base_price": 10420
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260317",
+      "stocks": [
+        {
+          "ticker": "006490",
+          "name": "인스코비",
+          "base_price": 328
+        },
+        {
+          "ticker": "140410",
+          "name": "메지온",
+          "base_price": 89200
+        },
+        {
+          "ticker": "101400",
+          "name": "엔시트론",
+          "base_price": 387
+        },
+        {
+          "ticker": "066430",
+          "name": "아이로보틱스",
+          "base_price": 2150
+        },
+        {
+          "ticker": "006920",
+          "name": "모헨즈",
+          "base_price": 5810
+        },
+        {
+          "ticker": "069920",
+          "name": "엑시온그룹",
+          "base_price": 452
+        },
+        {
+          "ticker": "001020",
+          "name": "페이퍼코리아",
+          "base_price": 665
+        },
+        {
+          "ticker": "298060",
+          "name": "에스씨엠생명과학",
+          "base_price": 773
+        },
+        {
+          "ticker": "080530",
+          "name": "코디",
+          "base_price": 824
+        },
+        {
+          "ticker": "333050",
+          "name": "모코엠시스",
+          "base_price": 1114
+        },
+        {
+          "ticker": "079000",
+          "name": "와토스코리아",
+          "base_price": 8370
+        },
+        {
+          "ticker": "065660",
+          "name": "안트로젠",
+          "base_price": 46400
+        },
+        {
+          "ticker": "024940",
+          "name": "PN풍년",
+          "base_price": 4425
         }
       ],
       "sent_followups": []
