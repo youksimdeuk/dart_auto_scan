@@ -275,7 +275,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -600,7 +601,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -720,7 +722,9 @@
           "base_price": 1792
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260316",
@@ -860,6 +864,37 @@
           "ticker": "024940",
           "name": "PN풍년",
           "base_price": 4425
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260318",
+      "stocks": [
+        {
+          "ticker": "115480",
+          "name": "씨유메디칼",
+          "base_price": 496
+        },
+        {
+          "ticker": "156100",
+          "name": "엘앤케이바이오",
+          "base_price": 9350
+        },
+        {
+          "ticker": "088290",
+          "name": "이원컴포텍",
+          "base_price": 530
+        },
+        {
+          "ticker": "246720",
+          "name": "아스타",
+          "base_price": 6840
+        },
+        {
+          "ticker": "222420",
+          "name": "쎄노텍",
+          "base_price": 1278
         }
       ],
       "sent_followups": []
