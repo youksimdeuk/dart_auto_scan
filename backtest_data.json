@@ -346,7 +346,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -645,7 +646,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -795,7 +797,9 @@
           "base_price": 10420
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260317",
@@ -895,6 +899,42 @@
           "ticker": "222420",
           "name": "쎄노텍",
           "base_price": 1278
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260319",
+      "stocks": [
+        {
+          "ticker": "145210",
+          "name": "다이나믹디자인",
+          "base_price": 254
+        },
+        {
+          "ticker": "166480",
+          "name": "코아스템켐온",
+          "base_price": 2300
+        },
+        {
+          "ticker": "388720",
+          "name": "유일로보틱스",
+          "base_price": 100900
+        },
+        {
+          "ticker": "489460",
+          "name": "바이오비쥬",
+          "base_price": 8630
+        },
+        {
+          "ticker": "078340",
+          "name": "컴투스",
+          "base_price": 31900
+        },
+        {
+          "ticker": "484120",
+          "name": "도우인시스",
+          "base_price": 21750
         }
       ],
       "sent_followups": []
