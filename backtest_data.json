@@ -361,7 +361,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -725,7 +726,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -870,7 +872,9 @@
           "base_price": 4425
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260318",
@@ -935,6 +939,32 @@
           "ticker": "484120",
           "name": "도우인시스",
           "base_price": 21750
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260320",
+      "stocks": [
+        {
+          "ticker": "099440",
+          "name": "스맥",
+          "base_price": 5130
+        },
+        {
+          "ticker": "336260",
+          "name": "두산퓨얼셀",
+          "base_price": 41900
+        },
+        {
+          "ticker": "018700",
+          "name": "바른손",
+          "base_price": 531
+        },
+        {
+          "ticker": "229000",
+          "name": "젠큐릭스",
+          "base_price": 2990
         }
       ],
       "sent_followups": []
