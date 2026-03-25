@@ -591,7 +591,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -875,7 +876,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -945,7 +947,9 @@
           "base_price": 21750
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260320",
@@ -1080,6 +1084,67 @@
           "ticker": "357550",
           "name": "석경에이티",
           "base_price": 50200
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260324",
+      "stocks": [
+        {
+          "ticker": "025440",
+          "name": "DH오토웨어",
+          "base_price": 779
+        },
+        {
+          "ticker": "276040",
+          "name": "스코넥",
+          "base_price": 615
+        },
+        {
+          "ticker": "069540",
+          "name": "빛과전자",
+          "base_price": 2620
+        },
+        {
+          "ticker": "348370",
+          "name": "엔켐",
+          "base_price": 29950
+        },
+        {
+          "ticker": "088290",
+          "name": "이원컴포텍",
+          "base_price": 394
+        },
+        {
+          "ticker": "286750",
+          "name": "나노실리칸첨단소재",
+          "base_price": 1276
+        },
+        {
+          "ticker": "900120",
+          "name": "씨엑스아이",
+          "base_price": 356
+        },
+        {
+          "ticker": "051980",
+          "name": "중앙첨단소재",
+          "base_price": 1308
+        },
+        {
+          "ticker": "026910",
+          "name": "광진실업",
+          "base_price": 1576
+        },
+        {
+          "ticker": "019660",
+          "name": "글로본",
+          "base_price": 2480
+        },
+        {
+          "ticker": "331380",
+          "name": "포커스에이아이",
+          "base_price": 2370
         }
       ],
       "sent_followups": []
