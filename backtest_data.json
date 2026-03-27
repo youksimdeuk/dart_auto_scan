@@ -651,7 +651,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -950,7 +951,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -1090,7 +1092,9 @@
           "base_price": 50200
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260324",
@@ -1185,6 +1189,57 @@
           "ticker": "377030",
           "name": "비트맥스",
           "base_price": 680
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260326",
+      "stocks": [
+        {
+          "ticker": "009830",
+          "name": "한화솔루션",
+          "base_price": 36800
+        },
+        {
+          "ticker": "059270",
+          "name": "해성에어로보틱스",
+          "base_price": 10200
+        },
+        {
+          "ticker": "179900",
+          "name": "유티아이",
+          "base_price": 17020
+        },
+        {
+          "ticker": "031210",
+          "name": "서울보증보험",
+          "base_price": 53900
+        },
+        {
+          "ticker": "299170",
+          "name": "더블유에스아이",
+          "base_price": 2495
+        },
+        {
+          "ticker": "009835",
+          "name": "한화솔루션우",
+          "base_price": 23550
+        },
+        {
+          "ticker": "224060",
+          "name": "더코디",
+          "base_price": 5910
+        },
+        {
+          "ticker": "056190",
+          "name": "에스에프에이",
+          "base_price": 27350
+        },
+        {
+          "ticker": "043360",
+          "name": "디지아이",
+          "base_price": 2435
         }
       ],
       "sent_followups": []
