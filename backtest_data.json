@@ -138,7 +138,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -362,7 +363,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -731,7 +733,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -980,7 +983,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -1155,7 +1159,9 @@
           "base_price": 2370
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260325",
@@ -1240,6 +1246,42 @@
           "ticker": "043360",
           "name": "디지아이",
           "base_price": 2435
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260327",
+      "stocks": [
+        {
+          "ticker": "062040",
+          "name": "산일전기",
+          "base_price": 149300
+        },
+        {
+          "ticker": "432320",
+          "name": "KB스타리츠",
+          "base_price": 2360
+        },
+        {
+          "ticker": "105550",
+          "name": "엣지파운드리",
+          "base_price": 1309
+        },
+        {
+          "ticker": "288330",
+          "name": "파라택시스코리아",
+          "base_price": 521
+        },
+        {
+          "ticker": "319400",
+          "name": "현대무벡스",
+          "base_price": 25800
+        },
+        {
+          "ticker": "080420",
+          "name": "모다이노칩",
+          "base_price": 2000
         }
       ],
       "sent_followups": []
