@@ -569,7 +569,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -808,7 +809,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -1097,7 +1099,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -1197,7 +1200,9 @@
           "base_price": 680
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260326",
@@ -1282,6 +1287,72 @@
           "ticker": "080420",
           "name": "모다이노칩",
           "base_price": 2000
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260330",
+      "stocks": [
+        {
+          "ticker": "007720",
+          "name": "소노스퀘어",
+          "base_price": 408
+        },
+        {
+          "ticker": "490470",
+          "name": "세미파이브",
+          "base_price": 24600
+        },
+        {
+          "ticker": "276040",
+          "name": "스코넥",
+          "base_price": 420
+        },
+        {
+          "ticker": "038620",
+          "name": "위즈코프",
+          "base_price": 562
+        },
+        {
+          "ticker": "020000",
+          "name": "한섬",
+          "base_price": 24100
+        },
+        {
+          "ticker": "001200",
+          "name": "유진투자증권",
+          "base_price": 4715
+        },
+        {
+          "ticker": "372320",
+          "name": "큐로셀",
+          "base_price": 47400
+        },
+        {
+          "ticker": "010400",
+          "name": "우진아이엔에스",
+          "base_price": 3580
+        },
+        {
+          "ticker": "115570",
+          "name": "스타플렉스",
+          "base_price": 2835
+        },
+        {
+          "ticker": "036220",
+          "name": "오상헬스케어",
+          "base_price": 8880
+        },
+        {
+          "ticker": "001460",
+          "name": "BYC",
+          "base_price": 48950
+        },
+        {
+          "ticker": "378850",
+          "name": "화승알앤에이",
+          "base_price": 3355
         }
       ],
       "sent_followups": []
