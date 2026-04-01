@@ -595,7 +595,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -884,7 +885,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -1163,7 +1165,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -1253,7 +1256,9 @@
           "base_price": 2435
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260327",
@@ -1353,6 +1358,162 @@
           "ticker": "378850",
           "name": "화승알앤에이",
           "base_price": 3355
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260331",
+      "stocks": [
+        {
+          "ticker": "225430",
+          "name": "케이엠제약",
+          "base_price": 820
+        },
+        {
+          "ticker": "090710",
+          "name": "휴림로봇",
+          "base_price": 10300
+        },
+        {
+          "ticker": "065770",
+          "name": "CS",
+          "base_price": 1051
+        },
+        {
+          "ticker": "445680",
+          "name": "큐리옥스바이오시스템즈",
+          "base_price": 101400
+        },
+        {
+          "ticker": "357880",
+          "name": "SKAI",
+          "base_price": 3155
+        },
+        {
+          "ticker": "313760",
+          "name": "캐리",
+          "base_price": 468
+        },
+        {
+          "ticker": "003000",
+          "name": "부광약품",
+          "base_price": 7300
+        },
+        {
+          "ticker": "043260",
+          "name": "성호전자",
+          "base_price": 37750
+        },
+        {
+          "ticker": "228760",
+          "name": "지노믹트리",
+          "base_price": 17200
+        },
+        {
+          "ticker": "491000",
+          "name": "리브스메드",
+          "base_price": 65600
+        },
+        {
+          "ticker": "000250",
+          "name": "삼천당제약",
+          "base_price": 829000
+        },
+        {
+          "ticker": "082270",
+          "name": "젬백스",
+          "base_price": 33950
+        },
+        {
+          "ticker": "393210",
+          "name": "토마토시스템",
+          "base_price": 3995
+        },
+        {
+          "ticker": "156100",
+          "name": "엘앤케이바이오",
+          "base_price": 7980
+        },
+        {
+          "ticker": "228340",
+          "name": "동양파일",
+          "base_price": 2030
+        },
+        {
+          "ticker": "234080",
+          "name": "JW생명과학",
+          "base_price": 12560
+        },
+        {
+          "ticker": "019660",
+          "name": "글로본",
+          "base_price": 2025
+        },
+        {
+          "ticker": "221840",
+          "name": "하이즈항공",
+          "base_price": 2445
+        },
+        {
+          "ticker": "032940",
+          "name": "원익",
+          "base_price": 8900
+        },
+        {
+          "ticker": "204270",
+          "name": "제이앤티씨",
+          "base_price": 15180
+        },
+        {
+          "ticker": "080420",
+          "name": "모다이노칩",
+          "base_price": 1914
+        },
+        {
+          "ticker": "147760",
+          "name": "피엠티",
+          "base_price": 3220
+        },
+        {
+          "ticker": "071280",
+          "name": "로체시스템즈",
+          "base_price": 7190
+        },
+        {
+          "ticker": "33626K",
+          "name": "두산퓨얼셀1우",
+          "base_price": 6420
+        },
+        {
+          "ticker": "100660",
+          "name": "서암기계공업",
+          "base_price": 4100
+        },
+        {
+          "ticker": "262260",
+          "name": "에이프로",
+          "base_price": 4880
+        },
+        {
+          "ticker": "006220",
+          "name": "제주은행",
+          "base_price": 11800
+        },
+        {
+          "ticker": "286940",
+          "name": "롯데이노베이트",
+          "base_price": 19990
+        },
+        {
+          "ticker": "489460",
+          "name": "바이오비쥬",
+          "base_price": 7880
+        },
+        {
+          "ticker": "228670",
+          "name": "레이",
+          "base_price": 5020
         }
       ],
       "sent_followups": []
