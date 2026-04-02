@@ -611,7 +611,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -920,7 +921,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -1204,7 +1206,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -1294,7 +1297,9 @@
           "base_price": 2000
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260330",
@@ -1514,6 +1519,27 @@
           "ticker": "228670",
           "name": "레이",
           "base_price": 5020
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260401",
+      "stocks": [
+        {
+          "ticker": "106190",
+          "name": "하이텍팜",
+          "base_price": 20350
+        },
+        {
+          "ticker": "307750",
+          "name": "국전약품",
+          "base_price": 4045
+        },
+        {
+          "ticker": "014970",
+          "name": "삼륭물산",
+          "base_price": 8350
         }
       ],
       "sent_followups": []
