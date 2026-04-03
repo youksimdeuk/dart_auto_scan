@@ -657,7 +657,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -961,7 +962,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -1260,7 +1262,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -1365,7 +1368,9 @@
           "base_price": 3355
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260331",
@@ -1540,6 +1545,172 @@
           "ticker": "014970",
           "name": "삼륭물산",
           "base_price": 8350
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260402",
+      "stocks": [
+        {
+          "ticker": "084180",
+          "name": "수성웹툰",
+          "base_price": 1500
+        },
+        {
+          "ticker": "032350",
+          "name": "롯데관광개발",
+          "base_price": 16320
+        },
+        {
+          "ticker": "023960",
+          "name": "에쓰씨엔지니어링",
+          "base_price": 1346
+        },
+        {
+          "ticker": "309710",
+          "name": "아이티켐",
+          "base_price": 21000
+        },
+        {
+          "ticker": "014910",
+          "name": "성문전자",
+          "base_price": 1509
+        },
+        {
+          "ticker": "101170",
+          "name": "우림피티에스",
+          "base_price": 12330
+        },
+        {
+          "ticker": "119500",
+          "name": "포메탈",
+          "base_price": 3705
+        },
+        {
+          "ticker": "089470",
+          "name": "HDC현대EP",
+          "base_price": 4655
+        },
+        {
+          "ticker": "310210",
+          "name": "보로노이",
+          "base_price": 282000
+        },
+        {
+          "ticker": "052300",
+          "name": "오션인더블유",
+          "base_price": 1728
+        },
+        {
+          "ticker": "048530",
+          "name": "인트론바이오",
+          "base_price": 3715
+        },
+        {
+          "ticker": "365270",
+          "name": "큐라클",
+          "base_price": 13880
+        },
+        {
+          "ticker": "121850",
+          "name": "코이즈",
+          "base_price": 1978
+        },
+        {
+          "ticker": "002380",
+          "name": "KCC",
+          "base_price": 462500
+        },
+        {
+          "ticker": "181710",
+          "name": "NHN",
+          "base_price": 35700
+        },
+        {
+          "ticker": "402030",
+          "name": "코난테크놀로지",
+          "base_price": 17680
+        },
+        {
+          "ticker": "296640",
+          "name": "이노룰스",
+          "base_price": 7740
+        },
+        {
+          "ticker": "389470",
+          "name": "인벤티지랩",
+          "base_price": 63700
+        },
+        {
+          "ticker": "053350",
+          "name": "이니텍",
+          "base_price": 3100
+        },
+        {
+          "ticker": "036420",
+          "name": "콘텐트리중앙",
+          "base_price": 5680
+        },
+        {
+          "ticker": "452430",
+          "name": "사피엔반도체",
+          "base_price": 29250
+        },
+        {
+          "ticker": "489500",
+          "name": "엘케이켐",
+          "base_price": 31200
+        },
+        {
+          "ticker": "322180",
+          "name": "LS티라유텍",
+          "base_price": 6730
+        },
+        {
+          "ticker": "039020",
+          "name": "이건홀딩스",
+          "base_price": 3090
+        },
+        {
+          "ticker": "340450",
+          "name": "지씨지놈",
+          "base_price": 7450
+        },
+        {
+          "ticker": "199480",
+          "name": "뱅크웨어글로벌",
+          "base_price": 4370
+        },
+        {
+          "ticker": "021820",
+          "name": "세원정공",
+          "base_price": 14050
+        },
+        {
+          "ticker": "000230",
+          "name": "일동홀딩스",
+          "base_price": 9770
+        },
+        {
+          "ticker": "182360",
+          "name": "큐브엔터",
+          "base_price": 9910
+        },
+        {
+          "ticker": "440320",
+          "name": "오픈놀",
+          "base_price": 3200
+        },
+        {
+          "ticker": "003100",
+          "name": "선광",
+          "base_price": 19970
+        },
+        {
+          "ticker": "000590",
+          "name": "CS홀딩스",
+          "base_price": 74000
         }
       ],
       "sent_followups": []
