@@ -175,7 +175,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -738,7 +739,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -992,7 +994,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -1301,7 +1304,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -1526,7 +1530,9 @@
           "base_price": 5020
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260401",
@@ -1711,6 +1717,27 @@
           "ticker": "000590",
           "name": "CS홀딩스",
           "base_price": 74000
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260403",
+      "stocks": [
+        {
+          "ticker": "214330",
+          "name": "금호에이치티",
+          "base_price": 370
+        },
+        {
+          "ticker": "011330",
+          "name": "유니켐",
+          "base_price": 619
+        },
+        {
+          "ticker": "011000",
+          "name": "진원생명과학",
+          "base_price": 868
         }
       ],
       "sent_followups": []
