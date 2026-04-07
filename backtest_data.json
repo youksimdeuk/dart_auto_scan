@@ -815,7 +815,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -1109,7 +1110,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -1373,7 +1375,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -1553,7 +1556,9 @@
           "base_price": 8350
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260402",
@@ -1738,6 +1743,67 @@
           "ticker": "011000",
           "name": "진원생명과학",
           "base_price": 868
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260406",
+      "stocks": [
+        {
+          "ticker": "357580",
+          "name": "아모센스",
+          "base_price": 16980
+        },
+        {
+          "ticker": "011080",
+          "name": "형지I&C",
+          "base_price": 434
+        },
+        {
+          "ticker": "174900",
+          "name": "앱클론",
+          "base_price": 50100
+        },
+        {
+          "ticker": "900300",
+          "name": "오가닉티코스메틱",
+          "base_price": 102
+        },
+        {
+          "ticker": "354200",
+          "name": "엔젠바이오",
+          "base_price": 1575
+        },
+        {
+          "ticker": "0120G0",
+          "name": "삼양바이오팜",
+          "base_price": 80800
+        },
+        {
+          "ticker": "199550",
+          "name": "레이저옵텍",
+          "base_price": 5050
+        },
+        {
+          "ticker": "494120",
+          "name": "큐리오시스",
+          "base_price": 54100
+        },
+        {
+          "ticker": "263920",
+          "name": "휴엠앤씨",
+          "base_price": 3805
+        },
+        {
+          "ticker": "189330",
+          "name": "씨이랩",
+          "base_price": 4375
+        },
+        {
+          "ticker": "010640",
+          "name": "진양폴리",
+          "base_price": 2160
         }
       ],
       "sent_followups": []
