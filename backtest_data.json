@@ -222,7 +222,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -891,7 +892,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -1175,7 +1177,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -1534,7 +1537,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -1724,7 +1728,9 @@
           "base_price": 74000
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260403",
@@ -1804,6 +1810,42 @@
           "ticker": "010640",
           "name": "진양폴리",
           "base_price": 2160
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260407",
+      "stocks": [
+        {
+          "ticker": "348030",
+          "name": "모비릭스",
+          "base_price": 2930
+        },
+        {
+          "ticker": "087260",
+          "name": "모바일어플라이언스",
+          "base_price": 1902
+        },
+        {
+          "ticker": "276040",
+          "name": "스코넥",
+          "base_price": 327
+        },
+        {
+          "ticker": "131030",
+          "name": "옵투스제약",
+          "base_price": 8980
+        },
+        {
+          "ticker": "026910",
+          "name": "광진실업",
+          "base_price": 1442
+        },
+        {
+          "ticker": "051500",
+          "name": "CJ프레시웨이",
+          "base_price": 26250
         }
       ],
       "sent_followups": []
