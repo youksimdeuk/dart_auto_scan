@@ -279,7 +279,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -928,7 +929,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -1217,7 +1219,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -1561,7 +1564,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -1751,7 +1755,9 @@
           "base_price": 868
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260406",
@@ -1846,6 +1852,57 @@
           "ticker": "051500",
           "name": "CJ프레시웨이",
           "base_price": 26250
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260408",
+      "stocks": [
+        {
+          "ticker": "042040",
+          "name": "케이피엠테크",
+          "base_price": 134
+        },
+        {
+          "ticker": "900100",
+          "name": "애머릿지",
+          "base_price": 250
+        },
+        {
+          "ticker": "001120",
+          "name": "LX인터내셔널",
+          "base_price": 46150
+        },
+        {
+          "ticker": "001380",
+          "name": "SG글로벌",
+          "base_price": 1137
+        },
+        {
+          "ticker": "270520",
+          "name": "앱튼",
+          "base_price": 145
+        },
+        {
+          "ticker": "466910",
+          "name": "엔에이치스팩30호",
+          "base_price": 4535
+        },
+        {
+          "ticker": "289220",
+          "name": "자이언트스텝",
+          "base_price": 3110
+        },
+        {
+          "ticker": "109740",
+          "name": "디에스케이",
+          "base_price": 5170
+        },
+        {
+          "ticker": "312610",
+          "name": "에이에프더블류",
+          "base_price": 1093
         }
       ],
       "sent_followups": []
