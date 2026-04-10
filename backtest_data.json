@@ -351,7 +351,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -970,7 +971,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -1274,7 +1276,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -1733,7 +1736,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -1818,7 +1822,9 @@
           "base_price": 2160
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260407",
@@ -1903,6 +1909,22 @@
           "ticker": "312610",
           "name": "에이에프더블류",
           "base_price": 1093
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260409",
+      "stocks": [
+        {
+          "ticker": "051630",
+          "name": "진양화학",
+          "base_price": 2020
+        },
+        {
+          "ticker": "044990",
+          "name": "에이치엔에스하이텍",
+          "base_price": 14210
         }
       ],
       "sent_followups": []
