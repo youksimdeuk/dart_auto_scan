@@ -1002,7 +1002,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -1316,7 +1317,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -1760,7 +1762,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -1860,7 +1863,9 @@
           "base_price": 26250
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260408",
@@ -1925,6 +1930,22 @@
           "ticker": "044990",
           "name": "에이치엔에스하이텍",
           "base_price": 14210
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260410",
+      "stocks": [
+        {
+          "ticker": "091970",
+          "name": "나노캠텍",
+          "base_price": 603
+        },
+        {
+          "ticker": "025440",
+          "name": "DH오토웨어",
+          "base_price": 795
         }
       ],
       "sent_followups": []
