@@ -1118,7 +1118,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -1387,7 +1388,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -1826,7 +1828,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -1916,7 +1919,9 @@
           "base_price": 1093
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260409",
@@ -1946,6 +1951,22 @@
           "ticker": "025440",
           "name": "DH오토웨어",
           "base_price": 795
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260413",
+      "stocks": [
+        {
+          "ticker": "014680",
+          "name": "한솔케미칼",
+          "base_price": 260000
+        },
+        {
+          "ticker": "246690",
+          "name": "TS인베스트먼트",
+          "base_price": 1526
         }
       ],
       "sent_followups": []
