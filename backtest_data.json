@@ -1184,7 +1184,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -1548,7 +1549,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -1867,7 +1869,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -1937,7 +1940,9 @@
           "base_price": 14210
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260410",
@@ -1967,6 +1972,22 @@
           "ticker": "246690",
           "name": "TS인베스트먼트",
           "base_price": 1526
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260414",
+      "stocks": [
+        {
+          "ticker": "112610",
+          "name": "씨에스윈드",
+          "base_price": 62700
+        },
+        {
+          "ticker": "475230",
+          "name": "엔알비",
+          "base_price": 19800
         }
       ],
       "sent_followups": []
