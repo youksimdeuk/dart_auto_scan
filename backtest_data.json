@@ -1225,7 +1225,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -1574,7 +1575,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -1923,7 +1925,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -1958,7 +1961,9 @@
           "base_price": 795
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260413",
@@ -1988,6 +1993,22 @@
           "ticker": "475230",
           "name": "엔알비",
           "base_price": 19800
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260415",
+      "stocks": [
+        {
+          "ticker": "009730",
+          "name": "이렘",
+          "base_price": 490
+        },
+        {
+          "ticker": "089150",
+          "name": "케이씨티",
+          "base_price": 3775
         }
       ],
       "sent_followups": []
