@@ -1281,7 +1281,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -1745,7 +1746,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -1944,7 +1946,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -1979,7 +1982,9 @@
           "base_price": 1526
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260414",
@@ -2009,6 +2014,32 @@
           "ticker": "089150",
           "name": "케이씨티",
           "base_price": 3775
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260416",
+      "stocks": [
+        {
+          "ticker": "017900",
+          "name": "광전자",
+          "base_price": 12900
+        },
+        {
+          "ticker": "010170",
+          "name": "대한광통신",
+          "base_price": 15020
+        },
+        {
+          "ticker": "223310",
+          "name": "사토시홀딩스",
+          "base_price": 2275
+        },
+        {
+          "ticker": "331920",
+          "name": "셀레믹스",
+          "base_price": 13000
         }
       ],
       "sent_followups": []
