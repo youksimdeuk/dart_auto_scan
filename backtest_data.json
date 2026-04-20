@@ -368,7 +368,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -1322,7 +1323,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -1771,7 +1773,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -1965,7 +1968,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -2000,7 +2004,9 @@
           "base_price": 19800
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260415",
@@ -2040,6 +2046,47 @@
           "ticker": "331920",
           "name": "셀레믹스",
           "base_price": 13000
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260417",
+      "stocks": [
+        {
+          "ticker": "356680",
+          "name": "엑스게이트",
+          "base_price": 14990
+        },
+        {
+          "ticker": "0007J0",
+          "name": "인벤테라",
+          "base_price": 22450
+        },
+        {
+          "ticker": "137940",
+          "name": "넥스트아이",
+          "base_price": 253
+        },
+        {
+          "ticker": "403550",
+          "name": "쏘카",
+          "base_price": 11400
+        },
+        {
+          "ticker": "457600",
+          "name": "벡트",
+          "base_price": 2130
+        },
+        {
+          "ticker": "053260",
+          "name": "금강철강",
+          "base_price": 5530
+        },
+        {
+          "ticker": "000950",
+          "name": "전방",
+          "base_price": 33550
         }
       ],
       "sent_followups": []
