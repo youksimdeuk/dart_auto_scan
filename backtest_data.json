@@ -602,7 +602,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -1556,7 +1557,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -1880,7 +1882,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -2009,7 +2012,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -2054,7 +2058,9 @@
           "base_price": 13000
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260417",
@@ -2093,6 +2099,27 @@
           "ticker": "000950",
           "name": "전방",
           "base_price": 33550
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260421",
+      "stocks": [
+        {
+          "ticker": "100220",
+          "name": "비상교육",
+          "base_price": 6560
+        },
+        {
+          "ticker": "237690",
+          "name": "에스티팜",
+          "base_price": 135800
+        },
+        {
+          "ticker": "115500",
+          "name": "케이씨에스",
+          "base_price": 21700
         }
       ],
       "sent_followups": []
