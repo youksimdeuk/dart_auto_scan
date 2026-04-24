@@ -666,7 +666,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -1755,7 +1756,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -1959,7 +1961,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -2063,7 +2066,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -2152,6 +2156,42 @@
           "ticker": "196450",
           "name": "코아시아씨엠",
           "base_price": 1246
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260423",
+      "stocks": [
+        {
+          "ticker": "004870",
+          "name": "티웨이홀딩스",
+          "base_price": 266
+        },
+        {
+          "ticker": "327260",
+          "name": "RF머트리얼즈",
+          "base_price": 89500
+        },
+        {
+          "ticker": "462350",
+          "name": "이노스페이스",
+          "base_price": 16030
+        },
+        {
+          "ticker": "227610",
+          "name": "아우딘퓨쳐스",
+          "base_price": 688
+        },
+        {
+          "ticker": "388610",
+          "name": "지에프씨생명과학",
+          "base_price": 9900
+        },
+        {
+          "ticker": "376270",
+          "name": "HEM파마",
+          "base_price": 56800
         }
       ],
       "sent_followups": []
