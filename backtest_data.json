@@ -748,7 +748,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -1782,7 +1783,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -1981,7 +1983,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -2110,7 +2113,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -2132,7 +2136,9 @@
           "base_price": 21700
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260422",
@@ -2192,6 +2198,17 @@
           "ticker": "376270",
           "name": "HEM파마",
           "base_price": 56800
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260424",
+      "stocks": [
+        {
+          "ticker": "050110",
+          "name": "캠시스",
+          "base_price": 1789
         }
       ],
       "sent_followups": []
