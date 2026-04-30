@@ -939,7 +939,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -1948,7 +1949,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -2047,7 +2049,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -2172,7 +2175,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -2222,7 +2226,9 @@
           "base_price": 1789
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260427",
@@ -2282,6 +2288,17 @@
           "ticker": "221800",
           "name": "지구홀딩스",
           "base_price": 19490
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260429",
+      "stocks": [
+        {
+          "ticker": "073540",
+          "name": "에프알텍",
+          "base_price": 3995
         }
       ],
       "sent_followups": []
