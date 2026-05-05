@@ -1013,7 +1013,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -1129,7 +1130,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -1992,7 +1994,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -2012,7 +2015,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -2126,7 +2130,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -2231,7 +2236,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -2279,7 +2285,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -2296,7 +2303,9 @@
           "base_price": 19490
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260429",
@@ -2307,7 +2316,9 @@
           "base_price": 3995
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260430",
@@ -2331,6 +2342,52 @@
           "ticker": "468530",
           "name": "프로티나",
           "base_price": 56400
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260504",
+      "stocks": [
+        {
+          "ticker": "187660",
+          "name": "페니트리움바이오",
+          "base_price": 9410
+        },
+        {
+          "ticker": "187420",
+          "name": "HLB제넥스",
+          "base_price": 2820
+        },
+        {
+          "ticker": "219550",
+          "name": "디와이디",
+          "base_price": 1797
+        },
+        {
+          "ticker": "052020",
+          "name": "에스티큐브",
+          "base_price": 19000
+        },
+        {
+          "ticker": "196700",
+          "name": "웹스",
+          "base_price": 1990
+        },
+        {
+          "ticker": "067280",
+          "name": "멀티캠퍼스",
+          "base_price": 27700
+        },
+        {
+          "ticker": "338220",
+          "name": "뷰노",
+          "base_price": 17250
+        },
+        {
+          "ticker": "0007J0",
+          "name": "인벤테라",
+          "base_price": 20400
         }
       ],
       "sent_followups": []
