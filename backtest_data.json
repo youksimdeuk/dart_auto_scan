@@ -1197,7 +1197,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -1238,7 +1239,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -2036,7 +2038,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -2056,7 +2059,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -2155,7 +2159,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -2184,7 +2189,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -2304,7 +2310,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -2317,7 +2324,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -2344,7 +2352,9 @@
           "base_price": 56400
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260504",
@@ -2388,6 +2398,57 @@
           "ticker": "0007J0",
           "name": "인벤테라",
           "base_price": 20400
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260506",
+      "stocks": [
+        {
+          "ticker": "129920",
+          "name": "대성하이텍",
+          "base_price": 8790
+        },
+        {
+          "ticker": "308430",
+          "name": "셀비온",
+          "base_price": 30750
+        },
+        {
+          "ticker": "094800",
+          "name": "맵스리얼티",
+          "base_price": 6100
+        },
+        {
+          "ticker": "228670",
+          "name": "레이",
+          "base_price": 8010
+        },
+        {
+          "ticker": "354320",
+          "name": "알멕",
+          "base_price": 83000
+        },
+        {
+          "ticker": "357430",
+          "name": "마스턴프리미어리츠",
+          "base_price": 1129
+        },
+        {
+          "ticker": "119830",
+          "name": "아이텍",
+          "base_price": 7080
+        },
+        {
+          "ticker": "187220",
+          "name": "디티앤씨",
+          "base_price": 3080
+        },
+        {
+          "ticker": "014130",
+          "name": "한익스프레스",
+          "base_price": 2635
         }
       ],
       "sent_followups": []
