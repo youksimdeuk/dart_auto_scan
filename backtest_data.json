@@ -1296,7 +1296,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -2090,7 +2091,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -2229,7 +2231,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -2353,7 +2356,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -2400,7 +2404,9 @@
           "base_price": 20400
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260506",
@@ -2449,6 +2455,27 @@
           "ticker": "014130",
           "name": "한익스프레스",
           "base_price": 2635
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260507",
+      "stocks": [
+        {
+          "ticker": "454910",
+          "name": "두산로보틱스",
+          "base_price": 99100
+        },
+        {
+          "ticker": "042520",
+          "name": "한스바이오메드",
+          "base_price": 23250
+        },
+        {
+          "ticker": "020400",
+          "name": "대동금속",
+          "base_price": 4880
         }
       ],
       "sent_followups": []
