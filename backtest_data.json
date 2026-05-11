@@ -1338,7 +1338,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -2137,7 +2138,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -2246,7 +2248,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -2476,6 +2479,32 @@
           "ticker": "020400",
           "name": "대동금속",
           "base_price": 4880
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260508",
+      "stocks": [
+        {
+          "ticker": "036010",
+          "name": "아비코전자",
+          "base_price": 10460
+        },
+        {
+          "ticker": "004430",
+          "name": "송원산업",
+          "base_price": 13140
+        },
+        {
+          "ticker": "178920",
+          "name": "PI첨단소재",
+          "base_price": 29100
+        },
+        {
+          "ticker": "465480",
+          "name": "인스피언",
+          "base_price": 5620
         }
       ],
       "sent_followups": []
