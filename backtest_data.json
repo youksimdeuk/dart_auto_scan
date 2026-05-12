@@ -1410,7 +1410,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -2298,7 +2299,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -2408,7 +2410,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -2460,7 +2463,9 @@
           "base_price": 2635
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260507",
@@ -2505,6 +2510,192 @@
           "ticker": "465480",
           "name": "인스피언",
           "base_price": 5620
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260511",
+      "stocks": [
+        {
+          "ticker": "306040",
+          "name": "에스제이그룹",
+          "base_price": 5790
+        },
+        {
+          "ticker": "074600",
+          "name": "원익QnC",
+          "base_price": 36050
+        },
+        {
+          "ticker": "424870",
+          "name": "이뮨온시아",
+          "base_price": 5940
+        },
+        {
+          "ticker": "016920",
+          "name": "카스",
+          "base_price": 1012
+        },
+        {
+          "ticker": "100220",
+          "name": "비상교육",
+          "base_price": 6760
+        },
+        {
+          "ticker": "084680",
+          "name": "이월드",
+          "base_price": 1761
+        },
+        {
+          "ticker": "010950",
+          "name": "S-Oil",
+          "base_price": 110900
+        },
+        {
+          "ticker": "004720",
+          "name": "팜젠사이언스",
+          "base_price": 3830
+        },
+        {
+          "ticker": "140520",
+          "name": "대창스틸",
+          "base_price": 2215
+        },
+        {
+          "ticker": "083470",
+          "name": "이엠앤아이",
+          "base_price": 1010
+        },
+        {
+          "ticker": "120110",
+          "name": "코오롱인더",
+          "base_price": 88200
+        },
+        {
+          "ticker": "028080",
+          "name": "휴맥스홀딩스",
+          "base_price": 7380
+        },
+        {
+          "ticker": "014990",
+          "name": "인디에프",
+          "base_price": 704
+        },
+        {
+          "ticker": "005680",
+          "name": "삼영전자",
+          "base_price": 14450
+        },
+        {
+          "ticker": "086670",
+          "name": "비엠티",
+          "base_price": 16750
+        },
+        {
+          "ticker": "070590",
+          "name": "인티큐브",
+          "base_price": 1709
+        },
+        {
+          "ticker": "067830",
+          "name": "세이브존I&C",
+          "base_price": 2980
+        },
+        {
+          "ticker": "000950",
+          "name": "전방",
+          "base_price": 30750
+        },
+        {
+          "ticker": "111710",
+          "name": "남화산업",
+          "base_price": 3815
+        },
+        {
+          "ticker": "493280",
+          "name": "아이엠바이오로직스",
+          "base_price": 38900
+        },
+        {
+          "ticker": "950220",
+          "name": "네오이뮨텍",
+          "base_price": 384
+        },
+        {
+          "ticker": "016800",
+          "name": "퍼시스",
+          "base_price": 33050
+        },
+        {
+          "ticker": "192390",
+          "name": "윈하이텍",
+          "base_price": 1814
+        },
+        {
+          "ticker": "000040",
+          "name": "KR모터스",
+          "base_price": 390
+        },
+        {
+          "ticker": "010955",
+          "name": "S-Oil우",
+          "base_price": 52500
+        },
+        {
+          "ticker": "198080",
+          "name": "캐프",
+          "base_price": 2900
+        },
+        {
+          "ticker": "050090",
+          "name": "비케이홀딩스",
+          "base_price": 730
+        },
+        {
+          "ticker": "136410",
+          "name": "아셈스",
+          "base_price": 6800
+        },
+        {
+          "ticker": "049430",
+          "name": "코메론",
+          "base_price": 18640
+        },
+        {
+          "ticker": "000230",
+          "name": "일동홀딩스",
+          "base_price": 8600
+        },
+        {
+          "ticker": "206400",
+          "name": "베노티앤알",
+          "base_price": 1100
+        },
+        {
+          "ticker": "018680",
+          "name": "서울제약",
+          "base_price": 2600
+        },
+        {
+          "ticker": "45226K",
+          "name": "한화갤러리아우",
+          "base_price": 6730
+        },
+        {
+          "ticker": "023900",
+          "name": "풍국주정",
+          "base_price": 9930
+        },
+        {
+          "ticker": "014130",
+          "name": "한익스프레스",
+          "base_price": 2540
+        },
+        {
+          "ticker": "093380",
+          "name": "풍강",
+          "base_price": 2700
         }
       ],
       "sent_followups": []
