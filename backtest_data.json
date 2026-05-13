@@ -1572,7 +1572,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -2165,7 +2166,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -2319,7 +2321,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -2486,7 +2489,9 @@
           "base_price": 4880
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260508",
@@ -2696,6 +2701,102 @@
           "ticker": "093380",
           "name": "풍강",
           "base_price": 2700
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260512",
+      "stocks": [
+        {
+          "ticker": "006650",
+          "name": "대한유화",
+          "base_price": 151100
+        },
+        {
+          "ticker": "102710",
+          "name": "이엔에프테크놀로지",
+          "base_price": 51300
+        },
+        {
+          "ticker": "051910",
+          "name": "LG화학",
+          "base_price": 388500
+        },
+        {
+          "ticker": "007120",
+          "name": "미래아이앤지",
+          "base_price": 1758
+        },
+        {
+          "ticker": "036810",
+          "name": "에프에스티",
+          "base_price": 37900
+        },
+        {
+          "ticker": "089470",
+          "name": "HDC현대EP",
+          "base_price": 5000
+        },
+        {
+          "ticker": "140860",
+          "name": "파크시스템스",
+          "base_price": 298500
+        },
+        {
+          "ticker": "126700",
+          "name": "하이비젼시스템",
+          "base_price": 17070
+        },
+        {
+          "ticker": "005490",
+          "name": "POSCO홀딩스",
+          "base_price": 479000
+        },
+        {
+          "ticker": "33637K",
+          "name": "솔루스첨단소재1우",
+          "base_price": 2150
+        },
+        {
+          "ticker": "005290",
+          "name": "동진쎄미켐",
+          "base_price": 56200
+        },
+        {
+          "ticker": "360350",
+          "name": "코셈",
+          "base_price": 12300
+        },
+        {
+          "ticker": "402490",
+          "name": "그린리소스",
+          "base_price": 18880
+        },
+        {
+          "ticker": "357780",
+          "name": "솔브레인",
+          "base_price": 426500
+        },
+        {
+          "ticker": "291810",
+          "name": "핀텔",
+          "base_price": 1599
+        },
+        {
+          "ticker": "001040",
+          "name": "CJ",
+          "base_price": 208000
+        },
+        {
+          "ticker": "007815",
+          "name": "코리아써우",
+          "base_price": 22350
+        },
+        {
+          "ticker": "257720",
+          "name": "실리콘투",
+          "base_price": 41700
         }
       ],
       "sent_followups": []
