@@ -1599,7 +1599,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -2197,7 +2198,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -2336,7 +2338,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -2467,7 +2470,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -2517,7 +2521,9 @@
           "base_price": 5620
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260511",
@@ -2797,6 +2803,27 @@
           "ticker": "257720",
           "name": "실리콘투",
           "base_price": 41700
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260513",
+      "stocks": [
+        {
+          "ticker": "073190",
+          "name": "듀오백",
+          "base_price": 994
+        },
+        {
+          "ticker": "214150",
+          "name": "클래시스",
+          "base_price": 51000
+        },
+        {
+          "ticker": "418470",
+          "name": "KT밀리의서재",
+          "base_price": 11590
         }
       ],
       "sent_followups": []
