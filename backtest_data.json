@@ -1771,7 +1771,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -2239,7 +2240,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -2368,7 +2370,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -2494,7 +2497,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -2709,7 +2713,9 @@
           "base_price": 2700
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260512",
@@ -2824,6 +2830,67 @@
           "ticker": "418470",
           "name": "KT밀리의서재",
           "base_price": 11590
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260514",
+      "stocks": [
+        {
+          "ticker": "305090",
+          "name": "마이크로디지탈",
+          "base_price": 4300
+        },
+        {
+          "ticker": "011690",
+          "name": "와이투솔루션",
+          "base_price": 7260
+        },
+        {
+          "ticker": "007120",
+          "name": "미래아이앤지",
+          "base_price": 1552
+        },
+        {
+          "ticker": "066360",
+          "name": "체리부로",
+          "base_price": 1010
+        },
+        {
+          "ticker": "475230",
+          "name": "엔알비",
+          "base_price": 16900
+        },
+        {
+          "ticker": "012205",
+          "name": "계양전기우",
+          "base_price": 18300
+        },
+        {
+          "ticker": "355690",
+          "name": "에이텀",
+          "base_price": 4200
+        },
+        {
+          "ticker": "047920",
+          "name": "HLB제약",
+          "base_price": 14740
+        },
+        {
+          "ticker": "090470",
+          "name": "제이스로보틱스",
+          "base_price": 7170
+        },
+        {
+          "ticker": "050760",
+          "name": "에스폴리텍",
+          "base_price": 1215
+        },
+        {
+          "ticker": "301300",
+          "name": "바이브컴퍼니",
+          "base_price": 2125
         }
       ],
       "sent_followups": []
