@@ -1798,7 +1798,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -2256,7 +2257,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -2526,7 +2528,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -2811,7 +2814,9 @@
           "base_price": 41700
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260513",
@@ -2891,6 +2896,157 @@
           "ticker": "301300",
           "name": "바이브컴퍼니",
           "base_price": 2125
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260515",
+      "stocks": [
+        {
+          "ticker": "177900",
+          "name": "쓰리에이로직스",
+          "base_price": 6370
+        },
+        {
+          "ticker": "101160",
+          "name": "월덱스",
+          "base_price": 27750
+        },
+        {
+          "ticker": "458870",
+          "name": "씨어스",
+          "base_price": 36950
+        },
+        {
+          "ticker": "089230",
+          "name": "THE E&M",
+          "base_price": 3010
+        },
+        {
+          "ticker": "003540",
+          "name": "대신증권",
+          "base_price": 33900
+        },
+        {
+          "ticker": "080580",
+          "name": "오킨스전자",
+          "base_price": 19970
+        },
+        {
+          "ticker": "199800",
+          "name": "툴젠",
+          "base_price": 96600
+        },
+        {
+          "ticker": "001200",
+          "name": "유진투자증권",
+          "base_price": 5880
+        },
+        {
+          "ticker": "160190",
+          "name": "하이젠알앤엠",
+          "base_price": 38450
+        },
+        {
+          "ticker": "241790",
+          "name": "티이엠씨씨엔에스",
+          "base_price": 7940
+        },
+        {
+          "ticker": "022100",
+          "name": "포스코DX",
+          "base_price": 33700
+        },
+        {
+          "ticker": "001270",
+          "name": "부국증권",
+          "base_price": 66800
+        },
+        {
+          "ticker": "170920",
+          "name": "엘티씨",
+          "base_price": 38400
+        },
+        {
+          "ticker": "068790",
+          "name": "DMS",
+          "base_price": 7030
+        },
+        {
+          "ticker": "362990",
+          "name": "드림인사이트",
+          "base_price": 1494
+        },
+        {
+          "ticker": "210120",
+          "name": "캔버스엔",
+          "base_price": 1216
+        },
+        {
+          "ticker": "357430",
+          "name": "마스턴프리미어리츠",
+          "base_price": 999
+        },
+        {
+          "ticker": "045100",
+          "name": "한양이엔지",
+          "base_price": 30450
+        },
+        {
+          "ticker": "117670",
+          "name": "알파칩스",
+          "base_price": 16280
+        },
+        {
+          "ticker": "005710",
+          "name": "대원산업",
+          "base_price": 12730
+        },
+        {
+          "ticker": "110990",
+          "name": "디아이티",
+          "base_price": 24350
+        },
+        {
+          "ticker": "256840",
+          "name": "한국비엔씨",
+          "base_price": 3355
+        },
+        {
+          "ticker": "417860",
+          "name": "오브젠",
+          "base_price": 8150
+        },
+        {
+          "ticker": "373170",
+          "name": "엠아이큐브솔루션",
+          "base_price": 2565
+        },
+        {
+          "ticker": "123570",
+          "name": "이엠넷",
+          "base_price": 1846
+        },
+        {
+          "ticker": "109670",
+          "name": "씨싸이트",
+          "base_price": 4120
+        },
+        {
+          "ticker": "347000",
+          "name": "센코",
+          "base_price": 2145
+        },
+        {
+          "ticker": "03473K",
+          "name": "SK우",
+          "base_price": 360000
+        },
+        {
+          "ticker": "437730",
+          "name": "삼현",
+          "base_price": 52700
         }
       ],
       "sent_followups": []
