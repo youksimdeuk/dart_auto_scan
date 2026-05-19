@@ -1865,7 +1865,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -2308,7 +2309,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -2422,7 +2424,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -2717,7 +2720,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -2837,7 +2841,9 @@
           "base_price": 11590
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260514",
@@ -3047,6 +3053,72 @@
           "ticker": "437730",
           "name": "삼현",
           "base_price": 52700
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260518",
+      "stocks": [
+        {
+          "ticker": "406820",
+          "name": "뷰티스킨",
+          "base_price": 3010
+        },
+        {
+          "ticker": "271830",
+          "name": "팸텍",
+          "base_price": 1294
+        },
+        {
+          "ticker": "262260",
+          "name": "에이프로",
+          "base_price": 8550
+        },
+        {
+          "ticker": "001040",
+          "name": "CJ",
+          "base_price": 170300
+        },
+        {
+          "ticker": "238200",
+          "name": "비피도",
+          "base_price": 2760
+        },
+        {
+          "ticker": "279600",
+          "name": "미디어젠",
+          "base_price": 4465
+        },
+        {
+          "ticker": "016100",
+          "name": "리더스코스메틱",
+          "base_price": 1539
+        },
+        {
+          "ticker": "382900",
+          "name": "범한퓨얼셀",
+          "base_price": 27800
+        },
+        {
+          "ticker": "432980",
+          "name": "엠에프씨",
+          "base_price": 3265
+        },
+        {
+          "ticker": "199730",
+          "name": "바이오인프라",
+          "base_price": 3655
+        },
+        {
+          "ticker": "001755",
+          "name": "한양증권우",
+          "base_price": 25200
+        },
+        {
+          "ticker": "134060",
+          "name": "이퓨쳐",
+          "base_price": 3955
         }
       ],
       "sent_followups": []
