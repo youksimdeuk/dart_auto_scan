@@ -1907,7 +1907,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -2330,7 +2331,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -2819,7 +2821,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -2904,7 +2907,9 @@
           "base_price": 2125
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260515",
@@ -3119,6 +3124,62 @@
           "ticker": "134060",
           "name": "이퓨쳐",
           "base_price": 3955
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260519",
+      "stocks": [
+        {
+          "ticker": "043260",
+          "name": "성호전자",
+          "base_price": 35300
+        },
+        {
+          "ticker": "454910",
+          "name": "두산로보틱스",
+          "base_price": 100100
+        },
+        {
+          "ticker": "432980",
+          "name": "엠에프씨",
+          "base_price": 2750
+        },
+        {
+          "ticker": "424870",
+          "name": "이뮨온시아",
+          "base_price": 5430
+        },
+        {
+          "ticker": "017370",
+          "name": "우신시스템",
+          "base_price": 4970
+        },
+        {
+          "ticker": "228670",
+          "name": "레이",
+          "base_price": 7060
+        },
+        {
+          "ticker": "067830",
+          "name": "세이브존I&C",
+          "base_price": 2790
+        },
+        {
+          "ticker": "475230",
+          "name": "엔알비",
+          "base_price": 14660
+        },
+        {
+          "ticker": "177830",
+          "name": "파버나인",
+          "base_price": 2615
+        },
+        {
+          "ticker": "000225",
+          "name": "유유제약1우",
+          "base_price": 4070
         }
       ],
       "sent_followups": []
