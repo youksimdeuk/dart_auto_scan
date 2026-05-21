@@ -1964,7 +1964,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -2347,7 +2348,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -2481,7 +2483,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -2845,7 +2848,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -3060,7 +3064,9 @@
           "base_price": 52700
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260518",
@@ -3180,6 +3186,82 @@
           "ticker": "000225",
           "name": "유유제약1우",
           "base_price": 4070
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260520",
+      "stocks": [
+        {
+          "ticker": "355150",
+          "name": "코스텍시스",
+          "base_price": 44850
+        },
+        {
+          "ticker": "289080",
+          "name": "SV인베스트먼트",
+          "base_price": 3060
+        },
+        {
+          "ticker": "037070",
+          "name": "파세코",
+          "base_price": 7320
+        },
+        {
+          "ticker": "203400",
+          "name": "에이비온",
+          "base_price": 1923
+        },
+        {
+          "ticker": "288180",
+          "name": "케이피항공산업",
+          "base_price": 30700
+        },
+        {
+          "ticker": "051390",
+          "name": "YW",
+          "base_price": 4455
+        },
+        {
+          "ticker": "144960",
+          "name": "뉴파워프라즈마",
+          "base_price": 9450
+        },
+        {
+          "ticker": "009620",
+          "name": "삼보산업",
+          "base_price": 771
+        },
+        {
+          "ticker": "140860",
+          "name": "파크시스템스",
+          "base_price": 248500
+        },
+        {
+          "ticker": "137950",
+          "name": "제이씨케미칼",
+          "base_price": 3840
+        },
+        {
+          "ticker": "217590",
+          "name": "티엠씨",
+          "base_price": 26300
+        },
+        {
+          "ticker": "032960",
+          "name": "동일기연",
+          "base_price": 11660
+        },
+        {
+          "ticker": "402030",
+          "name": "코난테크놀로지",
+          "base_price": 16020
+        },
+        {
+          "ticker": "00279K",
+          "name": "아모레퍼시픽홀딩스3우C",
+          "base_price": 21000
         }
       ],
       "sent_followups": []
