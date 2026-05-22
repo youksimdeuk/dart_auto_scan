@@ -1986,7 +1986,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -2379,7 +2380,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -2508,7 +2510,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -2912,7 +2915,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -3132,7 +3136,9 @@
           "base_price": 3955
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260519",
@@ -3262,6 +3268,77 @@
           "ticker": "00279K",
           "name": "아모레퍼시픽홀딩스3우C",
           "base_price": 21000
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260521",
+      "stocks": [
+        {
+          "ticker": "314130",
+          "name": "지놈앤컴퍼니",
+          "base_price": 5200
+        },
+        {
+          "ticker": "291810",
+          "name": "핀텔",
+          "base_price": 1317
+        },
+        {
+          "ticker": "376900",
+          "name": "로킷헬스케어",
+          "base_price": 52100
+        },
+        {
+          "ticker": "403490",
+          "name": "우듬지팜",
+          "base_price": 840
+        },
+        {
+          "ticker": "200230",
+          "name": "텔콘RF제약",
+          "base_price": 450
+        },
+        {
+          "ticker": "376930",
+          "name": "노을",
+          "base_price": 1008
+        },
+        {
+          "ticker": "017860",
+          "name": "DS단석",
+          "base_price": 16890
+        },
+        {
+          "ticker": "337930",
+          "name": "젝시믹스",
+          "base_price": 3350
+        },
+        {
+          "ticker": "327260",
+          "name": "RF머트리얼즈",
+          "base_price": 88100
+        },
+        {
+          "ticker": "080530",
+          "name": "코디",
+          "base_price": 2870
+        },
+        {
+          "ticker": "182360",
+          "name": "큐브엔터",
+          "base_price": 7410
+        },
+        {
+          "ticker": "008500",
+          "name": "일정실업",
+          "base_price": 1950
+        },
+        {
+          "ticker": "065660",
+          "name": "안트로젠",
+          "base_price": 29300
         }
       ],
       "sent_followups": []
