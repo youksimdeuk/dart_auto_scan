@@ -2008,7 +2008,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -2540,7 +2541,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -3069,7 +3071,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -3194,7 +3197,9 @@
           "base_price": 4070
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260520",
@@ -3339,6 +3344,27 @@
           "ticker": "065660",
           "name": "안트로젠",
           "base_price": 29300
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260522",
+      "stocks": [
+        {
+          "ticker": "148780",
+          "name": "비큐AI",
+          "base_price": 737
+        },
+        {
+          "ticker": "204620",
+          "name": "글로벌텍스프리",
+          "base_price": 4810
+        },
+        {
+          "ticker": "053950",
+          "name": "경남제약",
+          "base_price": 2460
         }
       ],
       "sent_followups": []
