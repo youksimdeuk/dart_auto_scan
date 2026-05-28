@@ -2030,7 +2030,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -2051,7 +2052,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -2072,7 +2074,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -2432,7 +2435,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -2487,7 +2491,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -2731,7 +2736,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -2830,7 +2836,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -2854,7 +2861,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -3140,7 +3148,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -3198,7 +3207,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -3275,7 +3285,10 @@
           "base_price": 21000
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3,
+        5
+      ]
     },
     {
       "scan_date": "20260521",
@@ -3346,7 +3359,9 @@
           "base_price": 29300
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260522",
@@ -3365,6 +3380,179 @@
           "ticker": "053950",
           "name": "경남제약",
           "base_price": 2460
+        }
+      ],
+      "sent_followups": [
+        3
+      ]
+    },
+    {
+      "scan_date": "20260527",
+      "stocks": [
+        {
+          "ticker": "418550",
+          "name": "제이오",
+          "base_price": 7750
+        },
+        {
+          "ticker": "009620",
+          "name": "삼보산업",
+          "base_price": 739
+        },
+        {
+          "ticker": "009730",
+          "name": "이렘",
+          "base_price": 238
+        },
+        {
+          "ticker": "042040",
+          "name": "케이피엠테크",
+          "base_price": 798
+        },
+        {
+          "ticker": "458870",
+          "name": "씨어스",
+          "base_price": 33250
+        },
+        {
+          "ticker": "33637K",
+          "name": "솔루스첨단소재1우",
+          "base_price": 1864
+        },
+        {
+          "ticker": "359090",
+          "name": "씨엔알리서치",
+          "base_price": 589
+        },
+        {
+          "ticker": "006920",
+          "name": "모헨즈",
+          "base_price": 3505
+        },
+        {
+          "ticker": "312610",
+          "name": "에이에프더블류",
+          "base_price": 970
+        },
+        {
+          "ticker": "119850",
+          "name": "지엔씨에너지",
+          "base_price": 25050
+        },
+        {
+          "ticker": "042110",
+          "name": "에스씨디",
+          "base_price": 1358
+        },
+        {
+          "ticker": "096240",
+          "name": "크레버스",
+          "base_price": 9210
+        },
+        {
+          "ticker": "109670",
+          "name": "씨싸이트",
+          "base_price": 3750
+        },
+        {
+          "ticker": "365590",
+          "name": "하이딥",
+          "base_price": 1401
+        },
+        {
+          "ticker": "458350",
+          "name": "에스팀",
+          "base_price": 6370
+        },
+        {
+          "ticker": "131100",
+          "name": "티엔엔터테인먼트",
+          "base_price": 1006
+        },
+        {
+          "ticker": "257370",
+          "name": "피엔티엠에스",
+          "base_price": 2435
+        },
+        {
+          "ticker": "004440",
+          "name": "삼일씨엔에스",
+          "base_price": 5600
+        },
+        {
+          "ticker": "001560",
+          "name": "제일연마",
+          "base_price": 9980
+        },
+        {
+          "ticker": "110020",
+          "name": "전진바이오팜",
+          "base_price": 1808
+        },
+        {
+          "ticker": "013570",
+          "name": "디와이",
+          "base_price": 4245
+        },
+        {
+          "ticker": "33637L",
+          "name": "솔루스첨단소재2우B",
+          "base_price": 2850
+        },
+        {
+          "ticker": "457600",
+          "name": "벡트",
+          "base_price": 1648
+        },
+        {
+          "ticker": "361670",
+          "name": "삼영에스앤씨",
+          "base_price": 2955
+        },
+        {
+          "ticker": "016590",
+          "name": "신대양제지",
+          "base_price": 10080
+        },
+        {
+          "ticker": "18064K",
+          "name": "한진칼우",
+          "base_price": 29100
+        },
+        {
+          "ticker": "362990",
+          "name": "드림인사이트",
+          "base_price": 1433
+        },
+        {
+          "ticker": "364950",
+          "name": "에이아이코리아",
+          "base_price": 5660
+        },
+        {
+          "ticker": "006890",
+          "name": "태경케미컬",
+          "base_price": 7380
+        },
+        {
+          "ticker": "003925",
+          "name": "남양유업우",
+          "base_price": 34350
+        },
+        {
+          "ticker": "131180",
+          "name": "딜리",
+          "base_price": 4365
+        },
+        {
+          "ticker": "36328K",
+          "name": "티와이홀딩스우",
+          "base_price": 3650
+        },
+        {
+          "ticker": "051490",
+          "name": "나라엠앤디",
+          "base_price": 3340
         }
       ],
       "sent_followups": []
