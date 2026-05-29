@@ -2106,7 +2106,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -2517,7 +2518,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -2926,7 +2928,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -3360,7 +3363,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -3553,6 +3557,52 @@
           "ticker": "051490",
           "name": "나라엠앤디",
           "base_price": 3340
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260528",
+      "stocks": [
+        {
+          "ticker": "289080",
+          "name": "SV인베스트먼트",
+          "base_price": 2705
+        },
+        {
+          "ticker": "045060",
+          "name": "오공",
+          "base_price": 2115
+        },
+        {
+          "ticker": "080580",
+          "name": "오킨스전자",
+          "base_price": 18380
+        },
+        {
+          "ticker": "088260",
+          "name": "이리츠코크렙",
+          "base_price": 4180
+        },
+        {
+          "ticker": "373200",
+          "name": "엑스플러스",
+          "base_price": 2880
+        },
+        {
+          "ticker": "261200",
+          "name": "덴티스",
+          "base_price": 2995
+        },
+        {
+          "ticker": "025870",
+          "name": "신라에스지",
+          "base_price": 3400
+        },
+        {
+          "ticker": "33637L",
+          "name": "솔루스첨단소재2우B",
+          "base_price": 2580
         }
       ],
       "sent_followups": []
