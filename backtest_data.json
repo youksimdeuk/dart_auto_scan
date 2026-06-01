@@ -2153,7 +2153,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -2549,7 +2550,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -3083,7 +3085,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -3387,7 +3390,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -3603,6 +3607,112 @@
           "ticker": "33637L",
           "name": "솔루스첨단소재2우B",
           "base_price": 2580
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260529",
+      "stocks": [
+        {
+          "ticker": "077360",
+          "name": "덕산하이메탈",
+          "base_price": 12990
+        },
+        {
+          "ticker": "494120",
+          "name": "큐리오시스",
+          "base_price": 32550
+        },
+        {
+          "ticker": "009620",
+          "name": "삼보산업",
+          "base_price": 618
+        },
+        {
+          "ticker": "033160",
+          "name": "엠케이전자",
+          "base_price": 21500
+        },
+        {
+          "ticker": "160190",
+          "name": "하이젠알앤엠",
+          "base_price": 29700
+        },
+        {
+          "ticker": "144960",
+          "name": "뉴파워프라즈마",
+          "base_price": 8400
+        },
+        {
+          "ticker": "199800",
+          "name": "툴젠",
+          "base_price": 48100
+        },
+        {
+          "ticker": "079190",
+          "name": "케스피온",
+          "base_price": 798
+        },
+        {
+          "ticker": "376930",
+          "name": "노을",
+          "base_price": 975
+        },
+        {
+          "ticker": "271830",
+          "name": "팸텍",
+          "base_price": 1075
+        },
+        {
+          "ticker": "014990",
+          "name": "인디에프",
+          "base_price": 511
+        },
+        {
+          "ticker": "063760",
+          "name": "이엘피",
+          "base_price": 3125
+        },
+        {
+          "ticker": "020180",
+          "name": "대신정보통신",
+          "base_price": 1010
+        },
+        {
+          "ticker": "00680K",
+          "name": "미래에셋증권2우B",
+          "base_price": 15610
+        },
+        {
+          "ticker": "493330",
+          "name": "지에프아이",
+          "base_price": 14360
+        },
+        {
+          "ticker": "311690",
+          "name": "CJ 바이오사이언스",
+          "base_price": 5160
+        },
+        {
+          "ticker": "049120",
+          "name": "파인디앤씨",
+          "base_price": 2015
+        },
+        {
+          "ticker": "326030",
+          "name": "SK바이오팜",
+          "base_price": 89700
+        },
+        {
+          "ticker": "099390",
+          "name": "브레인즈컴퍼니",
+          "base_price": 3805
+        },
+        {
+          "ticker": "080420",
+          "name": "모다이노칩",
+          "base_price": 1610
         }
       ],
       "sent_followups": []
