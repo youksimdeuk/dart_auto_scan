@@ -2180,7 +2180,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -2842,7 +2843,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -3216,7 +3218,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -3613,7 +3616,9 @@
           "base_price": 2580
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260529",
@@ -3983,6 +3988,57 @@
           "ticker": "025530",
           "name": "SJM홀딩스",
           "base_price": 3415
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260602",
+      "stocks": [
+        {
+          "ticker": "014990",
+          "name": "인디에프",
+          "base_price": 467
+        },
+        {
+          "ticker": "153490",
+          "name": "우리이앤엘하루틴",
+          "base_price": 706
+        },
+        {
+          "ticker": "003570",
+          "name": "SNT다이내믹스",
+          "base_price": 40700
+        },
+        {
+          "ticker": "113810",
+          "name": "디젠스",
+          "base_price": 530
+        },
+        {
+          "ticker": "301300",
+          "name": "바이브컴퍼니",
+          "base_price": 1682
+        },
+        {
+          "ticker": "270520",
+          "name": "앱튼",
+          "base_price": 1096
+        },
+        {
+          "ticker": "001065",
+          "name": "JW중외제약우",
+          "base_price": 22650
+        },
+        {
+          "ticker": "208860",
+          "name": "다산디엠씨",
+          "base_price": 880
+        },
+        {
+          "ticker": "277070",
+          "name": "린드먼아시아",
+          "base_price": 3545
         }
       ],
       "sent_followups": []
