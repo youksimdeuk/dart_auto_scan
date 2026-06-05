@@ -2212,7 +2212,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -2253,7 +2254,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -2869,7 +2871,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -2934,7 +2937,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -3298,7 +3302,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -3372,7 +3377,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -3569,7 +3575,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -3617,7 +3624,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -3724,7 +3732,9 @@
           "base_price": 1610
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260601",
@@ -3990,7 +4000,9 @@
           "base_price": 3415
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260602",
@@ -4039,6 +4051,67 @@
           "ticker": "277070",
           "name": "린드먼아시아",
           "base_price": 3545
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260604",
+      "stocks": [
+        {
+          "ticker": "0009K0",
+          "name": "에임드바이오",
+          "base_price": 27700
+        },
+        {
+          "ticker": "191410",
+          "name": "육일씨엔에쓰",
+          "base_price": 1355
+        },
+        {
+          "ticker": "003310",
+          "name": "대주산업",
+          "base_price": 2080
+        },
+        {
+          "ticker": "038460",
+          "name": "바이오스마트",
+          "base_price": 2775
+        },
+        {
+          "ticker": "060560",
+          "name": "HC홈센타",
+          "base_price": 1985
+        },
+        {
+          "ticker": "002230",
+          "name": "피에스텍",
+          "base_price": 5870
+        },
+        {
+          "ticker": "052020",
+          "name": "에스티큐브",
+          "base_price": 11290
+        },
+        {
+          "ticker": "087260",
+          "name": "모바일어플라이언스",
+          "base_price": 638
+        },
+        {
+          "ticker": "312610",
+          "name": "에이에프더블류",
+          "base_price": 712
+        },
+        {
+          "ticker": "001420",
+          "name": "태원물산",
+          "base_price": 2105
+        },
+        {
+          "ticker": "080420",
+          "name": "모다이노칩",
+          "base_price": 1510
         }
       ],
       "sent_followups": []
