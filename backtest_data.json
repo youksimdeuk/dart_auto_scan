@@ -2271,7 +2271,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -3093,7 +3094,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -3402,7 +3404,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -3733,7 +3736,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -4053,7 +4057,9 @@
           "base_price": 3545
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260604",
@@ -4112,6 +4118,82 @@
           "ticker": "080420",
           "name": "모다이노칩",
           "base_price": 1510
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260605",
+      "stocks": [
+        {
+          "ticker": "001440",
+          "name": "대한전선",
+          "base_price": 39950
+        },
+        {
+          "ticker": "131100",
+          "name": "티엔엔터테인먼트",
+          "base_price": 830
+        },
+        {
+          "ticker": "138070",
+          "name": "신진에스엠",
+          "base_price": 1354
+        },
+        {
+          "ticker": "030960",
+          "name": "양지사",
+          "base_price": 4970
+        },
+        {
+          "ticker": "011155",
+          "name": "CJ씨푸드1우",
+          "base_price": 9870
+        },
+        {
+          "ticker": "367000",
+          "name": "플래티어",
+          "base_price": 3020
+        },
+        {
+          "ticker": "333050",
+          "name": "이노테나",
+          "base_price": 4805
+        },
+        {
+          "ticker": "001527",
+          "name": "동양2우B",
+          "base_price": 7180
+        },
+        {
+          "ticker": "475230",
+          "name": "엔알비",
+          "base_price": 11350
+        },
+        {
+          "ticker": "465480",
+          "name": "인스피언",
+          "base_price": 4490
+        },
+        {
+          "ticker": "083790",
+          "name": "CG인바이츠",
+          "base_price": 900
+        },
+        {
+          "ticker": "044820",
+          "name": "코스맥스비티아이",
+          "base_price": 17300
+        },
+        {
+          "ticker": "145270",
+          "name": "케이탑리츠",
+          "base_price": 751
+        },
+        {
+          "ticker": "33626L",
+          "name": "두산퓨얼셀2우B",
+          "base_price": 9440
         }
       ],
       "sent_followups": []
