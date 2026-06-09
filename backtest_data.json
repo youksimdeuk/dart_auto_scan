@@ -2323,7 +2323,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -3165,7 +3166,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -4005,7 +4007,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -4194,6 +4197,357 @@
           "ticker": "33626L",
           "name": "두산퓨얼셀2우B",
           "base_price": 9440
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260608",
+      "stocks": [
+        {
+          "ticker": "203400",
+          "name": "에이비온",
+          "base_price": 1235
+        },
+        {
+          "ticker": "0007J0",
+          "name": "인벤테라",
+          "base_price": 11000
+        },
+        {
+          "ticker": "067000",
+          "name": "조이시티",
+          "base_price": 1131
+        },
+        {
+          "ticker": "494120",
+          "name": "큐리오시스",
+          "base_price": 24250
+        },
+        {
+          "ticker": "129920",
+          "name": "대성하이텍",
+          "base_price": 6010
+        },
+        {
+          "ticker": "458350",
+          "name": "에스팀",
+          "base_price": 4600
+        },
+        {
+          "ticker": "262260",
+          "name": "에이프로",
+          "base_price": 5270
+        },
+        {
+          "ticker": "241840",
+          "name": "에이스토리",
+          "base_price": 2755
+        },
+        {
+          "ticker": "474650",
+          "name": "링크솔루션",
+          "base_price": 36200
+        },
+        {
+          "ticker": "394800",
+          "name": "쓰리빌리언",
+          "base_price": 6950
+        },
+        {
+          "ticker": "018700",
+          "name": "졸스",
+          "base_price": 1407
+        },
+        {
+          "ticker": "065500",
+          "name": "오리엔트정공",
+          "base_price": 1369
+        },
+        {
+          "ticker": "175140",
+          "name": "휴먼테크놀로지",
+          "base_price": 2385
+        },
+        {
+          "ticker": "004560",
+          "name": "현대비앤지스틸",
+          "base_price": 12100
+        },
+        {
+          "ticker": "321550",
+          "name": "티움바이오",
+          "base_price": 5340
+        },
+        {
+          "ticker": "239340",
+          "name": "이스트에이드",
+          "base_price": 801
+        },
+        {
+          "ticker": "054920",
+          "name": "한컴위드",
+          "base_price": 4185
+        },
+        {
+          "ticker": "000250",
+          "name": "삼천당제약",
+          "base_price": 239000
+        },
+        {
+          "ticker": "058820",
+          "name": "CMG제약",
+          "base_price": 1045
+        },
+        {
+          "ticker": "363260",
+          "name": "모비데이즈",
+          "base_price": 968
+        },
+        {
+          "ticker": "125210",
+          "name": "아모그린텍",
+          "base_price": 7850
+        },
+        {
+          "ticker": "120110",
+          "name": "코오롱인더",
+          "base_price": 60700
+        },
+        {
+          "ticker": "462860",
+          "name": "더즌",
+          "base_price": 2380
+        },
+        {
+          "ticker": "001210",
+          "name": "금호전기",
+          "base_price": 492
+        },
+        {
+          "ticker": "208370",
+          "name": "셀바스헬스케어",
+          "base_price": 2975
+        },
+        {
+          "ticker": "083470",
+          "name": "이엠앤아이",
+          "base_price": 769
+        },
+        {
+          "ticker": "041910",
+          "name": "폴라리스AI파마",
+          "base_price": 5120
+        },
+        {
+          "ticker": "205500",
+          "name": "넥써쓰",
+          "base_price": 1925
+        },
+        {
+          "ticker": "338840",
+          "name": "와이바이오로직스",
+          "base_price": 13750
+        },
+        {
+          "ticker": "473980",
+          "name": "노머스",
+          "base_price": 12020
+        },
+        {
+          "ticker": "041520",
+          "name": "이엘씨",
+          "base_price": 8300
+        },
+        {
+          "ticker": "159580",
+          "name": "제로투세븐",
+          "base_price": 2420
+        },
+        {
+          "ticker": "041920",
+          "name": "메디아나",
+          "base_price": 12520
+        },
+        {
+          "ticker": "446840",
+          "name": "지슨",
+          "base_price": 936
+        },
+        {
+          "ticker": "080420",
+          "name": "모다이노칩",
+          "base_price": 1441
+        },
+        {
+          "ticker": "032750",
+          "name": "삼진",
+          "base_price": 2730
+        },
+        {
+          "ticker": "067370",
+          "name": "선바이오",
+          "base_price": 5660
+        },
+        {
+          "ticker": "088340",
+          "name": "유라클",
+          "base_price": 7700
+        },
+        {
+          "ticker": "002310",
+          "name": "아세아제지",
+          "base_price": 7000
+        },
+        {
+          "ticker": "160550",
+          "name": "NEW",
+          "base_price": 1175
+        },
+        {
+          "ticker": "308100",
+          "name": "형지글로벌",
+          "base_price": 565
+        },
+        {
+          "ticker": "466410",
+          "name": "사이냅소프트",
+          "base_price": 8840
+        },
+        {
+          "ticker": "033240",
+          "name": "자화전자",
+          "base_price": 32850
+        },
+        {
+          "ticker": "025870",
+          "name": "신라에스지",
+          "base_price": 2755
+        },
+        {
+          "ticker": "333430",
+          "name": "일승",
+          "base_price": 3515
+        },
+        {
+          "ticker": "443670",
+          "name": "에스피소프트",
+          "base_price": 3255
+        },
+        {
+          "ticker": "123840",
+          "name": "뉴온",
+          "base_price": 3235
+        },
+        {
+          "ticker": "376270",
+          "name": "HEM파마",
+          "base_price": 42150
+        },
+        {
+          "ticker": "063570",
+          "name": "NICE인프라",
+          "base_price": 3195
+        },
+        {
+          "ticker": "127980",
+          "name": "화인써키트",
+          "base_price": 3675
+        },
+        {
+          "ticker": "006880",
+          "name": "신송홀딩스",
+          "base_price": 4995
+        },
+        {
+          "ticker": "037950",
+          "name": "엘컴텍",
+          "base_price": 2525
+        },
+        {
+          "ticker": "000760",
+          "name": "이화산업",
+          "base_price": 12500
+        },
+        {
+          "ticker": "302550",
+          "name": "리메드",
+          "base_price": 2660
+        },
+        {
+          "ticker": "079000",
+          "name": "와토스코리아",
+          "base_price": 5420
+        },
+        {
+          "ticker": "388610",
+          "name": "지에프씨생명과학",
+          "base_price": 5870
+        },
+        {
+          "ticker": "461300",
+          "name": "아이스크림미디어",
+          "base_price": 15970
+        },
+        {
+          "ticker": "173940",
+          "name": "에프엔씨엔터",
+          "base_price": 2835
+        },
+        {
+          "ticker": "089850",
+          "name": "유비벨록스",
+          "base_price": 4065
+        },
+        {
+          "ticker": "376290",
+          "name": "씨유테크",
+          "base_price": 2370
+        },
+        {
+          "ticker": "018680",
+          "name": "서울제약",
+          "base_price": 2170
+        },
+        {
+          "ticker": "263920",
+          "name": "휴엠앤씨",
+          "base_price": 2820
+        },
+        {
+          "ticker": "005710",
+          "name": "대원산업",
+          "base_price": 9810
+        },
+        {
+          "ticker": "33637K",
+          "name": "솔루스첨단소재1우",
+          "base_price": 1700
+        },
+        {
+          "ticker": "367000",
+          "name": "플래티어",
+          "base_price": 2850
+        },
+        {
+          "ticker": "044960",
+          "name": "이글벳",
+          "base_price": 2930
+        },
+        {
+          "ticker": "267290",
+          "name": "경동도시가스",
+          "base_price": 19920
+        },
+        {
+          "ticker": "129260",
+          "name": "인터지스",
+          "base_price": 1842
+        },
+        {
+          "ticker": "123040",
+          "name": "엠에스오토텍",
+          "base_price": 1825
         }
       ],
       "sent_followups": []
