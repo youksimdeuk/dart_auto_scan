@@ -2345,7 +2345,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -3227,7 +3228,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -4061,7 +4063,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -4123,7 +4126,9 @@
           "base_price": 1510
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260605",
@@ -4548,6 +4553,47 @@
           "ticker": "123040",
           "name": "엠에스오토텍",
           "base_price": 1825
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260609",
+      "stocks": [
+        {
+          "ticker": "087260",
+          "name": "모바일어플라이언스",
+          "base_price": 497
+        },
+        {
+          "ticker": "475230",
+          "name": "엔알비",
+          "base_price": 10070
+        },
+        {
+          "ticker": "405000",
+          "name": "플라즈맵",
+          "base_price": 4325
+        },
+        {
+          "ticker": "050120",
+          "name": "ES큐브",
+          "base_price": 2600
+        },
+        {
+          "ticker": "118000",
+          "name": "메타케어",
+          "base_price": 1328
+        },
+        {
+          "ticker": "090370",
+          "name": "메타랩스",
+          "base_price": 1074
+        },
+        {
+          "ticker": "024890",
+          "name": "대원화성",
+          "base_price": 2840
         }
       ],
       "sent_followups": []
