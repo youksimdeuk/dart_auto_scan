@@ -2362,7 +2362,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -3309,7 +3310,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -3583,7 +3585,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -4204,7 +4207,9 @@
           "base_price": 9440
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260608",
@@ -4594,6 +4599,62 @@
           "ticker": "024890",
           "name": "대원화성",
           "base_price": 2840
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260610",
+      "stocks": [
+        {
+          "ticker": "327260",
+          "name": "RF머트리얼즈",
+          "base_price": 60700
+        },
+        {
+          "ticker": "040160",
+          "name": "누리플렉스",
+          "base_price": 8510
+        },
+        {
+          "ticker": "178320",
+          "name": "서진시스템",
+          "base_price": 69700
+        },
+        {
+          "ticker": "312610",
+          "name": "에이에프더블류",
+          "base_price": 612
+        },
+        {
+          "ticker": "018310",
+          "name": "삼목에스폼",
+          "base_price": 15210
+        },
+        {
+          "ticker": "354200",
+          "name": "엔젠바이오",
+          "base_price": 888
+        },
+        {
+          "ticker": "019685",
+          "name": "대교우B",
+          "base_price": 722
+        },
+        {
+          "ticker": "066620",
+          "name": "국보디자인",
+          "base_price": 23000
+        },
+        {
+          "ticker": "419540",
+          "name": "비스토스",
+          "base_price": 2410
+        },
+        {
+          "ticker": "079000",
+          "name": "와토스코리아",
+          "base_price": 5000
         }
       ],
       "sent_followups": []
