@@ -2394,7 +2394,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -3386,7 +3387,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -3635,7 +3637,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -4130,7 +4133,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -4560,7 +4564,9 @@
           "base_price": 1825
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260609",
@@ -4655,6 +4661,47 @@
           "ticker": "079000",
           "name": "와토스코리아",
           "base_price": 5000
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260611",
+      "stocks": [
+        {
+          "ticker": "101360",
+          "name": "에코앤드림",
+          "base_price": 10870
+        },
+        {
+          "ticker": "321550",
+          "name": "티움바이오",
+          "base_price": 5170
+        },
+        {
+          "ticker": "377190",
+          "name": "디앤디플랫폼리츠",
+          "base_price": 2260
+        },
+        {
+          "ticker": "108860",
+          "name": "셀바스AI",
+          "base_price": 8780
+        },
+        {
+          "ticker": "023160",
+          "name": "태광",
+          "base_price": 26100
+        },
+        {
+          "ticker": "088260",
+          "name": "이리츠코크렙",
+          "base_price": 3700
+        },
+        {
+          "ticker": "026890",
+          "name": "스틱인베스트먼트",
+          "base_price": 6590
         }
       ],
       "sent_followups": []
