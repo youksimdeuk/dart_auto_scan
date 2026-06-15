@@ -3413,7 +3413,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -3747,7 +3748,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -4212,7 +4214,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -4607,7 +4610,9 @@
           "base_price": 2840
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260610",
@@ -4702,6 +4707,62 @@
           "ticker": "026890",
           "name": "스틱인베스트먼트",
           "base_price": 6590
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260612",
+      "stocks": [
+        {
+          "ticker": "000500",
+          "name": "가온전선",
+          "base_price": 252000
+        },
+        {
+          "ticker": "096250",
+          "name": "와이즈넛",
+          "base_price": 6500
+        },
+        {
+          "ticker": "065420",
+          "name": "에스아이리소스",
+          "base_price": 178
+        },
+        {
+          "ticker": "047560",
+          "name": "이스트소프트",
+          "base_price": 9490
+        },
+        {
+          "ticker": "394800",
+          "name": "쓰리빌리언",
+          "base_price": 6980
+        },
+        {
+          "ticker": "300120",
+          "name": "라온피플",
+          "base_price": 568
+        },
+        {
+          "ticker": "287840",
+          "name": "인투셀",
+          "base_price": 22350
+        },
+        {
+          "ticker": "354200",
+          "name": "엔젠바이오",
+          "base_price": 851
+        },
+        {
+          "ticker": "180400",
+          "name": "DXVX",
+          "base_price": 2530
+        },
+        {
+          "ticker": "475660",
+          "name": "에스켐",
+          "base_price": 3895
         }
       ],
       "sent_followups": []
