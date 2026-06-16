@@ -2446,7 +2446,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -4018,7 +4019,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -4568,7 +4570,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -4668,7 +4671,9 @@
           "base_price": 5000
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260611",
@@ -4763,6 +4768,32 @@
           "ticker": "475660",
           "name": "에스켐",
           "base_price": 3895
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260615",
+      "stocks": [
+        {
+          "ticker": "006050",
+          "name": "국영지앤엠",
+          "base_price": 535
+        },
+        {
+          "ticker": "032860",
+          "name": "더라미",
+          "base_price": 755
+        },
+        {
+          "ticker": "365900",
+          "name": "브이씨",
+          "base_price": 2590
+        },
+        {
+          "ticker": "044380",
+          "name": "주연테크",
+          "base_price": 1428
         }
       ],
       "sent_followups": []
