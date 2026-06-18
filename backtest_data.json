@@ -2503,7 +2503,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -3590,7 +3591,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -4074,7 +4076,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -4614,7 +4617,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -4672,7 +4676,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -4714,7 +4719,9 @@
           "base_price": 6590
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260612",
@@ -4770,7 +4777,9 @@
           "base_price": 3895
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260615",
@@ -4794,6 +4803,42 @@
           "ticker": "044380",
           "name": "주연테크",
           "base_price": 1428
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260617",
+      "stocks": [
+        {
+          "ticker": "348080",
+          "name": "큐라티스",
+          "base_price": 397
+        },
+        {
+          "ticker": "147760",
+          "name": "피엠티",
+          "base_price": 5430
+        },
+        {
+          "ticker": "001067",
+          "name": "JW중외제약2우B",
+          "base_price": 41000
+        },
+        {
+          "ticker": "365900",
+          "name": "브이씨",
+          "base_price": 2340
+        },
+        {
+          "ticker": "217590",
+          "name": "티엠씨",
+          "base_price": 18590
+        },
+        {
+          "ticker": "072770",
+          "name": "멤레이비티",
+          "base_price": 938
         }
       ],
       "sent_followups": []
