@@ -2530,7 +2530,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -3642,7 +3643,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -4141,7 +4143,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -4720,7 +4723,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -4805,7 +4809,9 @@
           "base_price": 1428
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260617",
@@ -4839,6 +4845,117 @@
           "ticker": "072770",
           "name": "멤레이비티",
           "base_price": 938
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260618",
+      "stocks": [
+        {
+          "ticker": "180400",
+          "name": "DXVX",
+          "base_price": 2410
+        },
+        {
+          "ticker": "030610",
+          "name": "교보증권",
+          "base_price": 10770
+        },
+        {
+          "ticker": "393890",
+          "name": "더블유씨피",
+          "base_price": 11890
+        },
+        {
+          "ticker": "207760",
+          "name": "미스터블루",
+          "base_price": 586
+        },
+        {
+          "ticker": "159580",
+          "name": "제로투세븐",
+          "base_price": 2530
+        },
+        {
+          "ticker": "038680",
+          "name": "에스넷",
+          "base_price": 3125
+        },
+        {
+          "ticker": "303530",
+          "name": "이노뎁",
+          "base_price": 2790
+        },
+        {
+          "ticker": "003470",
+          "name": "유안타증권",
+          "base_price": 5010
+        },
+        {
+          "ticker": "012340",
+          "name": "뉴인텍",
+          "base_price": 1020
+        },
+        {
+          "ticker": "199730",
+          "name": "바이오인프라",
+          "base_price": 2885
+        },
+        {
+          "ticker": "413630",
+          "name": "씨피시스템",
+          "base_price": 2460
+        },
+        {
+          "ticker": "196300",
+          "name": "HLB펩",
+          "base_price": 4650
+        },
+        {
+          "ticker": "232830",
+          "name": "아이티센피엔에스",
+          "base_price": 2105
+        },
+        {
+          "ticker": "376290",
+          "name": "씨유테크",
+          "base_price": 2355
+        },
+        {
+          "ticker": "034940",
+          "name": "조아제약",
+          "base_price": 587
+        },
+        {
+          "ticker": "318410",
+          "name": "비비씨",
+          "base_price": 5990
+        },
+        {
+          "ticker": "061090",
+          "name": "세나테크놀로지",
+          "base_price": 37600
+        },
+        {
+          "ticker": "005745",
+          "name": "크라운해태홀딩스우",
+          "base_price": 5670
+        },
+        {
+          "ticker": "099190",
+          "name": "아이센스",
+          "base_price": 16160
+        },
+        {
+          "ticker": "342870",
+          "name": "오아",
+          "base_price": 4710
+        },
+        {
+          "ticker": "191420",
+          "name": "테고사이언스",
+          "base_price": 7480
         }
       ],
       "sent_followups": []
