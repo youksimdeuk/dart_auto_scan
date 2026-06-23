@@ -2754,7 +2754,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -4026,7 +4027,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -4580,7 +4582,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -4814,7 +4817,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -4851,7 +4855,9 @@
           "base_price": 938
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260618",
@@ -5186,6 +5192,97 @@
           "ticker": "298050",
           "name": "HS효성첨단소재",
           "base_price": 188000
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260622",
+      "stocks": [
+        {
+          "ticker": "074430",
+          "name": "아미노로직스",
+          "base_price": 1026
+        },
+        {
+          "ticker": "090410",
+          "name": "덕신이피씨",
+          "base_price": 810
+        },
+        {
+          "ticker": "309930",
+          "name": "조이웍스앤코",
+          "base_price": 871
+        },
+        {
+          "ticker": "084180",
+          "name": "수성웹툰",
+          "base_price": 479
+        },
+        {
+          "ticker": "493280",
+          "name": "아이엠바이오로직스",
+          "base_price": 22600
+        },
+        {
+          "ticker": "078860",
+          "name": "아이오케이이엔엠",
+          "base_price": 2315
+        },
+        {
+          "ticker": "203400",
+          "name": "에이비온",
+          "base_price": 963
+        },
+        {
+          "ticker": "179900",
+          "name": "유티아이",
+          "base_price": 7450
+        },
+        {
+          "ticker": "085810",
+          "name": "알티캐스트",
+          "base_price": 1259
+        },
+        {
+          "ticker": "001770",
+          "name": "SHD",
+          "base_price": 7810
+        },
+        {
+          "ticker": "263700",
+          "name": "케어랩스",
+          "base_price": 1819
+        },
+        {
+          "ticker": "032860",
+          "name": "더라미",
+          "base_price": 614
+        },
+        {
+          "ticker": "025870",
+          "name": "신라에스지",
+          "base_price": 2615
+        },
+        {
+          "ticker": "089140",
+          "name": "넥스턴앤롤코리아",
+          "base_price": 1853
+        },
+        {
+          "ticker": "060900",
+          "name": "에이전트AI",
+          "base_price": 4630
+        },
+        {
+          "ticker": "252500",
+          "name": "세화피앤씨",
+          "base_price": 569
+        },
+        {
+          "ticker": "008290",
+          "name": "원풍물산",
+          "base_price": 461
         }
       ],
       "sent_followups": []
