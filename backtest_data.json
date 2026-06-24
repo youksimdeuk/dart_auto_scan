@@ -2856,7 +2856,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -4083,7 +4084,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -4627,7 +4629,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -4968,7 +4971,9 @@
           "base_price": 7480
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260619",
@@ -5283,6 +5288,397 @@
           "ticker": "008290",
           "name": "원풍물산",
           "base_price": 461
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260623",
+      "stocks": [
+        {
+          "ticker": "056080",
+          "name": "유진로봇",
+          "base_price": 15050
+        },
+        {
+          "ticker": "021080",
+          "name": "에이티넘인베스트",
+          "base_price": 2265
+        },
+        {
+          "ticker": "071200",
+          "name": "인피니트헬스케어",
+          "base_price": 6330
+        },
+        {
+          "ticker": "207760",
+          "name": "미스터블루",
+          "base_price": 457
+        },
+        {
+          "ticker": "222420",
+          "name": "쎄노텍",
+          "base_price": 995
+        },
+        {
+          "ticker": "458350",
+          "name": "에스팀",
+          "base_price": 3780
+        },
+        {
+          "ticker": "053450",
+          "name": "세코닉스",
+          "base_price": 3555
+        },
+        {
+          "ticker": "017890",
+          "name": "한국알콜",
+          "base_price": 11210
+        },
+        {
+          "ticker": "042520",
+          "name": "한스바이오메드",
+          "base_price": 22000
+        },
+        {
+          "ticker": "024720",
+          "name": "콜마홀딩스",
+          "base_price": 7350
+        },
+        {
+          "ticker": "393890",
+          "name": "더블유씨피",
+          "base_price": 10440
+        },
+        {
+          "ticker": "331520",
+          "name": "밸로프",
+          "base_price": 1788
+        },
+        {
+          "ticker": "489790",
+          "name": "한화비전",
+          "base_price": 55600
+        },
+        {
+          "ticker": "294570",
+          "name": "쿠콘",
+          "base_price": 19300
+        },
+        {
+          "ticker": "128820",
+          "name": "대성산업",
+          "base_price": 4430
+        },
+        {
+          "ticker": "462350",
+          "name": "이노스페이스",
+          "base_price": 8710
+        },
+        {
+          "ticker": "192410",
+          "name": "오늘이엔엠",
+          "base_price": 2985
+        },
+        {
+          "ticker": "073560",
+          "name": "우리손에프앤지",
+          "base_price": 1466
+        },
+        {
+          "ticker": "265520",
+          "name": "AP시스템",
+          "base_price": 20450
+        },
+        {
+          "ticker": "108230",
+          "name": "톱텍",
+          "base_price": 2970
+        },
+        {
+          "ticker": "005360",
+          "name": "모나미",
+          "base_price": 1171
+        },
+        {
+          "ticker": "051630",
+          "name": "진양화학",
+          "base_price": 1900
+        },
+        {
+          "ticker": "099430",
+          "name": "바이오플러스",
+          "base_price": 4000
+        },
+        {
+          "ticker": "274400",
+          "name": "이노시뮬레이션",
+          "base_price": 2215
+        },
+        {
+          "ticker": "035290",
+          "name": "골드앤에스",
+          "base_price": 2110
+        },
+        {
+          "ticker": "025870",
+          "name": "신라에스지",
+          "base_price": 2265
+        },
+        {
+          "ticker": "037330",
+          "name": "인지디스플레",
+          "base_price": 926
+        },
+        {
+          "ticker": "418470",
+          "name": "KT밀리의서재",
+          "base_price": 9680
+        },
+        {
+          "ticker": "241840",
+          "name": "에이스토리",
+          "base_price": 2365
+        },
+        {
+          "ticker": "019685",
+          "name": "대교우B",
+          "base_price": 604
+        },
+        {
+          "ticker": "053260",
+          "name": "금강철강",
+          "base_price": 5500
+        },
+        {
+          "ticker": "122450",
+          "name": "KX",
+          "base_price": 2570
+        },
+        {
+          "ticker": "264900",
+          "name": "크라운제과",
+          "base_price": 7560
+        },
+        {
+          "ticker": "052860",
+          "name": "아이앤씨",
+          "base_price": 4015
+        },
+        {
+          "ticker": "26490K",
+          "name": "크라운제과우",
+          "base_price": 7160
+        },
+        {
+          "ticker": "251120",
+          "name": "바이오에프디엔씨",
+          "base_price": 8180
+        },
+        {
+          "ticker": "307280",
+          "name": "원바이오젠",
+          "base_price": 5310
+        },
+        {
+          "ticker": "407400",
+          "name": "꿈비",
+          "base_price": 1988
+        },
+        {
+          "ticker": "191410",
+          "name": "육일씨엔에쓰",
+          "base_price": 1020
+        },
+        {
+          "ticker": "016670",
+          "name": "디모아",
+          "base_price": 1985
+        },
+        {
+          "ticker": "370090",
+          "name": "퓨런티어",
+          "base_price": 7320
+        },
+        {
+          "ticker": "004250",
+          "name": "NPC",
+          "base_price": 2865
+        },
+        {
+          "ticker": "005070",
+          "name": "코스모신소재",
+          "base_price": 37500
+        },
+        {
+          "ticker": "105760",
+          "name": "포스뱅크",
+          "base_price": 3660
+        },
+        {
+          "ticker": "302550",
+          "name": "리메드",
+          "base_price": 2570
+        },
+        {
+          "ticker": "037370",
+          "name": "EG",
+          "base_price": 3000
+        },
+        {
+          "ticker": "416180",
+          "name": "신성에스티",
+          "base_price": 22800
+        },
+        {
+          "ticker": "043610",
+          "name": "KT지니뮤직",
+          "base_price": 1348
+        },
+        {
+          "ticker": "484120",
+          "name": "도우인시스",
+          "base_price": 14850
+        },
+        {
+          "ticker": "067770",
+          "name": "세진티에스",
+          "base_price": 1521
+        },
+        {
+          "ticker": "173940",
+          "name": "에프엔씨엔터",
+          "base_price": 2340
+        },
+        {
+          "ticker": "287840",
+          "name": "인투셀",
+          "base_price": 21900
+        },
+        {
+          "ticker": "123690",
+          "name": "한국화장품",
+          "base_price": 5930
+        },
+        {
+          "ticker": "317830",
+          "name": "에스피시스템스",
+          "base_price": 5320
+        },
+        {
+          "ticker": "101930",
+          "name": "인화정공",
+          "base_price": 7690
+        },
+        {
+          "ticker": "007370",
+          "name": "진양제약",
+          "base_price": 3595
+        },
+        {
+          "ticker": "000140",
+          "name": "하이트진로홀딩스",
+          "base_price": 7620
+        },
+        {
+          "ticker": "061090",
+          "name": "세나테크놀로지",
+          "base_price": 30400
+        },
+        {
+          "ticker": "321820",
+          "name": "아티스트컴퍼니",
+          "base_price": 2940
+        },
+        {
+          "ticker": "078070",
+          "name": "유비쿼스홀딩스",
+          "base_price": 8610
+        },
+        {
+          "ticker": "043910",
+          "name": "자연과환경",
+          "base_price": 2850
+        },
+        {
+          "ticker": "159580",
+          "name": "제로투세븐",
+          "base_price": 2150
+        },
+        {
+          "ticker": "039570",
+          "name": "HDC랩스",
+          "base_price": 7390
+        },
+        {
+          "ticker": "054410",
+          "name": "케이피티유",
+          "base_price": 2680
+        },
+        {
+          "ticker": "396470",
+          "name": "워트",
+          "base_price": 5780
+        },
+        {
+          "ticker": "068290",
+          "name": "삼성출판사",
+          "base_price": 5870
+        },
+        {
+          "ticker": "086710",
+          "name": "선진뷰티사이언스",
+          "base_price": 6690
+        },
+        {
+          "ticker": "192390",
+          "name": "윈하이텍",
+          "base_price": 1594
+        },
+        {
+          "ticker": "035200",
+          "name": "프럼파스트",
+          "base_price": 2520
+        },
+        {
+          "ticker": "950140",
+          "name": "잉글우드랩",
+          "base_price": 8200
+        },
+        {
+          "ticker": "023770",
+          "name": "플레이위드",
+          "base_price": 2325
+        },
+        {
+          "ticker": "318000",
+          "name": "KBG",
+          "base_price": 2945
+        },
+        {
+          "ticker": "03473K",
+          "name": "SK우",
+          "base_price": 419500
+        },
+        {
+          "ticker": "079940",
+          "name": "가비아",
+          "base_price": 29000
+        },
+        {
+          "ticker": "126560",
+          "name": "현대퓨처넷",
+          "base_price": 2845
+        },
+        {
+          "ticker": "377330",
+          "name": "이지트로닉스",
+          "base_price": 2595
+        },
+        {
+          "ticker": "036480",
+          "name": "대성미생물",
+          "base_price": 5850
         }
       ],
       "sent_followups": []
