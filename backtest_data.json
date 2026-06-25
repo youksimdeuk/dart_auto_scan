@@ -2883,7 +2883,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -4689,7 +4690,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -4859,7 +4861,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -5199,7 +5202,9 @@
           "base_price": 188000
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260622",
@@ -5679,6 +5684,57 @@
           "ticker": "036480",
           "name": "대성미생물",
           "base_price": 5850
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260624",
+      "stocks": [
+        {
+          "ticker": "225220",
+          "name": "제놀루션",
+          "base_price": 1030
+        },
+        {
+          "ticker": "351320",
+          "name": "넥사다이내믹스",
+          "base_price": 999
+        },
+        {
+          "ticker": "153490",
+          "name": "우리이앤엘하루틴",
+          "base_price": 579
+        },
+        {
+          "ticker": "179900",
+          "name": "유티아이",
+          "base_price": 4100
+        },
+        {
+          "ticker": "315640",
+          "name": "딥노이드",
+          "base_price": 1680
+        },
+        {
+          "ticker": "016100",
+          "name": "리더스코스메틱",
+          "base_price": 967
+        },
+        {
+          "ticker": "012340",
+          "name": "뉴인텍",
+          "base_price": 859
+        },
+        {
+          "ticker": "065660",
+          "name": "안트로젠",
+          "base_price": 20650
+        },
+        {
+          "ticker": "001527",
+          "name": "동양2우B",
+          "base_price": 6470
         }
       ],
       "sent_followups": []
