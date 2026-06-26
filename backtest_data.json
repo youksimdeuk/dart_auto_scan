@@ -2950,7 +2950,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -4151,7 +4152,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -4735,7 +4737,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -4975,7 +4978,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -5295,7 +5299,9 @@
           "base_price": 461
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260623",
@@ -5735,6 +5741,107 @@
           "ticker": "001527",
           "name": "동양2우B",
           "base_price": 6470
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260625",
+      "stocks": [
+        {
+          "ticker": "101000",
+          "name": "KS인더스트리",
+          "base_price": 385
+        },
+        {
+          "ticker": "044380",
+          "name": "주연테크",
+          "base_price": 964
+        },
+        {
+          "ticker": "099220",
+          "name": "SDN",
+          "base_price": 896
+        },
+        {
+          "ticker": "124500",
+          "name": "아이티센글로벌",
+          "base_price": 21800
+        },
+        {
+          "ticker": "036620",
+          "name": "감성코퍼레이션",
+          "base_price": 3760
+        },
+        {
+          "ticker": "051980",
+          "name": "중앙첨단소재",
+          "base_price": 957
+        },
+        {
+          "ticker": "010640",
+          "name": "진양폴리",
+          "base_price": 1686
+        },
+        {
+          "ticker": "215790",
+          "name": "이노인스트루먼트",
+          "base_price": 1050
+        },
+        {
+          "ticker": "301300",
+          "name": "바이브컴퍼니",
+          "base_price": 1026
+        },
+        {
+          "ticker": "078860",
+          "name": "아이오케이이엔엠",
+          "base_price": 2850
+        },
+        {
+          "ticker": "376900",
+          "name": "로킷헬스케어",
+          "base_price": 40000
+        },
+        {
+          "ticker": "111710",
+          "name": "남화산업",
+          "base_price": 3770
+        },
+        {
+          "ticker": "357430",
+          "name": "마스턴프리미어리츠",
+          "base_price": 532
+        },
+        {
+          "ticker": "181710",
+          "name": "NHN",
+          "base_price": 33750
+        },
+        {
+          "ticker": "355390",
+          "name": "크라우드웍스",
+          "base_price": 2090
+        },
+        {
+          "ticker": "037370",
+          "name": "EG",
+          "base_price": 2880
+        },
+        {
+          "ticker": "377330",
+          "name": "이지트로닉스",
+          "base_price": 2545
+        },
+        {
+          "ticker": "004270",
+          "name": "남성",
+          "base_price": 6670
+        },
+        {
+          "ticker": "008355",
+          "name": "남선알미우",
+          "base_price": 8630
         }
       ],
       "sent_followups": []
