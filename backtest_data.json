@@ -3179,7 +3179,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -4590,7 +4591,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -4829,7 +4831,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -5304,7 +5307,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -5749,7 +5753,9 @@
           "base_price": 6470
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260625",
@@ -6159,6 +6165,22 @@
           "ticker": "237880",
           "name": "클리오",
           "base_price": 9040
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260629",
+      "stocks": [
+        {
+          "ticker": "457600",
+          "name": "벡트",
+          "base_price": 1764
+        },
+        {
+          "ticker": "002787",
+          "name": "진흥기업2우B",
+          "base_price": 3820
         }
       ],
       "sent_followups": []
