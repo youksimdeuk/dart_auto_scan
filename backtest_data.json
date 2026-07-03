@@ -3400,7 +3400,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -4746,7 +4747,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -4990,7 +4992,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -5864,7 +5867,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -6194,7 +6198,9 @@
           "base_price": 3820
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260701",
@@ -6223,6 +6229,102 @@
           "ticker": "011155",
           "name": "CJ씨푸드1우",
           "base_price": 7850
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260702",
+      "stocks": [
+        {
+          "ticker": "002990",
+          "name": "금호건설",
+          "base_price": 11730
+        },
+        {
+          "ticker": "340360",
+          "name": "다보링크",
+          "base_price": 837
+        },
+        {
+          "ticker": "126340",
+          "name": "비나텍",
+          "base_price": 86000
+        },
+        {
+          "ticker": "228340",
+          "name": "동양파일",
+          "base_price": 4370
+        },
+        {
+          "ticker": "464490",
+          "name": "쿼드메디슨",
+          "base_price": 5770
+        },
+        {
+          "ticker": "0007J0",
+          "name": "인벤테라",
+          "base_price": 8220
+        },
+        {
+          "ticker": "215090",
+          "name": "솔디펜스",
+          "base_price": 1280
+        },
+        {
+          "ticker": "950190",
+          "name": "고스트스튜디오",
+          "base_price": 8900
+        },
+        {
+          "ticker": "312610",
+          "name": "에이에프더블류",
+          "base_price": 584
+        },
+        {
+          "ticker": "088340",
+          "name": "유라클",
+          "base_price": 6700
+        },
+        {
+          "ticker": "463480",
+          "name": "모티브링크",
+          "base_price": 4320
+        },
+        {
+          "ticker": "099430",
+          "name": "바이오플러스",
+          "base_price": 4075
+        },
+        {
+          "ticker": "040160",
+          "name": "누리플렉스",
+          "base_price": 7380
+        },
+        {
+          "ticker": "900300",
+          "name": "오가닉티코스메틱",
+          "base_price": 2085
+        },
+        {
+          "ticker": "351870",
+          "name": "차이커뮤니케이션",
+          "base_price": 1847
+        },
+        {
+          "ticker": "177900",
+          "name": "쓰리에이로직스",
+          "base_price": 4335
+        },
+        {
+          "ticker": "072990",
+          "name": "에이치시티",
+          "base_price": 3180
+        },
+        {
+          "ticker": "035290",
+          "name": "골드앤에스",
+          "base_price": 2050
         }
       ],
       "sent_followups": []
