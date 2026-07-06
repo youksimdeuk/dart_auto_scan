@@ -3427,7 +3427,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -4808,7 +4809,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -5222,7 +5224,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -6181,7 +6184,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -6325,6 +6329,47 @@
           "ticker": "035290",
           "name": "골드앤에스",
           "base_price": 2050
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260703",
+      "stocks": [
+        {
+          "ticker": "013360",
+          "name": "일성건설",
+          "base_price": 1607
+        },
+        {
+          "ticker": "203400",
+          "name": "에이비온",
+          "base_price": 711
+        },
+        {
+          "ticker": "036420",
+          "name": "콘텐트리중앙",
+          "base_price": 1742
+        },
+        {
+          "ticker": "015260",
+          "name": "에이엔피",
+          "base_price": 325
+        },
+        {
+          "ticker": "104200",
+          "name": "NHN벅스",
+          "base_price": 2890
+        },
+        {
+          "ticker": "290690",
+          "name": "소룩스",
+          "base_price": 4370
+        },
+        {
+          "ticker": "005745",
+          "name": "크라운해태홀딩스우",
+          "base_price": 5210
         }
       ],
       "sent_followups": []
