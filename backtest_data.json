@@ -4840,7 +4840,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -5319,7 +5320,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -6203,7 +6205,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -6235,7 +6238,9 @@
           "base_price": 7850
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260702",
@@ -6370,6 +6375,27 @@
           "ticker": "005745",
           "name": "크라운해태홀딩스우",
           "base_price": 5210
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260706",
+      "stocks": [
+        {
+          "ticker": "092040",
+          "name": "아미코젠",
+          "base_price": 1213
+        },
+        {
+          "ticker": "36328K",
+          "name": "티와이홀딩스우",
+          "base_price": 2545
+        },
+        {
+          "ticker": "090355",
+          "name": "노루페인트우",
+          "base_price": 10120
         }
       ],
       "sent_followups": []
