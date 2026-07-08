@@ -5715,7 +5715,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -6336,7 +6337,9 @@
           "base_price": 2050
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260703",
@@ -6396,6 +6399,92 @@
           "ticker": "090355",
           "name": "노루페인트우",
           "base_price": 10120
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260707",
+      "stocks": [
+        {
+          "ticker": "084680",
+          "name": "이월드",
+          "base_price": 774
+        },
+        {
+          "ticker": "093240",
+          "name": "형지엘리트",
+          "base_price": 471
+        },
+        {
+          "ticker": "036420",
+          "name": "콘텐트리중앙",
+          "base_price": 1220
+        },
+        {
+          "ticker": "472850",
+          "name": "폰드그룹",
+          "base_price": 4015
+        },
+        {
+          "ticker": "160980",
+          "name": "싸이맥스",
+          "base_price": 30750
+        },
+        {
+          "ticker": "331920",
+          "name": "셀레믹스",
+          "base_price": 10030
+        },
+        {
+          "ticker": "222420",
+          "name": "쎄노텍",
+          "base_price": 904
+        },
+        {
+          "ticker": "424870",
+          "name": "이뮨온시아",
+          "base_price": 3220
+        },
+        {
+          "ticker": "051390",
+          "name": "YW",
+          "base_price": 3715
+        },
+        {
+          "ticker": "462860",
+          "name": "더즌",
+          "base_price": 1957
+        },
+        {
+          "ticker": "073010",
+          "name": "케이에스피",
+          "base_price": 2810
+        },
+        {
+          "ticker": "099410",
+          "name": "동방선기",
+          "base_price": 3130
+        },
+        {
+          "ticker": "052300",
+          "name": "오션인더블유",
+          "base_price": 1363
+        },
+        {
+          "ticker": "073190",
+          "name": "듀오백",
+          "base_price": 668
+        },
+        {
+          "ticker": "067370",
+          "name": "선바이오",
+          "base_price": 6120
+        },
+        {
+          "ticker": "088390",
+          "name": "이녹스",
+          "base_price": 7310
         }
       ],
       "sent_followups": []
