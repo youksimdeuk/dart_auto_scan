@@ -3604,7 +3604,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -4881,7 +4882,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -5770,7 +5772,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -6240,7 +6243,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -6380,7 +6384,9 @@
           "base_price": 5210
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260706",
@@ -6485,6 +6491,137 @@
           "ticker": "088390",
           "name": "이녹스",
           "base_price": 7310
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260708",
+      "stocks": [
+        {
+          "ticker": "069920",
+          "name": "엑시온그룹",
+          "base_price": 607
+        },
+        {
+          "ticker": "358570",
+          "name": "지아이이노베이션",
+          "base_price": 8000
+        },
+        {
+          "ticker": "088910",
+          "name": "동우팜투테이블",
+          "base_price": 2115
+        },
+        {
+          "ticker": "314930",
+          "name": "바이오다인",
+          "base_price": 8700
+        },
+        {
+          "ticker": "040160",
+          "name": "누리플렉스",
+          "base_price": 5920
+        },
+        {
+          "ticker": "263720",
+          "name": "디앤씨미디어",
+          "base_price": 7230
+        },
+        {
+          "ticker": "444530",
+          "name": "심플랫폼",
+          "base_price": 4450
+        },
+        {
+          "ticker": "004545",
+          "name": "깨끗한나라우",
+          "base_price": 6320
+        },
+        {
+          "ticker": "147760",
+          "name": "피엠티",
+          "base_price": 3330
+        },
+        {
+          "ticker": "025870",
+          "name": "신라에스지",
+          "base_price": 1920
+        },
+        {
+          "ticker": "011090",
+          "name": "에넥스",
+          "base_price": 966
+        },
+        {
+          "ticker": "006050",
+          "name": "국영지앤엠",
+          "base_price": 460
+        },
+        {
+          "ticker": "435570",
+          "name": "에르코스",
+          "base_price": 6230
+        },
+        {
+          "ticker": "223250",
+          "name": "드림씨아이에스",
+          "base_price": 3060
+        },
+        {
+          "ticker": "388610",
+          "name": "지에프씨생명과학",
+          "base_price": 4625
+        },
+        {
+          "ticker": "36328K",
+          "name": "티와이홀딩스우",
+          "base_price": 2490
+        },
+        {
+          "ticker": "465770",
+          "name": "STX그린로지스",
+          "base_price": 2110
+        },
+        {
+          "ticker": "176750",
+          "name": "듀켐바이오",
+          "base_price": 5870
+        },
+        {
+          "ticker": "465480",
+          "name": "인스피언",
+          "base_price": 3330
+        },
+        {
+          "ticker": "234100",
+          "name": "폴라리스세원",
+          "base_price": 2355
+        },
+        {
+          "ticker": "006650",
+          "name": "대한유화",
+          "base_price": 102600
+        },
+        {
+          "ticker": "022220",
+          "name": "티케이지애강",
+          "base_price": 550
+        },
+        {
+          "ticker": "005965",
+          "name": "동부건설우",
+          "base_price": 16500
+        },
+        {
+          "ticker": "357550",
+          "name": "석경에이티",
+          "base_price": 35000
+        },
+        {
+          "ticker": "089150",
+          "name": "케이씨티",
+          "base_price": 1793
         }
       ],
       "sent_followups": []
