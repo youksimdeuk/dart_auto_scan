@@ -3656,7 +3656,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -4998,7 +4999,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -5877,7 +5879,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -6342,7 +6345,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -6407,7 +6411,9 @@
           "base_price": 10120
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260707",
@@ -6622,6 +6628,82 @@
           "ticker": "089150",
           "name": "케이씨티",
           "base_price": 1793
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260709",
+      "stocks": [
+        {
+          "ticker": "263720",
+          "name": "디앤씨미디어",
+          "base_price": 6450
+        },
+        {
+          "ticker": "312610",
+          "name": "에이에프더블류",
+          "base_price": 415
+        },
+        {
+          "ticker": "101000",
+          "name": "KS인더스트리",
+          "base_price": 331
+        },
+        {
+          "ticker": "217270",
+          "name": "넵튠",
+          "base_price": 2170
+        },
+        {
+          "ticker": "199730",
+          "name": "바이오인프라",
+          "base_price": 1953
+        },
+        {
+          "ticker": "274400",
+          "name": "이노시뮬레이션",
+          "base_price": 1986
+        },
+        {
+          "ticker": "063080",
+          "name": "컴투스홀딩스",
+          "base_price": 11190
+        },
+        {
+          "ticker": "054780",
+          "name": "키이스트",
+          "base_price": 1315
+        },
+        {
+          "ticker": "148780",
+          "name": "비큐AI",
+          "base_price": 394
+        },
+        {
+          "ticker": "088340",
+          "name": "유라클",
+          "base_price": 6030
+        },
+        {
+          "ticker": "043710",
+          "name": "코스리거글로벌",
+          "base_price": 3460
+        },
+        {
+          "ticker": "347770",
+          "name": "핌스",
+          "base_price": 947
+        },
+        {
+          "ticker": "000225",
+          "name": "유유제약1우",
+          "base_price": 3375
+        },
+        {
+          "ticker": "032860",
+          "name": "더라미",
+          "base_price": 630
         }
       ],
       "sent_followups": []
