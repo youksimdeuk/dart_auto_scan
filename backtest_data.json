@@ -3768,7 +3768,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -5230,7 +5231,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -6194,7 +6196,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -6389,7 +6392,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -6499,7 +6503,9 @@
           "base_price": 7310
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260708",
@@ -6704,6 +6710,52 @@
           "ticker": "032860",
           "name": "더라미",
           "base_price": 630
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260710",
+      "stocks": [
+        {
+          "ticker": "003580",
+          "name": "HLB글로벌",
+          "base_price": 1187
+        },
+        {
+          "ticker": "024850",
+          "name": "HLB이노베이션",
+          "base_price": 8590
+        },
+        {
+          "ticker": "187420",
+          "name": "HLB제넥스",
+          "base_price": 1466
+        },
+        {
+          "ticker": "278650",
+          "name": "HLB바이오스텝",
+          "base_price": 2010
+        },
+        {
+          "ticker": "046210",
+          "name": "HLB파나진",
+          "base_price": 1110
+        },
+        {
+          "ticker": "368600",
+          "name": "아이씨에이치",
+          "base_price": 575
+        },
+        {
+          "ticker": "011155",
+          "name": "CJ씨푸드1우",
+          "base_price": 7520
+        },
+        {
+          "ticker": "035290",
+          "name": "골드앤에스",
+          "base_price": 1625
         }
       ],
       "sent_followups": []
