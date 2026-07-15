@@ -4097,7 +4097,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -5724,7 +5725,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -6508,7 +6510,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -6718,7 +6721,9 @@
           "base_price": 630
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260710",
@@ -6762,6 +6767,162 @@
           "ticker": "035290",
           "name": "골드앤에스",
           "base_price": 1625
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260714",
+      "stocks": [
+        {
+          "ticker": "0004V0",
+          "name": "엔비알모션",
+          "base_price": 5580
+        },
+        {
+          "ticker": "000500",
+          "name": "가온전선",
+          "base_price": 215000
+        },
+        {
+          "ticker": "317870",
+          "name": "엔바이오니아",
+          "base_price": 3605
+        },
+        {
+          "ticker": "017370",
+          "name": "우신시스템",
+          "base_price": 4150
+        },
+        {
+          "ticker": "118990",
+          "name": "모트렉스",
+          "base_price": 5090
+        },
+        {
+          "ticker": "365270",
+          "name": "큐라클",
+          "base_price": 8490
+        },
+        {
+          "ticker": "130500",
+          "name": "GH신소재",
+          "base_price": 1687
+        },
+        {
+          "ticker": "036420",
+          "name": "콘텐트리중앙",
+          "base_price": 1702
+        },
+        {
+          "ticker": "140410",
+          "name": "메지온",
+          "base_price": 51500
+        },
+        {
+          "ticker": "105330",
+          "name": "케이엔더블유",
+          "base_price": 6100
+        },
+        {
+          "ticker": "075580",
+          "name": "세진중공업",
+          "base_price": 10750
+        },
+        {
+          "ticker": "222420",
+          "name": "쎄노텍",
+          "base_price": 808
+        },
+        {
+          "ticker": "004170",
+          "name": "신세계",
+          "base_price": 561000
+        },
+        {
+          "ticker": "274400",
+          "name": "이노시뮬레이션",
+          "base_price": 1868
+        },
+        {
+          "ticker": "252500",
+          "name": "세화피앤씨",
+          "base_price": 450
+        },
+        {
+          "ticker": "471820",
+          "name": "셀로맥스사이언스",
+          "base_price": 4110
+        },
+        {
+          "ticker": "002787",
+          "name": "진흥기업2우B",
+          "base_price": 3000
+        },
+        {
+          "ticker": "122310",
+          "name": "제노레이",
+          "base_price": 3220
+        },
+        {
+          "ticker": "003925",
+          "name": "남양유업우",
+          "base_price": 30600
+        },
+        {
+          "ticker": "098660",
+          "name": "에스티오",
+          "base_price": 1600
+        },
+        {
+          "ticker": "370090",
+          "name": "퓨런티어",
+          "base_price": 6270
+        },
+        {
+          "ticker": "290090",
+          "name": "트윔",
+          "base_price": 4250
+        },
+        {
+          "ticker": "101930",
+          "name": "인화정공",
+          "base_price": 6150
+        },
+        {
+          "ticker": "289220",
+          "name": "자이언트스텝",
+          "base_price": 1278
+        },
+        {
+          "ticker": "387570",
+          "name": "파인메딕스",
+          "base_price": 4150
+        },
+        {
+          "ticker": "317120",
+          "name": "라닉스",
+          "base_price": 1251
+        },
+        {
+          "ticker": "009140",
+          "name": "경인전자",
+          "base_price": 21550
+        },
+        {
+          "ticker": "451250",
+          "name": "삐아",
+          "base_price": 7000
+        },
+        {
+          "ticker": "001515",
+          "name": "SK증권우",
+          "base_price": 3820
+        },
+        {
+          "ticker": "005965",
+          "name": "동부건설우",
+          "base_price": 16060
         }
       ],
       "sent_followups": []
