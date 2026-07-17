@@ -4164,7 +4164,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -5781,7 +5782,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -5886,7 +5888,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -6255,7 +6258,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -6354,7 +6358,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -6644,7 +6649,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -6722,7 +6728,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -6769,7 +6776,9 @@
           "base_price": 1625
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260714",
@@ -6923,6 +6932,47 @@
           "ticker": "005965",
           "name": "동부건설우",
           "base_price": 16060
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260716",
+      "stocks": [
+        {
+          "ticker": "950160",
+          "name": "코오롱티슈진",
+          "base_price": 62100
+        },
+        {
+          "ticker": "102940",
+          "name": "코오롱생명과학",
+          "base_price": 32250
+        },
+        {
+          "ticker": "056080",
+          "name": "유진로봇",
+          "base_price": 11980
+        },
+        {
+          "ticker": "002020",
+          "name": "코오롱",
+          "base_price": 33850
+        },
+        {
+          "ticker": "37550L",
+          "name": "DL이앤씨2우(전환)",
+          "base_price": 39000
+        },
+        {
+          "ticker": "004835",
+          "name": "덕성우",
+          "base_price": 4205
+        },
+        {
+          "ticker": "032860",
+          "name": "더라미",
+          "base_price": 633
         }
       ],
       "sent_followups": []
