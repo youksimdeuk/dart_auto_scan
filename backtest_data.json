@@ -4712,7 +4712,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -6264,7 +6265,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -6658,7 +6660,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -7058,6 +7061,57 @@
           "ticker": "000950",
           "name": "전방",
           "base_price": 26350
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260722",
+      "stocks": [
+        {
+          "ticker": "102940",
+          "name": "코오롱생명과학",
+          "base_price": 17490
+        },
+        {
+          "ticker": "051630",
+          "name": "진양화학",
+          "base_price": 1198
+        },
+        {
+          "ticker": "208640",
+          "name": "썸에이지",
+          "base_price": 1135
+        },
+        {
+          "ticker": "950160",
+          "name": "코오롱티슈진",
+          "base_price": 30050
+        },
+        {
+          "ticker": "005360",
+          "name": "모나미",
+          "base_price": 2090
+        },
+        {
+          "ticker": "010640",
+          "name": "진양폴리",
+          "base_price": 1483
+        },
+        {
+          "ticker": "017370",
+          "name": "우신시스템",
+          "base_price": 4000
+        },
+        {
+          "ticker": "403550",
+          "name": "쏘카",
+          "base_price": 9080
+        },
+        {
+          "ticker": "371950",
+          "name": "풍원정밀",
+          "base_price": 5320
         }
       ],
       "sent_followups": []
