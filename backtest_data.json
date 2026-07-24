@@ -4759,7 +4759,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -6366,7 +6367,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -6740,7 +6742,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -6991,7 +6994,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -7112,6 +7116,47 @@
           "ticker": "371950",
           "name": "풍원정밀",
           "base_price": 5320
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260723",
+      "stocks": [
+        {
+          "ticker": "950160",
+          "name": "코오롱티슈진",
+          "base_price": 21050
+        },
+        {
+          "ticker": "297570",
+          "name": "아틀라스링크",
+          "base_price": 931
+        },
+        {
+          "ticker": "023530",
+          "name": "롯데쇼핑",
+          "base_price": 128200
+        },
+        {
+          "ticker": "083790",
+          "name": "CG인바이츠",
+          "base_price": 774
+        },
+        {
+          "ticker": "276730",
+          "name": "한울앤제주",
+          "base_price": 14490
+        },
+        {
+          "ticker": "073190",
+          "name": "듀오백",
+          "base_price": 809
+        },
+        {
+          "ticker": "314140",
+          "name": "알피바이오",
+          "base_price": 5400
         }
       ],
       "sent_followups": []
