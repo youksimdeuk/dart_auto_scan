@@ -4821,7 +4821,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -6413,7 +6414,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -6792,7 +6794,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -7067,7 +7070,9 @@
           "base_price": 26350
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260722",
@@ -7157,6 +7162,37 @@
           "ticker": "314140",
           "name": "알피바이오",
           "base_price": 5400
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260724",
+      "stocks": [
+        {
+          "ticker": "000270",
+          "name": "기아",
+          "base_price": 130500
+        },
+        {
+          "ticker": "419540",
+          "name": "비스토스",
+          "base_price": 2685
+        },
+        {
+          "ticker": "066575",
+          "name": "LG전자우",
+          "base_price": 61000
+        },
+        {
+          "ticker": "058110",
+          "name": "멕아이씨에스",
+          "base_price": 1697
+        },
+        {
+          "ticker": "238200",
+          "name": "비피도",
+          "base_price": 2345
         }
       ],
       "sent_followups": []
