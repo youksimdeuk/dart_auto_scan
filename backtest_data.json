@@ -4853,7 +4853,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -6440,7 +6441,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -7123,7 +7125,9 @@
           "base_price": 5320
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260723",
@@ -7193,6 +7197,27 @@
           "ticker": "238200",
           "name": "비피도",
           "base_price": 2345
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260727",
+      "stocks": [
+        {
+          "ticker": "33626L",
+          "name": "두산퓨얼셀2우B",
+          "base_price": 6270
+        },
+        {
+          "ticker": "047820",
+          "name": "초록뱀미디어",
+          "base_price": 3110
+        },
+        {
+          "ticker": "043200",
+          "name": "파루",
+          "base_price": 546
         }
       ],
       "sent_followups": []
