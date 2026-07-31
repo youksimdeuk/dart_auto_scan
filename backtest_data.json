@@ -5012,7 +5012,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -6750,7 +6751,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -7004,7 +7006,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -7175,7 +7178,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -7230,7 +7234,9 @@
           "base_price": 546
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260728",
@@ -8555,6 +8561,67 @@
           "ticker": "026910",
           "name": "광진실업",
           "base_price": 4500
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260730",
+      "stocks": [
+        {
+          "ticker": "156100",
+          "name": "엘앤케이바이오",
+          "base_price": 2795
+        },
+        {
+          "ticker": "134580",
+          "name": "탑코미디어",
+          "base_price": 875
+        },
+        {
+          "ticker": "289220",
+          "name": "자이언트스텝",
+          "base_price": 965
+        },
+        {
+          "ticker": "123840",
+          "name": "뉴온",
+          "base_price": 1504
+        },
+        {
+          "ticker": "273060",
+          "name": "와이즈버즈",
+          "base_price": 743
+        },
+        {
+          "ticker": "109670",
+          "name": "씨싸이트",
+          "base_price": 3005
+        },
+        {
+          "ticker": "038870",
+          "name": "에코심플렉스",
+          "base_price": 1526
+        },
+        {
+          "ticker": "194480",
+          "name": "데브시스터즈",
+          "base_price": 14250
+        },
+        {
+          "ticker": "351330",
+          "name": "이삭엔지니어링",
+          "base_price": 3020
+        },
+        {
+          "ticker": "008290",
+          "name": "원풍물산",
+          "base_price": 326
+        },
+        {
+          "ticker": "067770",
+          "name": "세진티에스",
+          "base_price": 1646
         }
       ],
       "sent_followups": []
