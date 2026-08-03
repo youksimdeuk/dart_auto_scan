@@ -5244,7 +5244,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -6802,7 +6803,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -7212,7 +7214,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -7892,7 +7895,9 @@
           "base_price": 1372
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260729",
@@ -8622,6 +8627,42 @@
           "ticker": "067770",
           "name": "세진티에스",
           "base_price": 1646
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260731",
+      "stocks": [
+        {
+          "ticker": "069620",
+          "name": "대웅제약",
+          "base_price": 113800
+        },
+        {
+          "ticker": "079190",
+          "name": "케스피온",
+          "base_price": 902
+        },
+        {
+          "ticker": "002070",
+          "name": "비비안",
+          "base_price": 5070
+        },
+        {
+          "ticker": "004545",
+          "name": "깨끗한나라우",
+          "base_price": 4600
+        },
+        {
+          "ticker": "389680",
+          "name": "유디엠텍",
+          "base_price": 1340
+        },
+        {
+          "ticker": "289010",
+          "name": "아이스크림에듀",
+          "base_price": 806
         }
       ],
       "sent_followups": []
