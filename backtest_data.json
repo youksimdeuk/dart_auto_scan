@@ -5341,7 +5341,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -7238,7 +7239,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -8568,7 +8570,9 @@
           "base_price": 4500
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260730",
@@ -8663,6 +8667,32 @@
           "ticker": "289010",
           "name": "아이스크림에듀",
           "base_price": 806
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260803",
+      "stocks": [
+        {
+          "ticker": "067160",
+          "name": "SOOP",
+          "base_price": 42100
+        },
+        {
+          "ticker": "365900",
+          "name": "브이씨",
+          "base_price": 2295
+        },
+        {
+          "ticker": "000325",
+          "name": "노루홀딩스우",
+          "base_price": 20200
+        },
+        {
+          "ticker": "069330",
+          "name": "유아이디",
+          "base_price": 1026
         }
       ],
       "sent_followups": []
