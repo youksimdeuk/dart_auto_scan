@@ -5795,7 +5795,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -7141,7 +7142,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -8575,7 +8577,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -8675,7 +8678,9 @@
           "base_price": 806
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260803",
@@ -8725,6 +8730,32 @@
           "ticker": "121850",
           "name": "코이즈",
           "base_price": 1188
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260805",
+      "stocks": [
+        {
+          "ticker": "090850",
+          "name": "현대이지웰",
+          "base_price": 5570
+        },
+        {
+          "ticker": "069960",
+          "name": "현대백화점",
+          "base_price": 110100
+        },
+        {
+          "ticker": "001000",
+          "name": "신라섬유",
+          "base_price": 598
+        },
+        {
+          "ticker": "227610",
+          "name": "아우딘퓨쳐스",
+          "base_price": 1026
         }
       ],
       "sent_followups": []
