@@ -6219,7 +6219,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -7224,7 +7225,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -8683,7 +8685,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -8738,7 +8741,9 @@
           "base_price": 1188
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260805",
@@ -8783,6 +8788,52 @@
           "ticker": "196450",
           "name": "코아시아씨엠",
           "base_price": 987
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260807",
+      "stocks": [
+        {
+          "ticker": "023530",
+          "name": "롯데쇼핑",
+          "base_price": 99700
+        },
+        {
+          "ticker": "376900",
+          "name": "로킷헬스케어",
+          "base_price": 31100
+        },
+        {
+          "ticker": "069410",
+          "name": "엔텔스",
+          "base_price": 2850
+        },
+        {
+          "ticker": "223310",
+          "name": "사토시홀딩스",
+          "base_price": 3565
+        },
+        {
+          "ticker": "322000",
+          "name": "HD현대에너지솔루션",
+          "base_price": 127800
+        },
+        {
+          "ticker": "011930",
+          "name": "신성이엔지",
+          "base_price": 15140
+        },
+        {
+          "ticker": "348080",
+          "name": "큐라티스",
+          "base_price": 3705
+        },
+        {
+          "ticker": "004270",
+          "name": "남성",
+          "base_price": 5700
         }
       ],
       "sent_followups": []
