@@ -6241,7 +6241,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -7250,7 +7251,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -8714,7 +8716,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -8769,7 +8772,9 @@
           "base_price": 1026
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260806",
@@ -8834,6 +8839,47 @@
           "ticker": "004270",
           "name": "남성",
           "base_price": 5700
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260810",
+      "stocks": [
+        {
+          "ticker": "007110",
+          "name": "일신석재",
+          "base_price": 690
+        },
+        {
+          "ticker": "219550",
+          "name": "디와이디",
+          "base_price": 1320
+        },
+        {
+          "ticker": "172670",
+          "name": "에이엘티",
+          "base_price": 9610
+        },
+        {
+          "ticker": "019660",
+          "name": "글로본",
+          "base_price": 1532
+        },
+        {
+          "ticker": "225430",
+          "name": "케이엠제약",
+          "base_price": 1711
+        },
+        {
+          "ticker": "110790",
+          "name": "크리스에프앤씨",
+          "base_price": 2915
+        },
+        {
+          "ticker": "011170",
+          "name": "롯데케미칼",
+          "base_price": 58500
         }
       ],
       "sent_followups": []
