@@ -7092,7 +7092,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -7911,7 +7912,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -8745,7 +8747,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -8795,7 +8798,9 @@
           "base_price": 987
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260807",
@@ -8880,6 +8885,37 @@
           "ticker": "011170",
           "name": "롯데케미칼",
           "base_price": 58500
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260811",
+      "stocks": [
+        {
+          "ticker": "002820",
+          "name": "SUN&L",
+          "base_price": 1967
+        },
+        {
+          "ticker": "001040",
+          "name": "CJ",
+          "base_price": 135800
+        },
+        {
+          "ticker": "031430",
+          "name": "신세계인터내셔날",
+          "base_price": 10740
+        },
+        {
+          "ticker": "357880",
+          "name": "SKAI",
+          "base_price": 2070
+        },
+        {
+          "ticker": "179530",
+          "name": "애드바이오텍",
+          "base_price": 2010
         }
       ],
       "sent_followups": []
