@@ -6278,7 +6278,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -7148,7 +7149,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -8587,7 +8589,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -8776,7 +8779,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -8846,7 +8850,9 @@
           "base_price": 5700
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260810",
@@ -8916,6 +8922,47 @@
           "ticker": "179530",
           "name": "애드바이오텍",
           "base_price": 2010
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260812",
+      "stocks": [
+        {
+          "ticker": "058450",
+          "name": "한주에이알티",
+          "base_price": 3270
+        },
+        {
+          "ticker": "418470",
+          "name": "KT밀리의서재",
+          "base_price": 10080
+        },
+        {
+          "ticker": "462870",
+          "name": "시프트업",
+          "base_price": 31750
+        },
+        {
+          "ticker": "014710",
+          "name": "사조씨푸드",
+          "base_price": 10130
+        },
+        {
+          "ticker": "402030",
+          "name": "코난테크놀로지",
+          "base_price": 14560
+        },
+        {
+          "ticker": "314930",
+          "name": "바이오다인",
+          "base_price": 8140
+        },
+        {
+          "ticker": "007160",
+          "name": "사조산업",
+          "base_price": 51400
         }
       ],
       "sent_followups": []
