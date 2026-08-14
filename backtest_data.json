@@ -6380,7 +6380,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -7195,7 +7196,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -8654,7 +8656,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -8803,7 +8806,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -8893,7 +8897,9 @@
           "base_price": 58500
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260811",
@@ -8963,6 +8969,92 @@
           "ticker": "007160",
           "name": "사조산업",
           "base_price": 51400
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260813",
+      "stocks": [
+        {
+          "ticker": "033340",
+          "name": "좋은사람들",
+          "base_price": 288
+        },
+        {
+          "ticker": "010780",
+          "name": "아이에스동서",
+          "base_price": 18000
+        },
+        {
+          "ticker": "148250",
+          "name": "알엔투테크놀로지",
+          "base_price": 1698
+        },
+        {
+          "ticker": "347860",
+          "name": "알체라",
+          "base_price": 1416
+        },
+        {
+          "ticker": "223310",
+          "name": "사토시홀딩스",
+          "base_price": 3430
+        },
+        {
+          "ticker": "196450",
+          "name": "코아시아씨엠",
+          "base_price": 843
+        },
+        {
+          "ticker": "298690",
+          "name": "에어부산",
+          "base_price": 1471
+        },
+        {
+          "ticker": "308100",
+          "name": "형지글로벌",
+          "base_price": 385
+        },
+        {
+          "ticker": "060480",
+          "name": "국일신동",
+          "base_price": 1020
+        },
+        {
+          "ticker": "254490",
+          "name": "미래반도체",
+          "base_price": 17120
+        },
+        {
+          "ticker": "065660",
+          "name": "안트로젠",
+          "base_price": 15520
+        },
+        {
+          "ticker": "035620",
+          "name": "바른손이앤에이",
+          "base_price": 731
+        },
+        {
+          "ticker": "058450",
+          "name": "한주에이알티",
+          "base_price": 2290
+        },
+        {
+          "ticker": "246960",
+          "name": "SCL사이언스",
+          "base_price": 1853
+        },
+        {
+          "ticker": "117670",
+          "name": "알파칩스",
+          "base_price": 8730
+        },
+        {
+          "ticker": "219130",
+          "name": "타이거일렉",
+          "base_price": 81100
         }
       ],
       "sent_followups": []
