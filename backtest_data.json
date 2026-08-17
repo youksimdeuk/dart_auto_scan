@@ -6427,7 +6427,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -7232,7 +7233,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -8696,7 +8698,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -8855,7 +8858,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -8930,7 +8934,9 @@
           "base_price": 2010
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260812",
@@ -9055,6 +9061,42 @@
           "ticker": "219130",
           "name": "타이거일렉",
           "base_price": 81100
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260814",
+      "stocks": [
+        {
+          "ticker": "094970",
+          "name": "제이엠티",
+          "base_price": 2900
+        },
+        {
+          "ticker": "115570",
+          "name": "스타플렉스",
+          "base_price": 2155
+        },
+        {
+          "ticker": "010780",
+          "name": "아이에스동서",
+          "base_price": 16730
+        },
+        {
+          "ticker": "064820",
+          "name": "케이프",
+          "base_price": 8620
+        },
+        {
+          "ticker": "238490",
+          "name": "힘스",
+          "base_price": 2240
+        },
+        {
+          "ticker": "318020",
+          "name": "포인트모바일",
+          "base_price": 2815
         }
       ],
       "sent_followups": []
