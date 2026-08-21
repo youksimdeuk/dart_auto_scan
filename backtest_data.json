@@ -6765,7 +6765,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -8665,7 +8666,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -8819,7 +8821,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -9078,7 +9081,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -9402,6 +9406,32 @@
           "ticker": "008355",
           "name": "남선알미우",
           "base_price": 7060
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260820",
+      "stocks": [
+        {
+          "ticker": "028300",
+          "name": "HLB",
+          "base_price": 39900
+        },
+        {
+          "ticker": "389680",
+          "name": "유디엠텍",
+          "base_price": 1011
+        },
+        {
+          "ticker": "377030",
+          "name": "비트맥스",
+          "base_price": 1626
+        },
+        {
+          "ticker": "128540",
+          "name": "에코캡",
+          "base_price": 1280
         }
       ],
       "sent_followups": []
