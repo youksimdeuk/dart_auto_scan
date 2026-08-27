@@ -8802,7 +8802,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -9001,7 +9002,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -9421,7 +9423,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -9526,7 +9529,9 @@
           "base_price": 10460
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260825",
@@ -9550,6 +9555,27 @@
           "ticker": "252990",
           "name": "샘씨엔에스",
           "base_price": 12790
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260826",
+      "stocks": [
+        {
+          "ticker": "096775",
+          "name": "SK이노베이션우",
+          "base_price": 61800
+        },
+        {
+          "ticker": "178780",
+          "name": "일월지엠엘",
+          "base_price": 2250
+        },
+        {
+          "ticker": "109670",
+          "name": "씨싸이트",
+          "base_price": 3755
         }
       ],
       "sent_followups": []
