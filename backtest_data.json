@@ -7026,7 +7026,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -8828,7 +8829,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -8878,7 +8880,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -9092,7 +9095,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -9131,7 +9135,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -9452,7 +9457,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -9530,7 +9536,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -9557,7 +9564,9 @@
           "base_price": 12790
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260826",
@@ -9576,6 +9585,42 @@
           "ticker": "109670",
           "name": "씨싸이트",
           "base_price": 3755
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260828",
+      "stocks": [
+        {
+          "ticker": "417310",
+          "name": "코람코더원리츠",
+          "base_price": 2335
+        },
+        {
+          "ticker": "147760",
+          "name": "피엠티",
+          "base_price": 3230
+        },
+        {
+          "ticker": "007720",
+          "name": "소노스퀘어",
+          "base_price": 1300
+        },
+        {
+          "ticker": "377330",
+          "name": "이지트로닉스",
+          "base_price": 2465
+        },
+        {
+          "ticker": "207940",
+          "name": "삼성바이오로직스",
+          "base_price": 1486000
+        },
+        {
+          "ticker": "321820",
+          "name": "아티스트컴퍼니",
+          "base_price": 2415
         }
       ],
       "sent_followups": []
