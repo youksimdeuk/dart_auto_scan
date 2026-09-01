@@ -8926,7 +8926,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -9587,7 +9588,9 @@
           "base_price": 3755
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260828",
@@ -9621,6 +9624,47 @@
           "ticker": "321820",
           "name": "아티스트컴퍼니",
           "base_price": 2415
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260831",
+      "stocks": [
+        {
+          "ticker": "011300",
+          "name": "우성머티리얼스",
+          "base_price": 2200
+        },
+        {
+          "ticker": "355390",
+          "name": "크라우드웍스",
+          "base_price": 1219
+        },
+        {
+          "ticker": "252990",
+          "name": "샘씨엔에스",
+          "base_price": 12900
+        },
+        {
+          "ticker": "079550",
+          "name": "LIG디펜스앤에어로스페이스",
+          "base_price": 694000
+        },
+        {
+          "ticker": "333620",
+          "name": "엔시스",
+          "base_price": 5240
+        },
+        {
+          "ticker": "308430",
+          "name": "셀비온",
+          "base_price": 12640
+        },
+        {
+          "ticker": "004415",
+          "name": "서울식품우",
+          "base_price": 5150
         }
       ],
       "sent_followups": []
