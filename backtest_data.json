@@ -7103,7 +7103,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -8962,7 +8963,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -9396,7 +9398,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -9566,7 +9569,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -9665,6 +9669,92 @@
           "ticker": "004415",
           "name": "서울식품우",
           "base_price": 5150
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260901",
+      "stocks": [
+        {
+          "ticker": "305090",
+          "name": "마이크로디지탈",
+          "base_price": 1097
+        },
+        {
+          "ticker": "003010",
+          "name": "혜인",
+          "base_price": 10770
+        },
+        {
+          "ticker": "067170",
+          "name": "오텍",
+          "base_price": 2650
+        },
+        {
+          "ticker": "251370",
+          "name": "와이엠티",
+          "base_price": 7800
+        },
+        {
+          "ticker": "070300",
+          "name": "퀀텀레일",
+          "base_price": 1588
+        },
+        {
+          "ticker": "085910",
+          "name": "네오티스",
+          "base_price": 14900
+        },
+        {
+          "ticker": "019210",
+          "name": "와이지-원",
+          "base_price": 13720
+        },
+        {
+          "ticker": "365900",
+          "name": "브이씨",
+          "base_price": 2430
+        },
+        {
+          "ticker": "257370",
+          "name": "피엔티엠에스",
+          "base_price": 1846
+        },
+        {
+          "ticker": "065060",
+          "name": "지엔코",
+          "base_price": 3155
+        },
+        {
+          "ticker": "025870",
+          "name": "신라에스지",
+          "base_price": 1993
+        },
+        {
+          "ticker": "050090",
+          "name": "비케이홀딩스",
+          "base_price": 771
+        },
+        {
+          "ticker": "050960",
+          "name": "수산아이앤티",
+          "base_price": 8510
+        },
+        {
+          "ticker": "090410",
+          "name": "덕신이피씨",
+          "base_price": 3935
+        },
+        {
+          "ticker": "092070",
+          "name": "디엔에프",
+          "base_price": 12130
+        },
+        {
+          "ticker": "012205",
+          "name": "계양전기우",
+          "base_price": 5510
         }
       ],
       "sent_followups": []
