@@ -7160,7 +7160,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -9009,7 +9010,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -9433,7 +9435,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -9593,7 +9596,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -9630,7 +9634,9 @@
           "base_price": 2415
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260831",
@@ -9755,6 +9761,77 @@
           "ticker": "012205",
           "name": "계양전기우",
           "base_price": 5510
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260902",
+      "stocks": [
+        {
+          "ticker": "347860",
+          "name": "알체라",
+          "base_price": 1226
+        },
+        {
+          "ticker": "025870",
+          "name": "신라에스지",
+          "base_price": 1460
+        },
+        {
+          "ticker": "206400",
+          "name": "베노티앤알",
+          "base_price": 735
+        },
+        {
+          "ticker": "225430",
+          "name": "케이엠제약",
+          "base_price": 931
+        },
+        {
+          "ticker": "058450",
+          "name": "한주에이알티",
+          "base_price": 1645
+        },
+        {
+          "ticker": "228760",
+          "name": "지노믹트리",
+          "base_price": 10630
+        },
+        {
+          "ticker": "015590",
+          "name": "DKME",
+          "base_price": 1371
+        },
+        {
+          "ticker": "041960",
+          "name": "코미팜",
+          "base_price": 8680
+        },
+        {
+          "ticker": "320000",
+          "name": "한울반도체",
+          "base_price": 10510
+        },
+        {
+          "ticker": "004840",
+          "name": "DRB동일",
+          "base_price": 4085
+        },
+        {
+          "ticker": "032800",
+          "name": "판타지오",
+          "base_price": 1465
+        },
+        {
+          "ticker": "38380K",
+          "name": "LX홀딩스1우",
+          "base_price": 7360
+        },
+        {
+          "ticker": "014680",
+          "name": "한솔케미칼",
+          "base_price": 193800
         }
       ],
       "sent_followups": []
