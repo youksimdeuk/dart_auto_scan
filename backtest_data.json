@@ -7207,7 +7207,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -9101,7 +9102,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -9465,7 +9467,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -9677,7 +9680,9 @@
           "base_price": 5150
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260901",
@@ -9832,6 +9837,72 @@
           "ticker": "014680",
           "name": "한솔케미칼",
           "base_price": 193800
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260903",
+      "stocks": [
+        {
+          "ticker": "084180",
+          "name": "수성웹툰",
+          "base_price": 385
+        },
+        {
+          "ticker": "131760",
+          "name": "파인텍",
+          "base_price": 1417
+        },
+        {
+          "ticker": "035290",
+          "name": "골드앤에스",
+          "base_price": 1381
+        },
+        {
+          "ticker": "286750",
+          "name": "나노실리칸첨단소재",
+          "base_price": 2560
+        },
+        {
+          "ticker": "008290",
+          "name": "원풍물산",
+          "base_price": 610
+        },
+        {
+          "ticker": "305090",
+          "name": "마이크로디지탈",
+          "base_price": 538
+        },
+        {
+          "ticker": "033640",
+          "name": "네패스",
+          "base_price": 21550
+        },
+        {
+          "ticker": "419080",
+          "name": "엔젯",
+          "base_price": 4900
+        },
+        {
+          "ticker": "043360",
+          "name": "디지아이",
+          "base_price": 2685
+        },
+        {
+          "ticker": "462980",
+          "name": "아이지넷",
+          "base_price": 1521
+        },
+        {
+          "ticker": "045060",
+          "name": "오공",
+          "base_price": 2085
+        },
+        {
+          "ticker": "260930",
+          "name": "씨티케이",
+          "base_price": 2520
         }
       ],
       "sent_followups": []
