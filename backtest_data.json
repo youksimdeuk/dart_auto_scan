@@ -7244,7 +7244,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -9143,7 +9144,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -9547,7 +9549,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -9638,7 +9641,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -9768,7 +9772,9 @@
           "base_price": 5510
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260902",
@@ -9903,6 +9909,32 @@
           "ticker": "260930",
           "name": "씨티케이",
           "base_price": 2520
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260904",
+      "stocks": [
+        {
+          "ticker": "121440",
+          "name": "골프존홀딩스",
+          "base_price": 7050
+        },
+        {
+          "ticker": "026910",
+          "name": "광진실업",
+          "base_price": 3290
+        },
+        {
+          "ticker": "446840",
+          "name": "지슨",
+          "base_price": 3165
+        },
+        {
+          "ticker": "303360",
+          "name": "프로티아",
+          "base_price": 5000
         }
       ],
       "sent_followups": []
