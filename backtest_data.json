@@ -7271,7 +7271,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -9685,7 +9686,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -9845,7 +9847,9 @@
           "base_price": 193800
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260903",
@@ -9935,6 +9939,52 @@
           "ticker": "303360",
           "name": "프로티아",
           "base_price": 5000
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260907",
+      "stocks": [
+        {
+          "ticker": "237690",
+          "name": "에스티팜",
+          "base_price": 91700
+        },
+        {
+          "ticker": "115530",
+          "name": "씨엔플러스",
+          "base_price": 2920
+        },
+        {
+          "ticker": "011080",
+          "name": "형지I&C",
+          "base_price": 845
+        },
+        {
+          "ticker": "030720",
+          "name": "동원수산",
+          "base_price": 5340
+        },
+        {
+          "ticker": "001770",
+          "name": "SHD",
+          "base_price": 14590
+        },
+        {
+          "ticker": "003230",
+          "name": "삼양식품",
+          "base_price": 1330000
+        },
+        {
+          "ticker": "010400",
+          "name": "우진아이엔에스",
+          "base_price": 4260
+        },
+        {
+          "ticker": "004415",
+          "name": "서울식품우",
+          "base_price": 5160
         }
       ],
       "sent_followups": []
