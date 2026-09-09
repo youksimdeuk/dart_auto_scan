@@ -7933,7 +7933,8 @@
         3,
         5,
         10,
-        15
+        15,
+        30
       ]
     },
     {
@@ -9406,7 +9407,8 @@
       "sent_followups": [
         3,
         5,
-        10
+        10,
+        15
       ]
     },
     {
@@ -9580,7 +9582,8 @@
       ],
       "sent_followups": [
         3,
-        5
+        5,
+        10
       ]
     },
     {
@@ -9775,7 +9778,8 @@
         }
       ],
       "sent_followups": [
-        3
+        3,
+        5
       ]
     },
     {
@@ -9915,7 +9919,9 @@
           "base_price": 2520
         }
       ],
-      "sent_followups": []
+      "sent_followups": [
+        3
+      ]
     },
     {
       "scan_date": "20260904",
@@ -9985,6 +9991,57 @@
           "ticker": "004415",
           "name": "서울식품우",
           "base_price": 5160
+        }
+      ],
+      "sent_followups": []
+    },
+    {
+      "scan_date": "20260908",
+      "stocks": [
+        {
+          "ticker": "008290",
+          "name": "원풍물산",
+          "base_price": 248
+        },
+        {
+          "ticker": "002820",
+          "name": "SUN&L",
+          "base_price": 1579
+        },
+        {
+          "ticker": "225430",
+          "name": "케이엠제약",
+          "base_price": 650
+        },
+        {
+          "ticker": "181710",
+          "name": "NHN",
+          "base_price": 59900
+        },
+        {
+          "ticker": "025870",
+          "name": "신라에스지",
+          "base_price": 1100
+        },
+        {
+          "ticker": "007120",
+          "name": "미래아이앤지",
+          "base_price": 1092
+        },
+        {
+          "ticker": "298060",
+          "name": "풍전약품",
+          "base_price": 2370
+        },
+        {
+          "ticker": "354200",
+          "name": "엔젠바이오",
+          "base_price": 1390
+        },
+        {
+          "ticker": "250930",
+          "name": "예선테크",
+          "base_price": 1700
         }
       ],
       "sent_followups": []
