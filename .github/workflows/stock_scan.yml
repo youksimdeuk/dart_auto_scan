@@ -1,10 +1,7 @@
 name: Daily Stock Scan
 
 on:
-  schedule:
-    # 매일 오후 6시 (한국 시간 = UTC+9, UTC 기준 09:00)
-    - cron: '0 9 * * MON-FRI'  # 평일만 실행
-  workflow_dispatch:  # 수동 실행
+  workflow_dispatch:  # 수동 실행만 유지
 
 permissions:
   contents: write  # backtest_data.json 커밋을 위해 필요
